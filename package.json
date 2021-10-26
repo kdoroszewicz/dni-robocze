@@ -4,14 +4,14 @@
   "private": true,
   "homepage": "https://kalkulatordniroboczych.pl/",
   "dependencies": {
-    "@chakra-ui/react": "^1.6.9",
-    "@emotion/react": "^11.4.1",
+    "@chakra-ui/react": "^1.6.10",
+    "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@xstate/react": "^1.6.1",
     "date-fns": "^2.25.0",
-    "date-holidays": "^3.10.0",
+    "date-holidays": "^3.11.0",
     "framer-motion": "^4.1.17",
-    "next": "^11.1.2",
+    "next": "^12.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "xstate": "^4.25.0"
@@ -39,10 +39,10 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.1.2",
-    "@testing-library/user-event": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.0.2",
     "eslint": "^7",
-    "eslint-config-next": "^11.1.2",
-    "jest": "^27.2.5"
+    "eslint-config-next": "^12.0.0",
+    "jest": "^27.3.1"
   }
 }

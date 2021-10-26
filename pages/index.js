@@ -32,7 +32,7 @@ const Index = () => {
         />
         <meta name="robots" content="index, follow" />
       </Head>
-      <Box width={{ base: "100%", md: "2xl" }} mx="auto" color="gray.900">
+      <Box width={{ base: "100%", md: "2xl" }} mx="auto">
         <Heading as="h1" mb={2}>
           Kalkulator Dni Roboczych
         </Heading>

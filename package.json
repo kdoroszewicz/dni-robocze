@@ -4,17 +4,17 @@
   "private": true,
   "homepage": "https://kalkulatordniroboczych.pl/",
   "dependencies": {
-    "@chakra-ui/react": "^1.6.9",
-    "@emotion/react": "^11.4.1",
-    "@emotion/styled": "^11.3.0",
-    "@xstate/react": "^1.6.1",
-    "date-fns": "^2.25.0",
-    "date-holidays": "^3.10.0",
-    "framer-motion": "^4.1.17",
-    "next": "^11.1.2",
+    "@chakra-ui/react": "^1.7.5",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@xstate/react": "^1.6.3",
+    "date-fns": "^2.28.0",
+    "date-holidays": "^3.14.2",
+    "framer-motion": "^6.2.1",
+    "next": "^12.0.8",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "xstate": "^4.25.0"
+    "xstate": "^4.28.1"
   },
   "scripts": {
     "dev": "next dev",
@@ -37,12 +37,12 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
-    "@testing-library/user-event": "^13.3.0",
-    "@types/jest": "^27.0.2",
-    "eslint": "^7",
-    "eslint-config-next": "^11.1.2",
-    "jest": "^27.2.5"
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.4.0",
+    "eslint": "^8",
+    "eslint-config-next": "^12.0.8",
+    "jest": "^27.4.7"
   }
 }

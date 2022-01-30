@@ -20,8 +20,9 @@
   "scripts": {
     "dev": "next dev",
     "export": "next build && next export",
-    "build": "next build && pnpm run postbuild",
-    "postbuild": "next-sitemap",
+    "build": "next build",
+    "generate:sitemap": "next-sitemap",
+    "prepush": "next build && npm run generate:sitemap",
     "start": "next start",
     "lint": "next lint",
     "test": "jest"

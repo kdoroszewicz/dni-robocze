@@ -1,5 +1,5 @@
 import { addBusinessDays as abd, format } from "date-fns";
-import { assign, Machine } from "xstate";
+import { assign, createMachine } from "xstate";
 import { getWorkDays } from "./workDaysUtils";
 
 const initialState = {
@@ -8,7 +8,7 @@ const initialState = {
   dateEnd: "",
 };
 
-export const workDaysMachine = Machine({
+export const workDaysMachine = createMachine({
   id: "workDaysMachine",
   initial: "active",
   context: {

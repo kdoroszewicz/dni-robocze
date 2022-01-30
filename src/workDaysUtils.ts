@@ -9,12 +9,12 @@ import {
 } from "date-fns";
 import Holidays from "date-holidays";
 
-const polishHolidays = new Holidays("PL", {
+export const polishHolidays = new Holidays("PL", {
   languages: "pl",
   types: ["public"],
 });
 
-export const getYearsRange = (date1, date2) => {
+export const getYearsRange = (date1: Date, date2: Date) => {
   const date1Year = getYear(date1);
   const date2Year = getYear(date2);
 
@@ -28,7 +28,7 @@ export const getYearsRange = (date1, date2) => {
   return years;
 };
 
-export const getHolidaysInDateRange = (laterDate, earlierDate) => {
+export const getHolidaysInDateRange = (laterDate: Date, earlierDate: Date) => {
   const yearsArray = getYearsRange(laterDate, earlierDate);
 
   const holidays = yearsArray
@@ -37,7 +37,10 @@ export const getHolidaysInDateRange = (laterDate, earlierDate) => {
   return holidays;
 };
 
-export const getTotalNumberOfHolidayDays = (laterDate, earlierDate) => {
+export const getTotalNumberOfHolidayDays = (
+  laterDate: Date,
+  earlierDate: Date
+) => {
   let holidaysInRange = getHolidaysInDateRange(laterDate, earlierDate)
     .map((holiday) => {
       const date = new Date(holiday.date.slice(0, 10));
@@ -58,7 +61,7 @@ export const getTotalNumberOfHolidayDays = (laterDate, earlierDate) => {
   return numberOfHolidays;
 };
 
-export const getWorkDays = (laterDate, earlierDate) => {
+export const getWorkDays = (laterDate: Date, earlierDate: Date) => {
   const trueLaterDater = add(laterDate, {
     hours: 24,
   });

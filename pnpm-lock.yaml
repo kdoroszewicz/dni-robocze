@@ -18,6 +18,7 @@ specifiers:
   framer-motion: ^5
   jest: ^27.4.7
   next: ^12.0.9
+  next-sitemap: ^2.1.2
   react: ^17.0.2
   react-dom: ^17.0.2
   slugify: ^1.6.5
@@ -48,6 +49,7 @@ devDependencies:
   eslint: 8.7.0
   eslint-config-next: 12.0.9_4c045dcac17af50a38377c23eee1e8fe
   jest: 27.4.7
+  next-sitemap: 2.1.2_next@12.0.9
   typescript: 4.5.5
 
 packages:
@@ -1215,6 +1217,10 @@ packages:
       '@chakra-ui/utils': 1.10.0
       react: 17.0.2
     dev: false
+
+  /@corex/deepmerge/2.6.148:
+    resolution: {integrity: sha512-6QMz0/2h5C3ua51iAnXMPWFbb1QOU1UvSM4bKBw5mzdT+WtLgjbETBBIQZ+Sh9WvEcGwlAt/DEdRpIC3XlDBMA==}
+    dev: true
 
   /@ctrl/tinycolor/3.4.0:
     resolution: {integrity: sha512-JZButFdZ1+/xAfpguQHoabIXkcqRRKpMrWKBkpEZZyxfY9C1DpADFB8PEqGSTeFr135SaTRfKqGKx5xSCLI7ZQ==}
@@ -4451,6 +4457,18 @@ packages:
 
   /natural-compare/1.4.0:
     resolution: {integrity: sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=}
+    dev: true
+
+  /next-sitemap/2.1.2_next@12.0.9:
+    resolution: {integrity: sha512-COgBjcrs0zqdjZLPQCb1ZBHbv8TBUsoBP/I9YPbW0nqVz28SfR5Wy5t4htQudfA2uD5OVPFw0UH7sZjYWGqMug==}
+    engines: {node: '>=14'}
+    hasBin: true
+    peerDependencies:
+      next: '*'
+    dependencies:
+      '@corex/deepmerge': 2.6.148
+      minimist: 1.2.5
+      next: 12.0.9_react-dom@17.0.2+react@17.0.2
     dev: true
 
   /next/12.0.9_react-dom@17.0.2+react@17.0.2:

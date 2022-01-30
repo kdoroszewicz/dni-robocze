@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://kalkulatordniroboczych.pl
+
+# Sitemaps
+Sitemap: https://kalkulatordniroboczych.pl/sitemap.xml
+Sitemap: https://kalkulatordniroboczych.pl/sitemap-0.xml

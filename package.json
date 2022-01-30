@@ -20,7 +20,8 @@
   "scripts": {
     "dev": "next dev",
     "export": "next build && next export",
-    "build": "next build",
+    "build": "next build && pnpm run postbuild",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint",
     "test": "jest"
@@ -47,6 +48,7 @@
     "eslint": "^8",
     "eslint-config-next": "^12.0.9",
     "jest": "^27.4.7",
+    "next-sitemap": "^2.1.2",
     "typescript": "^4.5.5"
   }
 }

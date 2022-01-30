@@ -2,7 +2,15 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import React from "react";
 import { polishHolidays } from "../src/workDaysUtils";
 import slugify from "slugify";
-import { Heading, Link, Stack, Text } from "@chakra-ui/react";
+import {
+  Heading,
+  Link,
+  List,
+  Stack,
+  Text,
+  ListItem,
+  Box,
+} from "@chakra-ui/react";
 import { format } from "date-fns";
 import Head from "next/head";
 import NextLink from "next/link";
@@ -51,6 +59,35 @@ const HolidayPage = ({ holiday }) => {
           Święto jest <strong>wolne od pracy</strong>.
         </Text>
       </Stack>
+      <Box mt={8}>
+        <Text color="gray.600">Zobacz inne święta:</Text>
+        <List>
+          {holidays
+            .filter((h) => h.name !== holiday.name)
+            .map((h) => (
+              <ListItem className="holiday-list-item" key={h.name}>
+                <NextLink href={`/${getSlug(h.name)}`} passHref>
+                  <Link
+                    display="block"
+                    color="blue.500"
+                    border="1px solid"
+                    borderColor="gray.300"
+                    w="full"
+                    mb={2}
+                    p={2}
+                    borderRadius={4}
+                    _hover={{
+                      textDecoration: "none",
+                      backgroundColor: "gray.100",
+                    }}
+                  >
+                    {h.name}
+                  </Link>
+                </NextLink>
+              </ListItem>
+            ))}
+        </List>
+      </Box>
     </>
   );
 };

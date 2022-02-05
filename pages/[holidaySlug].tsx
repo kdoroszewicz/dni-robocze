@@ -54,12 +54,18 @@ const HolidayPage = ({ holiday }) => {
         </Text>
       </Stack>
       <Box mt={8}>
-        <Text color="gray.600">Zobacz inne święta:</Text>
+        <Text color="gray.600" mb={2}>
+          Zobacz inne święta:
+        </Text>
         <List>
           {holidays
             .filter((h) => h.name !== holiday.name)
             .map((h) => (
-              <ListItem className="holiday-list-item" key={h.name}>
+              <ListItem
+                className="holiday-list-item"
+                key={h.name}
+                backgroundColor="gray.100"
+              >
                 <Link
                   display="block"
                   color="blue.500"

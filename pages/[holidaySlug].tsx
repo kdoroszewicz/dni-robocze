@@ -2,19 +2,12 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import React from "react";
 import { polishHolidays } from "../src/workDaysUtils";
 import slugify from "slugify";
-import {
-  Heading,
-  Link,
-  List,
-  Stack,
-  Text,
-  ListItem,
-  Box,
-} from "@chakra-ui/react";
+import { Heading, List, Stack, Text, ListItem, Box } from "@chakra-ui/react";
 import { format } from "date-fns";
 import Head from "next/head";
-import NextLink from "next/link";
 import BackArrow from "../components/BackArrow";
+import Link from "../components/Link";
+import { getHolidaySlug } from "../services/utils";
 const holidays = polishHolidays.getHolidays();
 
 // Alternative paths to long holiday names
@@ -32,21 +25,22 @@ const HolidayPage = ({ holiday }) => {
         <title>{holiday.name} — Kalkulator Dni Roboczych</title>
         <link
           rel="canonical"
-          href={`https://kalkulatordniroboczych.pl/${getSlug(holiday.name)}`}
+          href={`https://kalkulatordniroboczych.pl/${getHolidaySlug(
+            holiday.name
+          )}`}
         />
         <meta
           name="description"
           content={`${holiday.name} — Kiedy wypada święto? Czy jest wolne od pracy?`}
         />
       </Head>
-      <NextLink href="/" passHref>
-        <Link display="inline-flex" alignItems="center">
-          <BackArrow />{" "}
-          <Text ml={2} as="span">
-            wróć do Kalkulatora Dni Roboczych
-          </Text>
-        </Link>
-      </NextLink>
+
+      <Link href="/">
+        <BackArrow />{" "}
+        <Text ml={2} as="span">
+          wróć do Kalkulatora Dni Roboczych
+        </Text>
+      </Link>
       <Stack spacing={2} mt={10} fontSize="xl">
         <Heading as="h1" mb={2}>
           {holiday.name}
@@ -66,24 +60,23 @@ const HolidayPage = ({ holiday }) => {
             .filter((h) => h.name !== holiday.name)
             .map((h) => (
               <ListItem className="holiday-list-item" key={h.name}>
-                <NextLink href={`/${getSlug(h.name)}`} passHref>
-                  <Link
-                    display="block"
-                    color="blue.500"
-                    border="1px solid"
-                    borderColor="gray.300"
-                    w="full"
-                    mb={2}
-                    p={2}
-                    borderRadius={4}
-                    _hover={{
-                      textDecoration: "none",
-                      backgroundColor: "gray.100",
-                    }}
-                  >
-                    {h.name}
-                  </Link>
-                </NextLink>
+                <Link
+                  display="block"
+                  color="blue.500"
+                  border="1px solid"
+                  borderColor="gray.300"
+                  w="full"
+                  mb={2}
+                  p={2}
+                  borderRadius={4}
+                  _hover={{
+                    textDecoration: "none",
+                    backgroundColor: "gray.100",
+                  }}
+                  href={`/${getHolidaySlug(h.name)}`}
+                >
+                  {h.name}
+                </Link>
               </ListItem>
             ))}
         </List>
@@ -102,14 +95,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 
   const holidayByFullName = holidays.find(
-    (holiday) => getSlug(holiday.name) === holidaySlug
+    (holiday) => getHolidaySlug(holiday.name) === holidaySlug
   );
 
   if (!holidayByFullName) {
     const longName = shorthands?.[holidaySlug];
     if (longName) {
       const holidayByShortName = holidays.find(
-        (holiday) => getSlug(holiday.name) === slugify(longName)
+        (holiday) => getHolidaySlug(holiday.name) === slugify(longName)
       );
       if (holidayByShortName) {
         return {
@@ -131,8 +124,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
     },
   };
 };
-
-const getSlug = (holidayName: string) => slugify(holidayName, { lower: true });
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const holidayPaths = holidays.map((holiday) =>

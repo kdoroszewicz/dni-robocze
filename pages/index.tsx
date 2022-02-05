@@ -14,12 +14,31 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useMachine } from "@xstate/react";
+import { differenceInCalendarDays } from "date-fns";
 import Head from "next/head";
 import React from "react";
+import Link from "../components/Link";
+import { getHolidaySlug } from "../services/utils";
 import { workDaysMachine } from "../src/workDaysMachine";
+import { polishHolidays } from "../src/workDaysUtils";
+const getClosestHoliday = () => {
+  const holidays = polishHolidays.getHolidays();
+
+  const futureHolidays = holidays.filter(
+    (holiday) => holiday.start > new Date()
+  );
+
+  return futureHolidays[0];
+};
 
 const HomePage = () => {
   const [current, send] = useMachine(workDaysMachine);
+
+  const closestHoliday = getClosestHoliday();
+  const daysToHoliday = differenceInCalendarDays(
+    closestHoliday.start,
+    new Date()
+  );
 
   const { dateStart, dateEnd, workDays } = current.context;
   return (
@@ -35,59 +54,72 @@ const HomePage = () => {
       <Heading as="h1" mb={2}>
         Kalkulator Dni Roboczych
       </Heading>
-      <Stack as="form" spacing={4}>
-        <FormControl>
-          <FormLabel htmlFor="date-start">Data początkowa</FormLabel>
-          <Input
-            bg="white"
-            id="date-start"
-            name="date-start"
-            type="date"
-            placeholder="Data początkowa"
-            value={dateStart}
-            onChange={(e) => send("DATE_START", { value: e.target.value })}
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor="work-days" w="full">
-            Dni robocze{" "}
-            <FormHelperText as="span" ml={4}>
-              dni tygodnia bez sobót, niedziel i świąt państwowych
-            </FormHelperText>
-          </FormLabel>
-          <NumberInput
-            bg="white"
-            id="work-days"
-            name="work-days"
-            placeholder="Dni robocze"
-            value={workDays}
-            onChange={(_, valueAsNumber) =>
-              send("WORK_DAYS", {
-                value: isNaN(valueAsNumber) ? 0 : valueAsNumber,
-              })
-            }
+      <Stack spacing={4}>
+        <Stack as="form" spacing={4}>
+          <FormControl>
+            <FormLabel htmlFor="date-start">Data początkowa</FormLabel>
+            <Input
+              bg="white"
+              id="date-start"
+              name="date-start"
+              type="date"
+              placeholder="Data początkowa"
+              value={dateStart}
+              onChange={(e) => send("DATE_START", { value: e.target.value })}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="work-days" w="full">
+              Dni robocze{" "}
+              <FormHelperText as="span" ml={4}>
+                dni tygodnia bez sobót, niedziel i świąt państwowych
+              </FormHelperText>
+            </FormLabel>
+            <NumberInput
+              bg="white"
+              id="work-days"
+              name="work-days"
+              placeholder="Dni robocze"
+              value={workDays}
+              onChange={(_, valueAsNumber) =>
+                send("WORK_DAYS", {
+                  value: isNaN(valueAsNumber) ? 0 : valueAsNumber,
+                })
+              }
+            >
+              <NumberInputField />
+              <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+              </NumberInputStepper>
+            </NumberInput>
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="date-end">Data końcowa</FormLabel>
+            <Input
+              bg="white"
+              id="date-end"
+              name="date-end"
+              type="date"
+              placeholder="Data końcowa"
+              value={dateEnd}
+              onChange={(e) => send("DATE_END", { value: e.target.value })}
+            />
+          </FormControl>
+        </Stack>
+
+        <Text as="h3" fontSize="lg">
+          Najbliższe święto wolne od pracy to{" "}
+          <Link
+            color="blue.500"
+            href={`/${getHolidaySlug(closestHoliday.name)}`}
           >
-            <NumberInputField />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor="date-end">Data końcowa</FormLabel>
-          <Input
-            bg="white"
-            id="date-end"
-            name="date-end"
-            type="date"
-            placeholder="Data końcowa"
-            value={dateEnd}
-            onChange={(e) => send("DATE_END", { value: e.target.value })}
-          />
-        </FormControl>
+            {closestHoliday.name}
+          </Link>{" "}
+          za {daysToHoliday} dni.
+        </Text>
       </Stack>
-      <Stack color="gray.500" mt={4} spacing={4}>
+      <Stack color="gray.500" mt={8} spacing={4}>
         <Text>
           Kalkulator dni roboczych powstał aby w łatwy i szybki sposób można
           było wyliczyć wszystkie dni robocze w danym przedziale czasu. Dniami

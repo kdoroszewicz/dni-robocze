@@ -18,7 +18,7 @@ import Head from "next/head";
 import React from "react";
 import { workDaysMachine } from "../src/workDaysMachine";
 
-const Index = () => {
+const HomePage = () => {
   const [current, send] = useMachine(workDaysMachine);
 
   const { dateStart, dateEnd, workDays } = current.context;
@@ -59,11 +59,12 @@ const Index = () => {
             bg="white"
             id="work-days"
             name="work-days"
-            type="text"
             placeholder="Dni robocze"
             value={workDays}
             onChange={(_, valueAsNumber) =>
-              send("WORK_DAYS", { value: valueAsNumber })
+              send("WORK_DAYS", {
+                value: isNaN(valueAsNumber) ? 0 : valueAsNumber,
+              })
             }
           >
             <NumberInputField />
@@ -127,4 +128,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default HomePage;

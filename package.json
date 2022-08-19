@@ -12,7 +12,8 @@
     "prepush": "next build && npm run generate:sitemap",
     "start": "next start",
     "test": "jest --watch",
-    "test:ci": "jest --ci"
+    "test:ci": "jest --ci",
+    "postinstall": "holidays2json --pick PL --min"
   },
   "browserslist": {
     "production": [

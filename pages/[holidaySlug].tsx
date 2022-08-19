@@ -22,7 +22,7 @@ const HolidayPage = ({ holiday }) => {
   return (
     <>
       <Head>
-        <title>{holiday.name} — Kalkulator Dni Roboczych</title>
+        <title>{`${holiday.name} — Kalkulator Dni Roboczych`}</title>
         <link
           rel="canonical"
           href={`https://kalkulatordniroboczych.pl/${getHolidaySlug(

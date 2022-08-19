@@ -1,7 +1,11 @@
 import { Box } from "@chakra-ui/react";
-import React from "react";
+import React, { FC } from "react";
 
-const Layout: React.FC = ({ children }) => {
+type LayoutProps = {
+  children?: React.ReactNode;
+};
+
+const Layout = ({ children }: LayoutProps) => {
   return (
     <Box
       className="layout"

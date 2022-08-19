@@ -30,7 +30,7 @@
     "@chakra-ui/react": "^1.8.8",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
-    "@xstate/react": "^1.6.3",
+    "@xstate/react": "^3.0.1",
     "date-fns": "^2.29.2",
     "date-holidays": "^3.16.4",
     "framer-motion": "^5",

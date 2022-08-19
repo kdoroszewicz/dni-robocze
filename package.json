@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://kalkulatordniroboczych.pl/",
   "scripts": {
-    "build": "holidays2json --pick PL --min && next build",
+    "build": "next build",
     "dev": "next dev",
     "export": "next build && next export",
     "generate:sitemap": "next-sitemap",

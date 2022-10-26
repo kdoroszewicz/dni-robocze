@@ -34,7 +34,7 @@
     "date-fns": "^2.29.2",
     "date-holidays": "^3.16.4",
     "framer-motion": "^7",
-    "next": "^12.2.5",
+    "next": "^13.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "slugify": "^1.6.5",

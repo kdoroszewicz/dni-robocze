@@ -29,6 +29,7 @@ const Link = ({
       shallow={shallow}
       as={as}
       locale={locale}
+      legacyBehavior
     >
       <ChakraLink href={href} {...chakraLinkProps}>
         {children}

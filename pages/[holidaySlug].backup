@@ -2,7 +2,6 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import React from "react";
 import { polishHolidays } from "../src/workDaysUtils";
 import slugify from "slugify";
-import { Heading, List, Stack, Text, ListItem, Box } from "@chakra-ui/react";
 import { format } from "date-fns";
 import Head from "next/head";
 import BackArrow from "../components/BackArrow";

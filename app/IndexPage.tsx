@@ -1,22 +1,7 @@
-import {
-  Box,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Heading,
-  Input,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+"use client";
+
 import { useMachine } from "@xstate/react";
 import { differenceInCalendarDays } from "date-fns";
-import Head from "next/head";
-import React from "react";
 import Link from "../components/Link";
 import { getHolidaySlug } from "../services/utils";
 import { workDaysMachine } from "../src/workDaysMachine";
@@ -43,22 +28,12 @@ const HomePage = () => {
   const { dateStart, dateEnd, workDays } = current.context;
   return (
     <>
-      <Head>
-        <title>Kalkulator Dni Roboczych</title>
-        <meta
-          name="description"
-          content="Dzięki kalkulatorowi dowiesz się ile jest dni roboczych pomiędzy dwoma podanymi datami lub kiedy wypada data końcowa od określonej liczby dni roboczych. Policz dni robocze!"
-        />
-        <meta name="robots" content="index, follow" />
-      </Head>
-      <Heading as="h1" mb={2}>
-        Kalkulator Dni Roboczych
-      </Heading>
-      <Stack spacing={4}>
-        <Stack as="form" spacing={4}>
-          <FormControl>
-            <FormLabel htmlFor="date-start">Data początkowa</FormLabel>
-            <Input
+      <h1 mb={2}>Kalkulator Dni Roboczych</h1>
+      <div spacing={4}>
+        <div as="form" spacing={4}>
+          <fieldset>
+            <label htmlFor="date-start">Data początkowa</label>
+            <input
               bg="white"
               id="date-start"
               name="date-start"
@@ -67,36 +42,31 @@ const HomePage = () => {
               value={dateStart}
               onChange={(e) => send("DATE_START", { value: e.target.value })}
             />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="work-days" w="full">
+          </fieldset>
+          <fieldset>
+            <label htmlFor="work-days" w="full">
               Dni robocze{" "}
-              <FormHelperText as="span" ml={4}>
+              <div as="span" ml={4}>
                 dni tygodnia bez sobót, niedziel i świąt państwowych
-              </FormHelperText>
-            </FormLabel>
-            <NumberInput
-              bg="white"
+              </div>
+            </label>
+            <input
               id="work-days"
               name="work-days"
               placeholder="Dni robocze"
               value={workDays}
-              onChange={(_, valueAsNumber) =>
+              onChange={(e) =>
                 send("WORK_DAYS", {
-                  value: isNaN(valueAsNumber) ? 0 : valueAsNumber,
+                  value: isNaN(parseInt(e.target.value))
+                    ? 0
+                    : parseInt(e.target.value),
                 })
               }
-            >
-              <NumberInputField />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="date-end">Data końcowa</FormLabel>
-            <Input
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="date-end">Data końcowa</label>
+            <input
               bg="white"
               id="date-end"
               name="date-end"
@@ -105,10 +75,10 @@ const HomePage = () => {
               value={dateEnd}
               onChange={(e) => send("DATE_END", { value: e.target.value })}
             />
-          </FormControl>
-        </Stack>
+          </fieldset>
+        </div>
 
-        <Text as="h3" fontSize="lg">
+        <h3 fontSize="lg">
           Najbliższe święto wolne od pracy to{" "}
           <Link
             color="blue.500"
@@ -117,21 +87,19 @@ const HomePage = () => {
             {closestHoliday.name}
           </Link>{" "}
           za {daysToHoliday} dni.
-        </Text>
-      </Stack>
-      <Stack color="gray.500" mt={8} spacing={4}>
-        <Text>
+        </h3>
+      </div>
+      <div color="gray.500" mt={8} spacing={4}>
+        <p>
           Kalkulator dni roboczych powstał aby w łatwy i szybki sposób można
           było wyliczyć wszystkie dni robocze w danym przedziale czasu. Dniami
           odpoczynku są soboty i niedziele, a dni robocze - od poniedziałku do
           piątku. Kalkulator dni roboczych to bardzo dobre narzędzie do
           ustalania wszelkiego rodzaju informacji dotyczących naszych dni
           pracujących.
-        </Text>
-        <Heading as="h2" size="md">
-          Licznik dni roboczych
-        </Heading>
-        <Text>
+        </p>
+        <h2 size="md">Licznik dni roboczych</h2>
+        <p>
           Licznik dni roboczych liczy jako dni robocze wszystkie dni od
           poniedziałku do piątku, niezależnie od tego, czy w któryś z nich
           wypada święto. Jeśli chcesz wiedzieć, ile dni pracy pozostało Ci do
@@ -144,18 +112,16 @@ const HomePage = () => {
           automatycznie. W ten sposób dowiesz się, ile dni roboczych masz do
           wykonania. Jeśli będziesz mógł pracować nad tym projektem dopiero od 1
           listopada, po prostu wprowadź go jako datę początkową.
-        </Text>
-        <Heading as="h2" size="md">
-          Kalkulator dni pracujących
-        </Heading>
-        <Text>
+        </p>
+        <h2 size="md">Kalkulator dni pracujących</h2>
+        <p>
           Dzień roboczy, zwany również dniem pracującym to każdy oficjalny dzień
           roboczy. W większości regionów obejmuje to dni od poniedziałku do
           piątku (włącznie). Nie obejmuje weekendów i dni ustawowo wolnych od
           pracy; mogą to być święta religijne lub narodowe. W miesiącu jest
           około 20 dni roboczych.
-        </Text>
-      </Stack>
+        </p>
+      </div>
     </>
   );
 };

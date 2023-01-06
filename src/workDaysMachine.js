@@ -10,6 +10,7 @@ const initialState = {
 
 export const workDaysMachine = createMachine({
   id: "workDaysMachine",
+  predictableActionArguments: true,
   initial: "active",
   context: {
     ...initialState,

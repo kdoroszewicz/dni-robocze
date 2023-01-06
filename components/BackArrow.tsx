@@ -1,9 +1,8 @@
-import { Box } from "@chakra-ui/react";
 import React from "react";
 
 const BackArrow = () => {
   return (
-    <Box
+    <div
       display="inline-block"
       w="12px"
       dangerouslySetInnerHTML={{

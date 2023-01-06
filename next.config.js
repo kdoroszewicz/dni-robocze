@@ -3,4 +3,7 @@ module.exports = {
   compiler: {
     removeConsole: true,
   },
+  experimental: {
+    appDir: true,
+  },
 };

@@ -6,4 +6,9 @@ module.exports = {
   experimental: {
     appDir: true,
   },
+  modularizeImports: {
+    "date-fns": {
+      transform: "date-fns/{{member}}",
+    },
+  },
 };

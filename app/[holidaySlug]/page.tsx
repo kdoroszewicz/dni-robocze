@@ -18,7 +18,7 @@ export const getHoliday = async (params) => {
   const { holidaySlug } = params;
 
   if (!holidaySlug || typeof holidaySlug !== "string") {
-    notFound();
+    return null;
   }
 
   const holidayByFullName = holidays.find(
@@ -36,7 +36,7 @@ export const getHoliday = async (params) => {
       }
     }
 
-    notFound();
+    return null;
   }
 
   return JSON.parse(JSON.stringify(holidayByFullName));
@@ -59,6 +59,11 @@ export const generateStaticParams = async () => {
 
 const Holiday = async ({ params }) => {
   const holiday = await getHoliday(params);
+
+  if (!holiday) {
+    notFound();
+  }
+
   return <HolidayPage holiday={holiday} />;
 };
 

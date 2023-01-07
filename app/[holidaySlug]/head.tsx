@@ -4,6 +4,14 @@ import { getHoliday } from "./page";
 export default async function Head({ params }) {
   const holiday = await getHoliday(params);
 
+  if (!holiday) {
+    return (
+      <>
+        <title>Kalkulator Dni Roboczych</title>
+      </>
+    );
+  }
+
   return (
     <>
       <title>{`${holiday.name} — Kalkulator Dni Roboczych`}</title>

@@ -1,7 +1,7 @@
-import React from "react";
 import NextLink, { LinkProps } from "next/link";
+import { HTMLAttributes } from "react";
 
-const Link = ({ ...props }: LinkProps) => {
+const Link = ({ ...props }: HTMLAttributes<HTMLAnchorElement> & LinkProps) => {
   return <NextLink {...props} />;
 };
 

@@ -8,14 +8,7 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div
-      className="layout"
-      h="100vh"
-      width={{ base: "100%", md: "2xl" }}
-      mx="auto"
-      py={6}
-      px={{ base: 6, md: 0 }}
-    >
+    <div className="layout h-full mx-auto py-8 px-8 w-full md:max-w-screen-sm md:px-0">
       {children}
     </div>
   );

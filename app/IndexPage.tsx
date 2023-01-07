@@ -2,6 +2,8 @@
 
 import { useMachine } from "@xstate/react";
 import { differenceInCalendarDays } from "date-fns";
+import Fieldset from "../components/Fieldset";
+import Input from "../components/Input";
 import Link from "../components/Link";
 import { getHolidaySlug } from "../services/utils";
 import { workDaysMachine } from "../src/workDaysMachine";
@@ -28,13 +30,12 @@ const HomePage = () => {
   const { dateStart, dateEnd, workDays } = current.context;
   return (
     <>
-      <h1 mb={2}>Kalkulator Dni Roboczych</h1>
-      <div spacing={4}>
-        <div as="form" spacing={4}>
-          <fieldset>
+      <h1 className="mb-2 text-4xl font-semibold">Kalkulator Dni Roboczych</h1>
+      <div className="space-y-4">
+        <form className="space-y-4">
+          <Fieldset>
             <label htmlFor="date-start">Data początkowa</label>
-            <input
-              bg="white"
+            <Input
               id="date-start"
               name="date-start"
               type="date"
@@ -42,15 +43,15 @@ const HomePage = () => {
               value={dateStart}
               onChange={(e) => send("DATE_START", { value: e.target.value })}
             />
-          </fieldset>
-          <fieldset>
-            <label htmlFor="work-days" w="full">
+          </Fieldset>
+          <Fieldset>
+            <label htmlFor="work-days" className="w-full">
               Dni robocze{" "}
-              <div as="span" ml={4}>
+              <span className="ml-4 text-sm text-gray-500">
                 dni tygodnia bez sobót, niedziel i świąt państwowych
-              </div>
+              </span>
             </label>
-            <input
+            <Input
               id="work-days"
               name="work-days"
               placeholder="Dni robocze"
@@ -63,11 +64,10 @@ const HomePage = () => {
                 })
               }
             />
-          </fieldset>
-          <fieldset>
+          </Fieldset>
+          <Fieldset>
             <label htmlFor="date-end">Data końcowa</label>
-            <input
-              bg="white"
+            <Input
               id="date-end"
               name="date-end"
               type="date"
@@ -75,13 +75,13 @@ const HomePage = () => {
               value={dateEnd}
               onChange={(e) => send("DATE_END", { value: e.target.value })}
             />
-          </fieldset>
-        </div>
+          </Fieldset>
+        </form>
 
-        <h3 fontSize="lg">
+        <h3 className="text-lg">
           Najbliższe święto wolne od pracy to{" "}
           <Link
-            color="blue.500"
+            className="text-blue-500"
             href={`/${getHolidaySlug(closestHoliday.name)}`}
           >
             {closestHoliday.name}
@@ -89,7 +89,7 @@ const HomePage = () => {
           za {daysToHoliday} dni.
         </h3>
       </div>
-      <div color="gray.500" mt={8} spacing={4}>
+      <div className="mt-8 space-y-4 text-slate-500">
         <p>
           Kalkulator dni roboczych powstał aby w łatwy i szybki sposób można
           było wyliczyć wszystkie dni robocze w danym przedziale czasu. Dniami
@@ -98,7 +98,7 @@ const HomePage = () => {
           ustalania wszelkiego rodzaju informacji dotyczących naszych dni
           pracujących.
         </p>
-        <h2 size="md">Licznik dni roboczych</h2>
+        <h2 className="text-lg font-semibold">Licznik dni roboczych</h2>
         <p>
           Licznik dni roboczych liczy jako dni robocze wszystkie dni od
           poniedziałku do piątku, niezależnie od tego, czy w któryś z nich
@@ -113,7 +113,7 @@ const HomePage = () => {
           wykonania. Jeśli będziesz mógł pracować nad tym projektem dopiero od 1
           listopada, po prostu wprowadź go jako datę początkową.
         </p>
-        <h2 size="md">Kalkulator dni pracujących</h2>
+        <h2 className="text-lg font-semibold">Kalkulator dni pracujących</h2>
         <p>
           Dzień roboczy, zwany również dniem pracującym to każdy oficjalny dzień
           roboczy. W większości regionów obejmuje to dni od poniedziałku do

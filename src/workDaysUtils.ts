@@ -5,7 +5,7 @@ import {
   isSaturday,
   isSunday,
   isWithinInterval,
-  startOfDay,
+  startOfDay
 } from "date-fns";
 import Holidays from "date-holidays";
 

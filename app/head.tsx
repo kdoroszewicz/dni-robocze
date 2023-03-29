@@ -1,7 +1,9 @@
 export default function Head() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <>
-      <title>Kalkulator Dni Roboczych</title>
+      <title>{`Kalkulator Dni Roboczych ${currentYear}`}</title>
       <meta
         name="description"
         content="Dzięki kalkulatorowi dowiesz się ile jest dni roboczych pomiędzy dwoma podanymi datami lub kiedy wypada data końcowa od określonej liczby dni roboczych. Policz dni robocze!"

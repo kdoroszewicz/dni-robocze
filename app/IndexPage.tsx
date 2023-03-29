@@ -20,10 +20,13 @@ const HomePage = () => {
     closestHoliday.start,
     new Date()
   );
+  const currentYear = new Date().getFullYear();
 
   return (
     <>
-      <h1 className="mb-2 text-4xl font-semibold">Kalkulator Dni Roboczych</h1>
+      <h1 className="mb-2 text-4xl font-semibold">
+        {`Kalkulator Dni Roboczych ${currentYear}`}
+      </h1>
       <div className="space-y-4">
         <WorkDaysCalculator />
         <h3 className="text-lg">

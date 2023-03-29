@@ -1,5 +1,4 @@
-import { getHolidaySlug } from "../../services/utils";
-import { getHoliday } from "./page";
+import { getHoliday, getHolidaySlug } from "../../services/utils";
 
 export default async function Head({ params }) {
   const holiday = await getHoliday(params);

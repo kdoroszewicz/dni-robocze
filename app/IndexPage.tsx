@@ -1,13 +1,9 @@
-"use client";
-
-import { useMachine } from "@xstate/react";
 import { differenceInCalendarDays } from "date-fns";
-import Fieldset from "../components/Fieldset";
-import Input from "../components/Input";
 import Link from "../components/Link";
 import { getHolidaySlug } from "../services/utils";
-import { workDaysMachine } from "../src/workDaysMachine";
 import { polishHolidays } from "../src/workDaysUtils";
+import WorkDaysCalculator from "./[holidaySlug]/WorkDaysCalculator";
+
 const getClosestHoliday = () => {
   const holidays = polishHolidays.getHolidays();
 
@@ -19,65 +15,17 @@ const getClosestHoliday = () => {
 };
 
 const HomePage = () => {
-  const [current, send] = useMachine(workDaysMachine);
-
   const closestHoliday = getClosestHoliday();
   const daysToHoliday = differenceInCalendarDays(
     closestHoliday.start,
     new Date()
   );
 
-  const { dateStart, dateEnd, workDays } = current.context;
   return (
     <>
       <h1 className="mb-2 text-4xl font-semibold">Kalkulator Dni Roboczych</h1>
       <div className="space-y-4">
-        <form className="space-y-4">
-          <Fieldset>
-            <label htmlFor="date-start">Data początkowa</label>
-            <Input
-              id="date-start"
-              name="date-start"
-              type="date"
-              placeholder="Data początkowa"
-              value={dateStart}
-              onChange={(e) => send("DATE_START", { value: e.target.value })}
-            />
-          </Fieldset>
-          <Fieldset>
-            <label htmlFor="work-days" className="w-full">
-              Dni robocze{" "}
-              <span className="ml-4 text-sm text-gray-500">
-                dni tygodnia bez sobót, niedziel i świąt państwowych
-              </span>
-            </label>
-            <Input
-              id="work-days"
-              name="work-days"
-              placeholder="Dni robocze"
-              value={workDays}
-              onChange={(e) =>
-                send("WORK_DAYS", {
-                  value: isNaN(parseInt(e.target.value))
-                    ? 0
-                    : parseInt(e.target.value),
-                })
-              }
-            />
-          </Fieldset>
-          <Fieldset>
-            <label htmlFor="date-end">Data końcowa</label>
-            <Input
-              id="date-end"
-              name="date-end"
-              type="date"
-              placeholder="Data końcowa"
-              value={dateEnd}
-              onChange={(e) => send("DATE_END", { value: e.target.value })}
-            />
-          </Fieldset>
-        </form>
-
+        <WorkDaysCalculator />
         <h3 className="text-lg">
           Najbliższe święto wolne od pracy to{" "}
           <Link

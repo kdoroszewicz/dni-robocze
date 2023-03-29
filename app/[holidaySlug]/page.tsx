@@ -1,46 +1,10 @@
 import slugify from "slugify";
-import { getHolidaySlug } from "../../services/utils";
-import { polishHolidays } from "../../src/workDaysUtils";
+import { getHoliday, getHolidaySlug, shorthands } from "../../services/utils";
 import HolidayPage from "./HolidaySlugPage";
 import { notFound } from "next/navigation";
+import { polishHolidays } from "../../src/workDaysUtils";
 
 const holidays = polishHolidays.getHolidays();
-
-// Alternative paths to long holiday names
-const shorthands = {
-  wnmp: "wniebowziecie-najswietszej-maryi-panny",
-  "3maj": "swieto-narodowe-trzeciego-maja",
-  wielkanoc: "niedziela-wielkanocna",
-  "swieto-niepodleglosci": "narodowe-swieto-niepodleglosci",
-};
-
-export const getHoliday = async (params) => {
-  const { holidaySlug } = params;
-
-  if (!holidaySlug || typeof holidaySlug !== "string") {
-    return null;
-  }
-
-  const holidayByFullName = holidays.find(
-    (holiday) => getHolidaySlug(holiday.name) === holidaySlug
-  );
-
-  if (!holidayByFullName) {
-    const longName = shorthands?.[holidaySlug];
-    if (longName) {
-      const holidayByShortName = holidays.find(
-        (holiday) => getHolidaySlug(holiday.name) === slugify(longName)
-      );
-      if (holidayByShortName) {
-        return JSON.parse(JSON.stringify(holidayByShortName));
-      }
-    }
-
-    return null;
-  }
-
-  return JSON.parse(JSON.stringify(holidayByFullName));
-};
 
 export const generateStaticParams = async () => {
   const holidayPaths = holidays.map((holiday) =>

@@ -36,7 +36,7 @@ const HolidayPage = ({ children, holiday }) => {
             .map((h) => (
               <li className="holiday-list-item" key={h.name}>
                 <Link
-                  className="mb-2 block w-full rounded border border-gray-300 bg-gray-100 p-2 text-blue-500 hover:no-underline"
+                  className="mb-2 block w-full rounded border border-gray-300 bg-gray-100 p-2 text-blue-600 hover:no-underline"
                   href={`/${getHolidaySlug(h.name)}`}
                 >
                   {h.name}

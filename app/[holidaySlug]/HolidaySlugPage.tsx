@@ -7,7 +7,7 @@ import { getHolidaySlug } from "../../services/utils";
 import { polishHolidays } from "../../src/workDaysUtils";
 const holidays = polishHolidays.getHolidays();
 
-const HolidayPage = ({ holiday }) => {
+const HolidayPage = ({ children, holiday }) => {
   return (
     <>
       <Link href="/">
@@ -15,7 +15,11 @@ const HolidayPage = ({ holiday }) => {
         <span className="ml-2">wróć do Kalkulatora Dni Roboczych</span>
       </Link>
       <div className="mt-10 space-y-2 text-xl">
-        <h1 className="mb-2 text-4xl font-semibold">{holiday.name}</h1>
+        {children ? (
+          children
+        ) : (
+          <h1 className="mb-2 text-4xl font-semibold">{holiday.name}</h1>
+        )}
         <p>
           Kiedy jest <strong>{holiday.name}</strong>?{" "}
           {`Święto wypada ${format(new Date(holiday.date), "dd.MM.yyyy")}`}.
@@ -32,7 +36,7 @@ const HolidayPage = ({ holiday }) => {
             .map((h) => (
               <li className="holiday-list-item" key={h.name}>
                 <Link
-                  className="mb-2 block w-full rounded border border-gray-300 bg-gray-100 p-2 text-blue-500 hover:no-underline"
+                  className="mb-2 block w-full rounded border border-gray-300 bg-gray-100 p-2 text-blue-600 hover:no-underline"
                   href={`/${getHolidaySlug(h.name)}`}
                 >
                   {h.name}

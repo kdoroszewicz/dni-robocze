@@ -27,6 +27,7 @@
     ]
   },
   "dependencies": {
+    "@next/mdx": "^13.2.4",
     "@xstate/react": "^3.2.1",
     "date-fns": "^2.29.3",
     "date-holidays": "^3.19.0",

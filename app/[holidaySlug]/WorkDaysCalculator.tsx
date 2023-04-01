@@ -31,6 +31,7 @@ const WorkDaysCalculator = () => {
           </span>
         </label>
         <Input
+          inputMode="decimal"
           id="work-days"
           name="work-days"
           placeholder="Dni robocze"

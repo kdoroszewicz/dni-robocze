@@ -2,6 +2,7 @@ import { differenceInCalendarDays } from "date-fns";
 import Link from "../components/Link";
 import { getHolidaySlug } from "../services/utils";
 import { polishHolidays } from "../src/workDaysUtils";
+import Recommended from "./Recommended";
 import WorkDaysCalculator from "./[holidaySlug]/WorkDaysCalculator";
 
 const getClosestHoliday = () => {
@@ -84,6 +85,7 @@ const HomePage = () => {
           formach, takich jak aplikacje internetowe, programy komputerowe lub
           aplikacje mobilne.
         </p>
+        <Recommended />
       </div>
     </>
   );

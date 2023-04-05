@@ -72,6 +72,18 @@ const HomePage = () => {
           pracy; mogą to być święta religijne lub narodowe. W miesiącu jest
           około 20 dni roboczych.
         </p>
+        <h2 className="text-lg font-semibold">Kalkulator Dni</h2>
+        <p>
+          Kalkulator dni roboczych to narzędzie, które umożliwia obliczenie
+          liczby dni roboczych między dwiema określonymi datami. Kalkulator ten
+          uwzględnia tylko dni robocze, czyli dni tygodnia od poniedziałku do
+          piątku, wyłączając dni wolne, takie jak weekendy i święta. Kalkulator
+          dni roboczych może być przydatny w kontekstach, takich jak planowanie
+          projektów biznesowych, obliczanie terminów płatności lub określanie
+          dat realizacji zadań. Kalkulatory dni roboczych są dostępne w różnych
+          formach, takich jak aplikacje internetowe, programy komputerowe lub
+          aplikacje mobilne.
+        </p>
       </div>
     </>
   );

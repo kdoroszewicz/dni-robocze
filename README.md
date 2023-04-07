@@ -27,7 +27,7 @@ npm run test
 👤 **Kamil Doroszewicz**
 
 - Twitter: [@leszcz](https://twitter.com/leszcz)
-- Github: [@l3szcz](https://github.com/l3szcz)
+- Github: [@kdoroszewicz](https://github.com/kdoroszewicz)
 - LinkedIn: [@kamildoroszewicz](https://linkedin.com/in/kamildoroszewicz)
 
 ---

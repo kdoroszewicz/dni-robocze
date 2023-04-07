@@ -3,9 +3,12 @@ import { getHoliday, getHolidaySlug, shorthands } from "../../services/utils";
 import HolidayPage from "./HolidaySlugPage";
 import { notFound } from "next/navigation";
 import { polishHolidays } from "../../src/workDaysUtils";
-import NiedzielaWielkanocna from "./niedziela-wielkanocna.mdx";
-import DrugiDzienWielkanocy from "./drugi-dzien-wielkanocy.mdx";
-import { Metadata } from "next";
+import HolidayNiedzielaWielkanocna from "./niedziela-wielkanocna.mdx";
+import HolidayDrugiDzienWielkanocy from "./drugi-dzien-wielkanocy.mdx";
+import HolidayZieloneSwiatki from "./zielone-swiatki.mdx";
+import HolidaySwietoPracy from "./swieto-pracy.mdx";
+import HolidaySwieto3Maj from "./swieto-narodowe-trzeciego-maja.mdx";
+import HolidayBozeCialo from "./dzien-bozego-ciala.mdx";
 
 const holidays = polishHolidays.getHolidays();
 
@@ -45,8 +48,17 @@ export const generateStaticParams = async () => {
   return paths;
 };
 
+const holidaySlugComponentMap = new Map([
+  ["niedziela-wielkanocna", HolidayNiedzielaWielkanocna],
+  ["drugi-dzien-wielkanocy", HolidayDrugiDzienWielkanocy],
+  ["zielone-swiatki", HolidayZieloneSwiatki],
+  ["swieto-panstwowe-swieto-pracy", HolidaySwietoPracy],
+  ["swieto-narodowe-trzeciego-maja", HolidaySwieto3Maj],
+  ["dzien-bozego-ciala", HolidayBozeCialo],
+]);
+
 const Holiday = async ({ params }) => {
-  let HolidayDescription: typeof NiedzielaWielkanocna = () => null;
+  let HolidayDescription: (props: any) => JSX.Element = () => null;
   const holiday = await getHoliday(params);
 
   if (!holiday) {
@@ -55,12 +67,8 @@ const Holiday = async ({ params }) => {
 
   const holidaySlug = getHolidaySlug(holiday.name);
 
-  if (holidaySlug === "niedziela-wielkanocna") {
-    HolidayDescription = NiedzielaWielkanocna;
-  }
-
-  if (holidaySlug === "drugi-dzien-wielkanocy") {
-    HolidayDescription = DrugiDzienWielkanocy;
+  if (holidaySlugComponentMap.has(holidaySlug)) {
+    HolidayDescription = holidaySlugComponentMap.get(holidaySlug);
   }
 
   return (

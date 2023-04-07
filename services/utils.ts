@@ -10,6 +10,8 @@ export const shorthands = {
   "3maj": "swieto-narodowe-trzeciego-maja",
   wielkanoc: "niedziela-wielkanocna",
   "swieto-niepodleglosci": "narodowe-swieto-niepodleglosci",
+  "swieto-pracy": "swieto-panstwowe-swieto-pracy",
+  "boze-cialo": "dzien-bozego-ciala",
 };
 const holidays = polishHolidays.getHolidays();
 

@@ -5,8 +5,30 @@ import { notFound } from "next/navigation";
 import { polishHolidays } from "../../src/workDaysUtils";
 import NiedzielaWielkanocna from "./niedziela-wielkanocna.mdx";
 import DrugiDzienWielkanocy from "./drugi-dzien-wielkanocy.mdx";
+import { Metadata } from "next";
 
 const holidays = polishHolidays.getHolidays();
+
+export async function generateMetadata({ params }) {
+  const holiday = await getHoliday(params);
+  const currentYear = new Date().getFullYear();
+
+  if (!holiday) {
+    return {
+      title: `Kalkulator Dni Roboczych ${currentYear}`,
+    };
+  }
+
+  return {
+    title: `${holiday.name} — Kalkulator Dni Roboczych ${currentYear}`,
+    description: `${holiday.name} — Kiedy wypada święto? Czy jest wolne od pracy?`,
+    alternates: {
+      canonical: `https://kalkulatordniroboczych.pl/${getHolidaySlug(
+        holiday.name
+      )}`,
+    },
+  };
+}
 
 export const generateStaticParams = async () => {
   const holidayPaths = holidays.map((holiday) =>

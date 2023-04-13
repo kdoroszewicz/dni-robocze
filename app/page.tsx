@@ -1,5 +1,7 @@
 import IndexPage from "./IndexPage";
 
+process.env.TZ = "Europe/Warsaw";
+
 const currentYear = new Date().getFullYear();
 
 export const metadata = {

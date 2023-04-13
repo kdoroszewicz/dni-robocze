@@ -1,26 +1,8 @@
-import { differenceInCalendarDays } from "date-fns";
-import Link from "../components/Link";
-import { getHolidaySlug } from "../services/utils";
-import { polishHolidays } from "../src/workDaysUtils";
+import ClosestHoliday from "./ClosestHoliday";
 import Recommended from "./Recommended";
 import WorkDaysCalculator from "./[holidaySlug]/WorkDaysCalculator";
 
-const getClosestHoliday = () => {
-  const holidays = polishHolidays.getHolidays();
-
-  const futureHolidays = holidays.filter(
-    (holiday) => holiday.start > new Date()
-  );
-
-  return futureHolidays[0];
-};
-
 const HomePage = () => {
-  const closestHoliday = getClosestHoliday();
-  const daysToHoliday = differenceInCalendarDays(
-    closestHoliday.start,
-    new Date()
-  );
   const currentYear = new Date().getFullYear();
 
   return (
@@ -30,16 +12,7 @@ const HomePage = () => {
       </h1>
       <div className="space-y-4">
         <WorkDaysCalculator />
-        <h3 className="text-lg">
-          Najbliższe święto wolne od pracy to{" "}
-          <Link
-            className="text-blue-500"
-            href={`/${getHolidaySlug(closestHoliday.name)}`}
-          >
-            {closestHoliday.name}
-          </Link>{" "}
-          za {daysToHoliday} dni.
-        </h3>
+        <ClosestHoliday />
       </div>
       <div className="mt-8 space-y-4 text-slate-500">
         <p>

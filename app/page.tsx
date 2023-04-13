@@ -1,5 +1,11 @@
 import IndexPage from "./IndexPage";
 
+/**
+ * Forces correct timezone during build od Vercel, without it ClosesHoliday
+ * component can be off by 1 day when rendering on the server vs on the client
+ */
+process.env.TZ = "Europe/Warsaw";
+
 const currentYear = new Date().getFullYear();
 
 export const metadata = {

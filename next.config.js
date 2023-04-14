@@ -17,4 +17,8 @@ const nextConfig = {
   },
 };
 
+console.log(
+  `Running with timezone ${Intl.DateTimeFormat().resolvedOptions().timeZone}`
+);
+
 module.exports = withMDX(nextConfig);

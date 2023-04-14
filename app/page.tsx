@@ -15,6 +15,8 @@ export const metadata = {
   robots: "index, follow",
 };
 
+export const dynamic = "force-dynamic";
+
 const Page = () => {
   return <IndexPage />;
 };

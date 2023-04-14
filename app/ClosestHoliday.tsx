@@ -1,5 +1,3 @@
-"use client";
-
 import { differenceInCalendarDays } from "date-fns";
 import Link from "../components/Link";
 import { getHolidaySlug } from "../services/utils";

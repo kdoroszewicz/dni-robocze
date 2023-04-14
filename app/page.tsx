@@ -1,8 +1,6 @@
 import { utcToZonedTime } from "date-fns-tz";
 import IndexPage from "./IndexPage";
 
-process.env.TZ = "UTC";
-
 const currentYear = utcToZonedTime(new Date().getFullYear(), "Europe/Warsaw");
 export const metadata = {
   title: `Kalkulator Dni Roboczych ${currentYear}`,

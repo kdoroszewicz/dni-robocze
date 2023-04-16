@@ -15,7 +15,7 @@ export const shorthands = {
 };
 const holidays = polishHolidays.getHolidays();
 
-export const getHoliday = async (params) => {
+export const getHoliday = async (params: { holidaySlug?: string }) => {
   const { holidaySlug } = params;
 
   if (!holidaySlug || typeof holidaySlug !== "string") {
@@ -33,12 +33,12 @@ export const getHoliday = async (params) => {
         (holiday) => getHolidaySlug(holiday.name) === slugify(longName)
       );
       if (holidayByShortName) {
-        return JSON.parse(JSON.stringify(holidayByShortName));
+        return holidayByShortName;
       }
     }
 
     return null;
   }
 
-  return JSON.parse(JSON.stringify(holidayByFullName));
+  return holidayByFullName;
 };

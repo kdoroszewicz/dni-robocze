@@ -3,7 +3,8 @@ import ClosestHoliday from "../components/ClosestHoliday";
 import Recommended from "../components/Recommended";
 import WorkDaysCalculator from "../components/WorkDaysCalculator";
 
-const currentYear = new Date().getFullYear();
+const currentYear: number = new Date().getFullYear();
+
 export const metadata = {
   title: `Kalkulator Dni Roboczych ${currentYear}`,
   description:

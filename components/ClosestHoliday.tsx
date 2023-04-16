@@ -1,6 +1,6 @@
 import { differenceInCalendarDays } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
-import Link from "../components/Link";
+import Link from "./Link";
 import { getHolidaySlug } from "../services/utils";
 import { polishHolidays } from "../src/workDaysUtils";
 

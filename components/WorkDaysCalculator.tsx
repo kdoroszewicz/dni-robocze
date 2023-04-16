@@ -1,9 +1,9 @@
 "use client";
 
 import { useMachine } from "@xstate/react";
-import Fieldset from "../../components/Fieldset";
-import Input from "../../components/Input";
-import { workDaysMachine } from "../../src/workDaysMachine";
+import Fieldset from "./Fieldset";
+import Input from "./Input";
+import { workDaysMachine } from "../src/workDaysMachine";
 
 const WorkDaysCalculator = () => {
   const [current, send] = useMachine(workDaysMachine);

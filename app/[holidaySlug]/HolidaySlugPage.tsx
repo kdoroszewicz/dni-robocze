@@ -1,5 +1,3 @@
-"use client";
-
 import { format } from "date-fns";
 import BackArrow from "../../components/BackArrow";
 import Link from "../../components/Link";

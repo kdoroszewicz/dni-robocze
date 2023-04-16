@@ -3,12 +3,24 @@ import { assign, createMachine } from "xstate";
 import { getWorkDays } from "./workDaysUtils";
 
 const initialState = {
-  workDays: "",
+  workDays: 0,
   dateStart: format(new Date(), "yyyy-MM-dd"),
   dateEnd: "",
 };
 
 export const workDaysMachine = createMachine({
+  schema: {
+    context: {} as {
+      workDays: number;
+      dateStart: string;
+      dateEnd: string;
+    },
+    events: {} as
+      | { type: "DATE_START"; value: string }
+      | { type: "DATE_END"; value: string }
+      | { type: "WORK_DAYS"; value: number }
+      | { type: "CLEAR" },
+  },
   id: "workDaysMachine",
   predictableActionArguments: true,
   initial: "active",

@@ -5,7 +5,7 @@ import {
   isSaturday,
   isSunday,
   isWithinInterval,
-  startOfDay
+  startOfDay,
 } from "date-fns";
 import Holidays from "date-holidays";
 
@@ -61,7 +61,7 @@ export const getTotalNumberOfHolidayDays = (
   return numberOfHolidays;
 };
 
-export const getWorkDays = (laterDate: Date, earlierDate: Date) => {
+export const getWorkDays = (laterDate: Date, earlierDate: Date): number => {
   const trueLaterDater = add(laterDate, {
     hours: 24,
   });

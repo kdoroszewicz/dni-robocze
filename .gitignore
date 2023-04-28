@@ -35,3 +35,4 @@ pr-stats.md
 .vercel
 .now
 out
+.env

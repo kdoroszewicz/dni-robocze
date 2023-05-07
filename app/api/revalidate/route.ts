@@ -1,7 +1,7 @@
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
   // Check for secret to confirm this is a valid request
   if (
     request.nextUrl.searchParams.get("secret") !== process.env.REVALIDATE_SECRET

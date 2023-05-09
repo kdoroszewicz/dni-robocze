@@ -13,7 +13,6 @@ console.log(
 const nextConfig = {
   swcMinify: true,
   experimental: {
-    appDir: true,
     mdxRs: true,
   },
   modularizeImports: {

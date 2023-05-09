@@ -2,14 +2,18 @@ import { notFound } from "next/navigation";
 import slugify from "slugify";
 import BackArrow from "../../components/BackArrow";
 import Link from "../../components/Link";
-import HolidayDrugiDzienWielkanocy from "../../content/holidays/drugi-dzien-wielkanocy.mdx";
-import HolidayBozeCialo from "../../content/holidays/dzien-bozego-ciala.mdx";
-import HolidayNiedzielaWielkanocna from "../../content/holidays/niedziela-wielkanocna.mdx";
-import HolidaySwieto3Maj from "../../content/holidays/swieto-narodowe-trzeciego-maja.mdx";
-import HolidaySwietoPracy from "../../content/holidays/swieto-pracy.mdx";
-import HolidayZieloneSwiatki from "../../content/holidays/zielone-swiatki.mdx";
-import { getHoliday, getHolidaySlug, shorthands } from "../../services/utils";
-import { polishHolidays } from "../../src/workDaysUtils";
+import HolidayDrugiDzienWielkanocy from "../content/holidays/drugi-dzien-wielkanocy.mdx";
+import HolidayBozeCialo from "../content/holidays/dzien-bozego-ciala.mdx";
+import HolidayNiedzielaWielkanocna from "../content/holidays/niedziela-wielkanocna.mdx";
+import HolidaySwieto3Maj from "../content/holidays/swieto-narodowe-trzeciego-maja.mdx";
+import HolidaySwietoPracy from "../content/holidays/swieto-pracy.mdx";
+import HolidayZieloneSwiatki from "../content/holidays/zielone-swiatki.mdx";
+import {
+  getHoliday,
+  getHolidaySlug,
+  shorthands,
+} from "../../../services/utils";
+import { polishHolidays } from "../../workDaysUtils";
 import { format } from "date-fns";
 
 const holidays = polishHolidays.getHolidays();

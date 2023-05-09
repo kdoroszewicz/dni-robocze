@@ -16,7 +16,7 @@ export const shorthands = {
 const holidays = polishHolidays.getHolidays();
 
 export const getHoliday = async (params: { holidaySlug?: string }) => {
-  const { holidaySlug } = params;
+  const holidaySlug = params.holidaySlug as keyof typeof shorthands;
 
   if (!holidaySlug || typeof holidaySlug !== "string") {
     return null;

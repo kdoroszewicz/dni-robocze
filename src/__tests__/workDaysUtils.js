@@ -41,6 +41,27 @@ describe("getWorkDays", () => {
     const result = getWorkDays(laterDate, earlierDate);
     expect(result).toBe(760);
   });
+
+  it("should return 22 work days between 2020-12-01 and 2020-12-31", () => {
+    const earlierDate = new Date("2020-12-01");
+    const laterDate = new Date("2020-12-31");
+    const result = getWorkDays(laterDate, earlierDate);
+    expect(result).toBe(22);
+  });
+
+  it("should return 12 work days between 2020-12-15 and 2020-12-31", () => {
+    const earlierDate = new Date("2020-12-15");
+    const laterDate = new Date("2020-12-31");
+    const result = getWorkDays(laterDate, earlierDate);
+    expect(result).toBe(12);
+  });
+
+  it("should return 2 work days between 2020-12-30 and 2020-12-31", () => {
+    const earlierDate = new Date("2020-12-30");
+    const laterDate = new Date("2020-12-31");
+    const result = getWorkDays(laterDate, earlierDate);
+    expect(result).toBe(2);
+  });
 });
 
 describe("getYearsRange", () => {

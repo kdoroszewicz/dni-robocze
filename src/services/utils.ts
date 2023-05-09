@@ -1,5 +1,5 @@
 import slugify from "slugify";
-import { polishHolidays } from "../src/workDaysUtils";
+import { polishHolidays } from "../workDaysUtils";
 
 export const getHolidaySlug = (holidayName: string) =>
   slugify(holidayName, { lower: true });

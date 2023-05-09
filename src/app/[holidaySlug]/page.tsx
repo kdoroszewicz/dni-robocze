@@ -2,11 +2,7 @@ import { format } from "date-fns";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import slugify from "slugify";
-import {
-  getHoliday,
-  getHolidaySlug,
-  shorthands,
-} from "../../../services/utils";
+import { getHoliday, getHolidaySlug, shorthands } from "../../services/utils";
 import BackArrow from "../../components/BackArrow";
 import Link from "../../components/Link";
 import { polishHolidays } from "../../workDaysUtils";

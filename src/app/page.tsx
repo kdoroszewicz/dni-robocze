@@ -1,3 +1,7 @@
+import { Button } from "@/components/Button";
+import { DatePicker } from "@/components/DatePicker";
+import { Input } from "@/components/Input";
+import { Label } from "@/components/Label";
 import ClosestHoliday from "../components/ClosestHoliday";
 import Recommended from "../components/Recommended";
 import WorkDaysCalculator from "../components/WorkDaysCalculator";
@@ -14,11 +18,51 @@ export const metadata = {
 const Page = () => {
   return (
     <>
-      <h1 className="mb-2 text-4xl font-semibold">
-        {`Kalkulator Dni Roboczych ${currentYear}`}
+      <h1 className="mb-6 text-center text-[60px] font-extrabold leading-[60px] text-[#0F365C]">
+        <span className="block text-[32px] leading-8 -tracking-[1%]">
+          Kalkulator
+        </span>
+        {`Dni Roboczych ${currentYear}`}
       </h1>
+      <p className="mb-6 text-center text-xl font-medium leading-[30px] text-[#0F365C]">
+        Wypełnij 2 z 3 pól
+      </p>
+      <div
+        className="calculator flex flex-row rounded-2xl bg-white p-4
+shadow-[20px_19px_50px_0px_#0057BC26]"
+      >
+        <div className="grid w-full flex-1 items-center gap-2">
+          <Label htmlFor="date-from">Od kiedy</Label>
+          <DatePicker
+            id="date-from"
+            placeholder="Data początkowa"
+            className="rounded-r-none"
+          />
+        </div>
+        <div className="grid w-full flex-1 items-center gap-2">
+          <Label htmlFor="work-days">Dni robocze</Label>
+          <Input
+            className="rounded-l-none rounded-r-none border-l-0"
+            type="work-days"
+            id="work-days"
+            placeholder="Wybierz ilość"
+          />
+        </div>
+        <div className="grid w-full flex-1 items-center gap-2">
+          <Label htmlFor="date-to">Do kiedy</Label>
+          <Input
+            className="rounded-l-none border-l-0"
+            type="date-to"
+            id="date-to"
+            placeholder="Data końcowa"
+          />
+        </div>
+        <Button className="ml-2 self-end bg-[linear-gradient(323.48deg,_#0F365C_23.99%,_#5989B7_111.59%)] p-4 text-sm font-bold leading-[21px]">
+          Wyczyść
+        </Button>
+      </div>
       <div className="space-y-4">
-        <WorkDaysCalculator />
+        {/* <WorkDaysCalculator /> */}
         <ClosestHoliday />
       </div>
       <div className="mt-8 space-y-4 text-slate-500">

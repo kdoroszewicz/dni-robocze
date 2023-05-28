@@ -29,13 +29,18 @@
   "dependencies": {
     "@next/mdx": "^13.4.4",
     "@xstate/react": "^3.2.2",
+    "class-variance-authority": "^0.6.0",
+    "clsx": "^1.2.1",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0",
     "date-holidays": "^3.19.2",
+    "lucide-react": "^0.221.0",
     "next": "^13.4.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "slugify": "^1.6.6",
+    "tailwind-merge": "^1.12.0",
+    "tailwindcss-animate": "^1.0.5",
     "xstate": "^4.37.2"
   },
   "devDependencies": {

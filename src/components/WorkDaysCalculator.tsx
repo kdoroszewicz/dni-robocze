@@ -3,7 +3,7 @@
 import { useMachine } from "@xstate/react";
 import Fieldset from "./Fieldset";
 import Input from "./Input";
-import { workDaysMachine } from "../src/workDaysMachine";
+import { workDaysMachine } from "../workDaysMachine";
 
 const WorkDaysCalculator = () => {
   const [current, send] = useMachine(workDaysMachine);

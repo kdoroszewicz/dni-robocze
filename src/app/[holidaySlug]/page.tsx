@@ -1,20 +1,25 @@
+import { format } from "date-fns";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import slugify from "slugify";
+import { getHoliday, getHolidaySlug, shorthands } from "../../services/utils";
 import BackArrow from "../../components/BackArrow";
 import Link from "../../components/Link";
-import HolidayDrugiDzienWielkanocy from "../../content/holidays/drugi-dzien-wielkanocy.mdx";
-import HolidayBozeCialo from "../../content/holidays/dzien-bozego-ciala.mdx";
-import HolidayNiedzielaWielkanocna from "../../content/holidays/niedziela-wielkanocna.mdx";
-import HolidaySwieto3Maj from "../../content/holidays/swieto-narodowe-trzeciego-maja.mdx";
-import HolidaySwietoPracy from "../../content/holidays/swieto-pracy.mdx";
-import HolidayZieloneSwiatki from "../../content/holidays/zielone-swiatki.mdx";
-import { getHoliday, getHolidaySlug, shorthands } from "../../services/utils";
-import { polishHolidays } from "../../src/workDaysUtils";
-import { format } from "date-fns";
+import { polishHolidays } from "../../workDaysUtils";
+import HolidayDrugiDzienWielkanocy from "../content/holidays/drugi-dzien-wielkanocy.mdx";
+import HolidayBozeCialo from "../content/holidays/dzien-bozego-ciala.mdx";
+import HolidayNiedzielaWielkanocna from "../content/holidays/niedziela-wielkanocna.mdx";
+import HolidaySwieto3Maj from "../content/holidays/swieto-narodowe-trzeciego-maja.mdx";
+import HolidaySwietoPracy from "../content/holidays/swieto-pracy.mdx";
+import HolidayZieloneSwiatki from "../content/holidays/zielone-swiatki.mdx";
 
 const holidays = polishHolidays.getHolidays();
 
-export async function generateMetadata({ params }) {
+type Props = {
+  params: { holidaySlug: string };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const holiday = await getHoliday(params);
   const currentYear = new Date().getFullYear();
 
@@ -59,8 +64,8 @@ const holidaySlugComponentMap = new Map([
   ["dzien-bozego-ciala", HolidayBozeCialo],
 ]);
 
-const Holiday = async ({ params }) => {
-  let HolidayDescription: (props: any) => JSX.Element = () => null;
+const Holiday = async ({ params }: Props) => {
+  let HolidayDescription: any = () => null;
   const holiday = await getHoliday(params);
 
   if (!holiday) {

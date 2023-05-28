@@ -2,11 +2,10 @@ import {
   add,
   differenceInBusinessDays as dbd,
   getYear,
-  isSaturday,
-  isSunday,
+  isWeekend,
   isWithinInterval,
-  startOfDay,
 } from "date-fns";
+import { zonedTimeToUtc } from "date-fns-tz";
 import Holidays from "date-holidays";
 
 export const polishHolidays = new Holidays("PL", {
@@ -41,35 +40,41 @@ export const getTotalNumberOfHolidayDays = (
   laterDate: Date,
   earlierDate: Date
 ) => {
-  let holidaysInRange = getHolidaysInDateRange(laterDate, earlierDate)
-    .map((holiday) => {
-      const date = new Date(holiday.date.slice(0, 10));
-      if (!isSaturday(date) && !isSunday(date)) {
-        return date;
-      }
-      return null;
-    })
-    .filter((value) => value != null);
+  const holidaysInRange = getHolidaysInDateRange(laterDate, earlierDate);
+  return holidaysInRange.reduce((total, holiday) => {
+    const date = new Date(holiday.date);
 
-  const numberOfHolidays = holidaysInRange.reduce((total, holiday) => {
-    if (isWithinInterval(holiday, { start: earlierDate, end: laterDate })) {
+    if (
+      !isWeekend(date) &&
+      isWithinInterval(date, { start: earlierDate, end: laterDate })
+    ) {
       return total + 1;
     }
     return total;
   }, 0);
-
-  return numberOfHolidays;
 };
 
 export const getWorkDays = (laterDate: Date, earlierDate: Date): number => {
-  const trueLaterDater = add(laterDate, {
-    hours: 24,
-  });
+  console.log(
+    "🚀 ~ file: workDaysUtils.ts:57 ~ getWorkDays ~ earlierDate:",
+    earlierDate
+  );
+  console.log(
+    "🚀 ~ file: workDaysUtils.ts:57 ~ getWorkDays ~ laterDate:",
+    laterDate
+  );
 
-  const beginDate = startOfDay(earlierDate);
-  const endDate = startOfDay(trueLaterDater);
-
-  const workDays = dbd(endDate, beginDate);
-  const finalDays = workDays - getTotalNumberOfHolidayDays(endDate, beginDate);
-  return finalDays;
+  // TODO: ilość dni w maju wylicza się niepoprawnie w przeglądarce
+  // difference between business days is off by 1 so compensate for that
+  const workDays = dbd(add(laterDate, { days: 1 }), earlierDate);
+  console.log(
+    "🚀 ~ file: workDaysUtils.ts:59 ~ getWorkDays ~ workDays:",
+    workDays
+  );
+  const totalHolidayDays = getTotalNumberOfHolidayDays(laterDate, earlierDate);
+  console.log(
+    "🚀 ~ file: workDaysUtils.ts:61 ~ getWorkDays ~ totalHolidayDays:",
+    totalHolidayDays
+  );
+  return workDays - totalHolidayDays;
 };

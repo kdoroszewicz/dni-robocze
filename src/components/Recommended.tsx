@@ -1,6 +1,6 @@
 import Image from "next/image";
-import LogoMalnuku from "../public/malanuku-logo.png";
-import LogoPodProgiem from "../public/podprogiem-logo.png";
+import LogoMalnuku from "../../public/malanuku-logo.png";
+import LogoPodProgiem from "../../public/podprogiem-logo.png";
 
 const Recommended = () => {
   return (

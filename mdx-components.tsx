@@ -1,10 +1,10 @@
 import type { MDXComponents } from "mdx/types";
 
-const Heading1 = ({ children }) => {
+const Heading1 = ({ children }: any) => {
   return <h1 className="mb-4 text-4xl font-semibold">{children}</h1>;
 };
 
-const Heading2 = ({ children }) => {
+const Heading2 = ({ children }: any) => {
   return <h2 className="mb-4 text-2xl font-semibold">{children}</h2>;
 };
 

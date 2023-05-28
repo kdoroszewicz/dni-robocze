@@ -63,7 +63,7 @@ describe("getWorkDays", () => {
     expect(result).toBe(2);
   });
 
-  it.only("should return 21 work days between 2023-05-01 and 2023-05-31", () => {
+  it("should return 21 work days between 2023-05-01 and 2023-05-31", () => {
     const earlierDate = new Date("2023-05-01");
     const laterDate = new Date("2023-05-31");
     const result = getWorkDays(laterDate, earlierDate);

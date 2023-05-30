@@ -1,7 +1,3 @@
-import { Button } from "@/components/Button";
-import { DatePicker } from "@/components/DatePicker";
-import { Input } from "@/components/Input";
-import { Label } from "@/components/Label";
 import ClosestHoliday from "../components/ClosestHoliday";
 import Recommended from "../components/Recommended";
 import WorkDaysCalculator from "../components/WorkDaysCalculator";

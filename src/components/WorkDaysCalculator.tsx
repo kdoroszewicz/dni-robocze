@@ -53,56 +53,13 @@ shadow-[20px_19px_50px_0px_#0057BC26]"
           onChange={(newDate) => send("DATE_END", { value: newDate })}
         />
       </div>
-      <Button className="ml-2 self-end bg-[linear-gradient(323.48deg,_#0F365C_23.99%,_#5989B7_111.59%)] p-4 text-sm font-bold leading-[21px]">
+      <Button
+        onClick={() => send("CLEAR")}
+        className="ml-2 self-end bg-[linear-gradient(323.48deg,_#0F365C_23.99%,_#5989B7_111.59%)] p-4 text-sm font-bold leading-[21px]"
+      >
         Wyczyść
       </Button>
     </div>
-    // <form className="space-y-4">
-    //   <Fieldset>
-    //     <label htmlFor="date-start">Data początkowa</label>
-    //     <Input
-    //       id="date-start"
-    //       name="date-start"
-    //       type="date"
-    //       placeholder="Data początkowa"
-    //       value={dateStart}
-    //       onChange={(e) => send("DATE_START", { value: e.target.value })}
-    //     />
-    //   </Fieldset>
-    //   <Fieldset>
-    //     <label htmlFor="work-days" className="w-full">
-    //       Dni robocze{" "}
-    //       <span className="ml-4 text-sm text-gray-500">
-    //         dni tygodnia bez sobót, niedziel i świąt państwowych
-    //       </span>
-    //     </label>
-    //     <Input
-    //       inputMode="decimal"
-    //       id="work-days"
-    //       name="work-days"
-    //       placeholder="Dni robocze"
-    //       value={workDays}
-    //       onChange={(e) =>
-    //         send("WORK_DAYS", {
-    //           value: isNaN(parseInt(e.target.value))
-    //             ? 0
-    //             : parseInt(e.target.value),
-    //         })
-    //       }
-    //     />
-    //   </Fieldset>
-    //   <Fieldset>
-    //     <label htmlFor="date-end">Data końcowa</label>
-    //     <Input
-    //       id="date-end"
-    //       name="date-end"
-    //       type="date"
-    //       placeholder="Data końcowa"
-    //       value={dateEnd}
-    //       onChange={(e) => send("DATE_END", { value: e.target.value })}
-    //     />
-    //   </Fieldset>
-    // </form>
   );
 };
 

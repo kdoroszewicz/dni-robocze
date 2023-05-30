@@ -1,4 +1,4 @@
-import { addBusinessDays as abd, format } from "date-fns";
+import { addBusinessDays as abd } from "date-fns";
 import { assign, createMachine } from "xstate";
 import { getWorkDays } from "./workDaysUtils";
 

@@ -28,6 +28,8 @@ export function DatePicker({
   useEffect(() => {
     if (value) {
       setInputValue(format(value, "dd.MM.yyyy"));
+    } else {
+      setInputValue("");
     }
   }, [value]);
 

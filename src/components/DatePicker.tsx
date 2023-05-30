@@ -1,63 +1,51 @@
 "use client";
 
-import { format, parse } from "date-fns";
+import { format, isValid, parse } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/Button";
 import { Calendar } from "@/components/Calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/Popover";
-import { Input } from "./Input";
-import { ChangeEvent, useState } from "react";
+import { cn } from "@/lib/utils";
+import { ChangeEvent, useEffect, useState } from "react";
 
 interface DatePickerProps {
   id: string;
   placeholder: string;
   className: string;
+  value: Date | undefined;
+  onChange: (newDate: Date | undefined) => void;
 }
 
-export function DatePicker({ id, className, placeholder }: DatePickerProps) {
+export function DatePicker({
+  id,
+  className,
+  placeholder,
+  value,
+  onChange,
+}: DatePickerProps) {
   const [inputValue, setInputValue] = useState("");
-  const [date, setDate] = useState<Date>();
 
-  // const handleChange = (dateValue: string) => {
-  //   let parsedDate;
-  //   try {
-  //     parsedDate = parse(dateValue, "dd.MM.yyyy", new Date());
-  //   } catch (error) {}
-
-  //   if (parsedDate) {
-  //     setDate(parsedDate);
-  //   }
-  // };
+  useEffect(() => {
+    if (value) {
+      setInputValue(format(value, "dd.MM.yyyy"));
+    }
+  }, [value]);
 
   const handleInputValueChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
-
-    console.log(
-      "🚀 ~ file: DatePicker.tsx:50 ~ handleInputValueChange ~ e.target.value:",
-      e.target.value
-    );
     let dateValue;
     try {
       dateValue = parse(e.target.value, "dd.MM.yyyy", new Date());
     } catch (error) {
       console.error(error);
     }
-
-    console.log(
-      "🚀 ~ file: DatePicker.tsx:49 ~ handleInputValueChange ~ dateValue:",
-      dateValue
-    );
-    if (dateValue) {
-      setDate(dateValue);
-    } else {
-      setDate(new Date());
+    if (isValid(dateValue)) {
+      onChange(dateValue);
     }
   };
 
   const handleDateSelect = (date: Date | undefined) => {
-    setDate(date);
+    onChange?.(date);
 
     if (date) {
       const formattedDate = format(date, "dd.MM.yyyy");
@@ -72,13 +60,15 @@ export function DatePicker({ id, className, placeholder }: DatePickerProps) {
       <PopoverTrigger asChild>
         <div
           className={cn(
-            "input-group flex h-[50px] min-w-0 items-center rounded-lg border border-[#D1D5DB] p-4",
+            "input-group relative flex h-[50px] min-w-0 items-center overflow-hidden rounded-lg border border-[#D1D5DB]",
             className
           )}
         >
-          <CalendarIcon className="mr-2 h-4 w-4" />
+          <div className="absolute left-0 py-4 pl-4">
+            <CalendarIcon className="h-4 w-4" />
+          </div>
           <input
-            className="min-w-0"
+            className="h-full min-w-0 pl-10 text-sm leading-[17.5px]"
             placeholder={placeholder}
             value={inputValue}
             onChange={handleInputValueChange}
@@ -90,12 +80,13 @@ export function DatePicker({ id, className, placeholder }: DatePickerProps) {
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <Calendar
+          key={value?.toString()}
           id={id}
           mode="single"
-          selected={date}
+          selected={value}
           onSelect={handleDateSelect}
           initialFocus={false}
-          defaultMonth={date}
+          defaultMonth={value}
         />
       </PopoverContent>
     </Popover>

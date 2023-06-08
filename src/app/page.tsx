@@ -30,7 +30,7 @@ const Page = () => {
       </div>
       <Recommended className="mt-8" />
 
-      <div className="mt-8 space-y-6 rounded-2xl bg-white p-4 text-base font-normal leading-[25.6px] text-[#0F365C] shadow-[20px_19px_50px_0px_#0057BC26]">
+      <div className="mb-[200px] mt-8 space-y-6 rounded-2xl bg-white p-4 text-base font-normal leading-[25.6px] text-[#0F365C] shadow-[20px_19px_50px_0px_#0057BC26]">
         <p>
           Kalkulator dni roboczych powstał aby w łatwy i szybki sposób można
           było wyliczyć wszystkie dni robocze w danym przedziale czasu. Dniami

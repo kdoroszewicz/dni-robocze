@@ -7,6 +7,7 @@ import { Calendar } from "@/components/Calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/Popover";
 import { cn } from "@/lib/utils";
 import { ChangeEvent, useEffect, useState } from "react";
+import { Input } from "./Input";
 
 interface DatePickerProps {
   id: string;
@@ -62,15 +63,17 @@ export function DatePicker({
       <PopoverTrigger asChild>
         <div
           className={cn(
-            "input-group relative flex h-[50px] min-w-0 items-center overflow-hidden rounded-lg border border-[#D1D5DB]",
-            className
+            "input-group relative flex h-[50px] min-w-0 items-center"
           )}
         >
-          <div className="absolute left-0 py-4 pl-4">
+          <div className="absolute left-0 z-20 py-4 pl-4">
             <CalendarIcon className="h-4 w-4" />
           </div>
-          <input
-            className="h-full min-w-0 pl-10 text-sm leading-[17.5px]"
+          <Input
+            className={cn(
+              "h-[50px] min-w-0 rounded-lg border border-[#D1D5DB] bg-white pl-10 text-sm leading-[17.5px] focus-within:ring-offset-0 focus:border-2 focus:border-[#0F365C] focus-visible:ring-0",
+              className
+            )}
             placeholder={placeholder}
             value={inputValue}
             onChange={handleInputValueChange}

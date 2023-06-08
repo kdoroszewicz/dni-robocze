@@ -4,8 +4,8 @@ import { useMachine } from "@xstate/react";
 import { workDaysMachine } from "../workDaysMachine";
 import { Button } from "./Button";
 import { DatePicker } from "./DatePicker";
-import { Input } from "./Input";
 import { Label } from "./Label";
+import { Input } from "./Input";
 
 const WorkDaysCalculator = () => {
   const [current, send] = useMachine(workDaysMachine);
@@ -29,7 +29,7 @@ md:space-y-0"
       <div className="grid w-full flex-1 items-center gap-2">
         <Label htmlFor="work-days">Dni robocze</Label>
         <Input
-          className="md:rounded-l-none md:rounded-r-none md:border-l-0"
+          className="h-[50px] border-[#D1D5DB] focus:border-2 focus:border-[#0F365C] focus-visible:ring-0 md:rounded-l-none md:rounded-r-none md:border-l-0"
           type="work-days"
           id="work-days"
           placeholder="Wybierz ilość"

@@ -65,7 +65,7 @@ const holidaySlugComponentMap = new Map([
 ]);
 
 const Holiday = async ({ params }: Props) => {
-  let HolidayDescription: any = () => null;
+  let HolidayDescription;
   const holiday = await getHoliday(params);
 
   if (!holiday) {
@@ -103,10 +103,11 @@ const Holiday = async ({ params }: Props) => {
             <span className="text-2xl leading-[30px]">wolne od pracy</span>
           </div>
         </div>
-
-        <section className="description mt-8 md:mt-12">
-          {HolidayDescription ? <HolidayDescription /> : null}
-        </section>
+        {HolidayDescription ? (
+          <section className="description mt-8 md:mt-12">
+            <HolidayDescription />
+          </section>
+        ) : null}
       </div>
       <div className="mb-[76px] mt-8">
         <p className="mb-4 text-center text-2xl font-extrabold leading-[29.05px] text-[#0F365C]">

@@ -30,13 +30,13 @@ const ClosestHoliday = ({ className }: ClosestHoliday) => {
   return (
     <h3
       className={cn(
-        "flex rounded-[14px] bg-[#E8F6FF] p-1 pl-2 text-center text-sm font-medium leading-[21px] text-[#0F365C]",
+        "flex flex-col items-center gap-y-2 rounded-[14px] bg-transparent p-1 pl-2 text-center text-sm font-medium leading-[21px] text-[#0F365C] md:flex-row md:gap-x-2 md:gap-y-0 md:bg-[#E8F6FF]",
         className
       )}
     >
       Najbliższe święto wolne od pracy za {daysToHoliday} dni to
       <Link
-        className="ml-2 flex items-center rounded-[10px] bg-[#0F365C] px-3 py-[2px] text-xs font-medium leading-[18px] text-white"
+        className="inline-flex shrink items-center justify-center rounded-[10px] bg-[#0F365C] px-3 py-[2px] text-xs font-medium leading-[18px] text-white"
         href={`/${getHolidaySlug(closestHoliday.name)}`}
       >
         {closestHoliday.name}

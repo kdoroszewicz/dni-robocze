@@ -13,15 +13,15 @@ const WorkDaysCalculator = () => {
   const { dateStart, dateEnd, workDays } = current.context;
   return (
     <div
-      className="calculator flex flex-row rounded-2xl bg-white p-4
-shadow-[20px_19px_50px_0px_#0057BC26]"
+      className="calculator flex flex-col space-y-4 rounded-2xl bg-white p-4 shadow-[20px_19px_50px_0px_#0057BC26] md:flex-row
+md:space-y-0"
     >
       <div className="grid w-full flex-1 items-center gap-2">
         <Label htmlFor="date-from">Od kiedy</Label>
         <DatePicker
           id="date-from"
           placeholder="Data początkowa"
-          className="rounded-r-none"
+          className="md:rounded-r-none"
           value={dateStart}
           onChange={(newDate) => send("DATE_START", { value: newDate })}
         />
@@ -29,7 +29,7 @@ shadow-[20px_19px_50px_0px_#0057BC26]"
       <div className="grid w-full flex-1 items-center gap-2">
         <Label htmlFor="work-days">Dni robocze</Label>
         <Input
-          className="rounded-l-none rounded-r-none border-l-0"
+          className="md:rounded-l-none md:rounded-r-none md:border-l-0"
           type="work-days"
           id="work-days"
           placeholder="Wybierz ilość"
@@ -48,14 +48,14 @@ shadow-[20px_19px_50px_0px_#0057BC26]"
         <DatePicker
           id="date-to"
           placeholder="Data końcowa"
-          className="rounded-l-none border-l-0"
+          className="md:rounded-l-none md:border-l-0"
           value={dateEnd}
           onChange={(newDate) => send("DATE_END", { value: newDate })}
         />
       </div>
       <Button
         onClick={() => send("CLEAR")}
-        className="ml-2 self-end bg-[linear-gradient(323.48deg,_#0F365C_23.99%,_#5989B7_111.59%)] p-4 text-sm font-bold leading-[21px]"
+        className="ml-2 w-full self-end bg-[linear-gradient(323.48deg,_#0F365C_23.99%,_#5989B7_111.59%)] p-4 text-sm font-bold leading-[21px] md:w-[93px]"
       >
         Wyczyść
       </Button>

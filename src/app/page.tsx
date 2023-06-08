@@ -14,8 +14,8 @@ export const metadata = {
 const Page = () => {
   return (
     <>
-      <h1 className="mb-6 text-center text-[60px] font-extrabold leading-[60px] text-[#0F365C]">
-        <span className="block text-[32px] leading-8 -tracking-[1%]">
+      <h1 className="mb-6 text-center text-4xl font-extrabold leading-[60px] text-[#0F365C] md:text-[60px]">
+        <span className="block text-4xl leading-8 -tracking-[1%] md:text-[32px]">
           Kalkulator
         </span>
         {`Dni Roboczych ${currentYear}`}

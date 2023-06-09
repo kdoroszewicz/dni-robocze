@@ -65,7 +65,7 @@ const holidaySlugComponentMap = new Map([
 ]);
 
 const Holiday = async ({ params }: Props) => {
-  let HolidayDescription;
+  let HolidayDescription: any = () => null;
   const holiday = await getHoliday(params);
 
   if (!holiday) {
@@ -80,55 +80,40 @@ const Holiday = async ({ params }: Props) => {
 
   return (
     <>
-      <div className="mt-[72px] flex w-full items-center justify-center gap-x-8 text-[#0F365C]">
-        <Link href="/">
-          <BackArrow />
-        </Link>
-        <h1 className="text-4xl font-extrabold leading-[43.57px] md:text-[60px] md:leading-[60px]">
-          {holiday.name}
-        </h1>
-      </div>
-      <div className="mt-10 rounded-[16px] bg-white p-4 text-xl text-[#0F365C] shadow-[20px_19px_50px_0px_#0057BC26] md:p-8">
-        <div className="holiday-details-container flex flex-col items-start justify-start gap-x-6 md:flex-row">
-          <div className="flex flex-col gap-y-2">
-            <span className="text-sm font-bold leading-[21px]">Kiedy</span>
-            <span className="text-2xl font-bold text-[#00BAFF]">
-              15.05.2023
-            </span>
-          </div>
-          <div className="mt-6 flex flex-col gap-y-2 font-bold md:mt-0 ">
-            <span className="block text-sm leading-[21px]">
-              {holiday.name} to święto
-            </span>
-            <span className="text-2xl leading-[30px]">wolne od pracy</span>
-          </div>
-        </div>
+      <Link href="/">
+        <BackArrow />{" "}
+        <span className="ml-2">wróć do Kalkulatora Dni Roboczych</span>
+      </Link>
+      <div className="mt-10 space-y-2 text-xl">
         {HolidayDescription ? (
-          <section className="description mt-8 md:mt-12">
-            <HolidayDescription />
-          </section>
-        ) : null}
-      </div>
-      <div className="mb-[76px] mt-8">
-        <p className="mb-4 text-center text-2xl font-extrabold leading-[29.05px] text-[#0F365C]">
-          Zobacz inne święta
+          <HolidayDescription />
+        ) : (
+          <h1 className="mb-2 text-4xl font-semibold">{holiday.name}</h1>
+        )}
+        <p>
+          Kiedy jest <strong>{holiday.name}</strong>?{" "}
+          {`Święto wypada ${format(new Date(holiday.date), "dd.MM.yyyy")}`}.
         </p>
-        <div className="rounded-[16px] bg-white p-4 shadow-[20px_19px_50px_0px_#0057BC26]">
-          <ul className="grid grid-cols-1 justify-items-center gap-4 text-[#0F365C] md:grid-cols-2 md:justify-items-start">
-            {holidays
-              .filter((h) => h.name !== holiday.name)
-              .map((h) => (
-                <li
-                  className="holiday-list-item w-min whitespace-nowrap rounded-[8px] border border-[#D1D5DB] px-4 py-2 text-base font-bold leading-[19.5px]"
-                  key={h.name}
+        <p>
+          Święto jest <strong>wolne od pracy</strong>.
+        </p>
+      </div>
+      <div className="mt-8">
+        <p className="mb-2 text-gray-600">Zobacz inne święta:</p>
+        <ul>
+          {holidays
+            .filter((h) => h.name !== holiday.name)
+            .map((h) => (
+              <li className="holiday-list-item" key={h.name}>
+                <Link
+                  className="mb-2 block w-full rounded border border-gray-300 bg-gray-100 p-2 text-blue-600 hover:no-underline"
+                  href={`/${getHolidaySlug(h.name)}`}
                 >
-                  <Link className="" href={`/${getHolidaySlug(h.name)}`}>
-                    {h.name}
-                  </Link>
-                </li>
-              ))}
-          </ul>
-        </div>
+                  {h.name}
+                </Link>
+              </li>
+            ))}
+        </ul>
       </div>
     </>
   );

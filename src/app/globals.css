@@ -92,4 +92,14 @@
     content: var(--tw-content);
     z-index: auto;
   }
+
+  @media (max-width: 768px) {
+    .layout-wrapper::before {
+      transform: rotate(24.26deg);
+      width: 683.46px;
+      height: 634.43px;
+      left: 0;
+      top: -173px;
+    }
+  }
 }

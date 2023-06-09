@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 type LayoutProps = {
@@ -6,10 +8,8 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="layout-wrapper relative flex justify-center">
-      <div className="layout relative mt-[44px] h-full w-full max-w-[782px] px-4 md:mx-0 md:mt-16">
-        <div>{children}</div>
-      </div>
+    <div className="layout h-full mx-auto py-8 px-8 w-full md:max-w-screen-sm md:px-0">
+      {children}
     </div>
   );
 };

@@ -1,38 +1,40 @@
 "use client";
 
 import { useMachine } from "@xstate/react";
+import Fieldset from "./Fieldset";
+import Input from "./Input";
 import { workDaysMachine } from "../workDaysMachine";
-import { Button } from "./Button";
-import { DatePicker } from "./DatePicker";
-import { Label } from "./Label";
-import { Input } from "./Input";
 
 const WorkDaysCalculator = () => {
   const [current, send] = useMachine(workDaysMachine);
 
   const { dateStart, dateEnd, workDays } = current.context;
+
   return (
-    <div
-      className="calculator flex flex-col space-y-4 rounded-2xl bg-white p-4 shadow-[20px_19px_50px_0px_#0057BC26] md:flex-row
-md:space-y-0"
-    >
-      <div className="grid w-full flex-1 items-center gap-2">
-        <Label htmlFor="date-from">Od kiedy</Label>
-        <DatePicker
-          id="date-from"
-          placeholder="Data początkowa"
-          className="md:rounded-r-none"
-          value={dateStart}
-          onChange={(newDate) => send("DATE_START", { value: newDate })}
-        />
-      </div>
-      <div className="grid w-full flex-1 items-center gap-2">
-        <Label htmlFor="work-days">Dni robocze</Label>
+    <form className="space-y-4">
+      <Fieldset>
+        <label htmlFor="date-start">Data początkowa</label>
         <Input
-          className="h-[50px] border-[#D1D5DB] focus:border-2 focus:border-[#0F365C] focus-visible:ring-0 md:rounded-l-none md:rounded-r-none md:border-l-0"
-          type="work-days"
+          id="date-start"
+          name="date-start"
+          type="date"
+          placeholder="Data początkowa"
+          value={dateStart}
+          onChange={(e) => send("DATE_START", { value: e.target.value })}
+        />
+      </Fieldset>
+      <Fieldset>
+        <label htmlFor="work-days" className="w-full">
+          Dni robocze{" "}
+          <span className="ml-4 text-sm text-gray-500">
+            dni tygodnia bez sobót, niedziel i świąt państwowych
+          </span>
+        </label>
+        <Input
+          inputMode="decimal"
           id="work-days"
-          placeholder="Wybierz ilość"
+          name="work-days"
+          placeholder="Dni robocze"
           value={workDays}
           onChange={(e) =>
             send("WORK_DAYS", {
@@ -42,24 +44,19 @@ md:space-y-0"
             })
           }
         />
-      </div>
-      <div className="grid w-full flex-1 items-center gap-2">
-        <Label htmlFor="date-to">Do kiedy</Label>
-        <DatePicker
-          id="date-to"
+      </Fieldset>
+      <Fieldset>
+        <label htmlFor="date-end">Data końcowa</label>
+        <Input
+          id="date-end"
+          name="date-end"
+          type="date"
           placeholder="Data końcowa"
-          className="md:rounded-l-none md:border-l-0"
           value={dateEnd}
-          onChange={(newDate) => send("DATE_END", { value: newDate })}
+          onChange={(e) => send("DATE_END", { value: e.target.value })}
         />
-      </div>
-      <Button
-        onClick={() => send("CLEAR")}
-        className="ml-2 w-full self-end bg-[linear-gradient(323.48deg,_#0F365C_23.99%,_#5989B7_111.59%)] p-4 text-sm font-bold leading-[21px] md:w-[93px]"
-      >
-        Wyczyść
-      </Button>
-    </div>
+      </Fieldset>
+    </form>
   );
 };
 

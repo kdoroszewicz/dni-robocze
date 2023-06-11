@@ -55,26 +55,7 @@ export const getTotalNumberOfHolidayDays = (
 };
 
 export const getWorkDays = (laterDate: Date, earlierDate: Date): number => {
-  console.log(
-    "🚀 ~ file: workDaysUtils.ts:57 ~ getWorkDays ~ earlierDate:",
-    earlierDate
-  );
-  console.log(
-    "🚀 ~ file: workDaysUtils.ts:57 ~ getWorkDays ~ laterDate:",
-    laterDate
-  );
-
-  // TODO: ilość dni w maju wylicza się niepoprawnie w przeglądarce
-  // difference between business days is off by 1 so compensate for that
   const workDays = dbd(add(laterDate, { days: 1 }), earlierDate);
-  console.log(
-    "🚀 ~ file: workDaysUtils.ts:59 ~ getWorkDays ~ workDays:",
-    workDays
-  );
   const totalHolidayDays = getTotalNumberOfHolidayDays(laterDate, earlierDate);
-  console.log(
-    "🚀 ~ file: workDaysUtils.ts:61 ~ getWorkDays ~ totalHolidayDays:",
-    totalHolidayDays
-  );
   return workDays - totalHolidayDays;
 };

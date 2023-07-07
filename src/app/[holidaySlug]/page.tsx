@@ -93,7 +93,7 @@ const Holiday = async ({ params }: Props) => {
           <div className="flex flex-col gap-y-2">
             <span className="text-sm font-bold leading-[21px]">Kiedy</span>
             <span className="text-2xl font-bold text-[#00BAFF]">
-              15.05.2023
+              {format(holiday.start, "dd.MM.yyyy")}
             </span>
           </div>
           <div className="mt-6 flex flex-col gap-y-2 font-bold md:mt-0 ">

@@ -12,6 +12,7 @@ import HolidayNiedzielaWielkanocna from "../content/holidays/niedziela-wielkanoc
 import HolidaySwieto3Maj from "../content/holidays/swieto-narodowe-trzeciego-maja.mdx";
 import HolidaySwietoPracy from "../content/holidays/swieto-pracy.mdx";
 import HolidayZieloneSwiatki from "../content/holidays/zielone-swiatki.mdx";
+import HolidayWNMP from "../content/holidays/wniebowziecie-najswietszej-maryi-panny.mdx";
 
 const holidays = polishHolidays.getHolidays();
 
@@ -62,6 +63,7 @@ const holidaySlugComponentMap = new Map([
   ["swieto-panstwowe-swieto-pracy", HolidaySwietoPracy],
   ["swieto-narodowe-trzeciego-maja", HolidaySwieto3Maj],
   ["dzien-bozego-ciala", HolidayBozeCialo],
+  ["wniebowziecie-najswietszej-maryi-panny", HolidayWNMP],
 ]);
 
 const Holiday = async ({ params }: Props) => {

@@ -5,7 +5,6 @@ import {
   isWeekend,
   isWithinInterval,
 } from "date-fns";
-import { zonedTimeToUtc } from "date-fns-tz";
 import Holidays from "date-holidays";
 
 export const polishHolidays = new Holidays("PL", {

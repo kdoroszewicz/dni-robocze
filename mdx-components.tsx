@@ -1,5 +1,3 @@
-import type { MDXComponents } from "mdx/types";
-
 const Heading1 = ({ children }: any) => {
   return <h1 className="mb-4 text-4xl font-semibold">{children}</h1>;
 };
@@ -13,7 +11,7 @@ const P = ({ children }: any) => {
 };
 
 // This file is required to use MDX in `app` directory.
-export function useMDXComponents(components: MDXComponents): MDXComponents {
+export function useMDXComponents(components: any): any {
   return {
     h1: Heading1,
     h2: Heading2,

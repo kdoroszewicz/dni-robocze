@@ -27,10 +27,13 @@
     ]
   },
   "dependencies": {
+    "@mdx-js/loader": "^2.3.0",
+    "@mdx-js/react": "^2.3.0",
     "@next/mdx": "^13.4.19",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-popover": "^1.0.6",
     "@radix-ui/react-slot": "^1.0.2",
+    "@types/mdx": "^2.0.7",
     "@xstate/react": "^3.2.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
@@ -42,6 +45,7 @@
     "react": "^18.2.0",
     "react-day-picker": "^8.8.1",
     "react-dom": "^18.2.0",
+    "sharp": "^0.32.5",
     "slugify": "^1.6.6",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.6",

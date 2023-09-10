@@ -137,3 +137,5 @@ const Holiday = async ({ params }: Props) => {
 };
 
 export default Holiday;
+
+export const runtime = "edge";

@@ -15,11 +15,6 @@ const nextConfig = {
   experimental: {
     mdxRs: true,
   },
-  modularizeImports: {
-    "date-fns": {
-      transform: "date-fns/{{member}}",
-    },
-  },
 };
 
 module.exports = withMDX(nextConfig);

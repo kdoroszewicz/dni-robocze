@@ -28,7 +28,7 @@ dependencies:
     version: 2.0.8
   '@xstate/react':
     specifier: ^3.2.2
-    version: 3.2.2(@types/react@18.2.22)(react@18.2.0)(xstate@4.38.2)
+    version: 3.2.2(@types/react@18.2.22)(react@18.2.0)(xstate@4.38.3)
   class-variance-authority:
     specifier: ^0.7.0
     version: 0.7.0
@@ -72,8 +72,8 @@ dependencies:
     specifier: ^1.0.7
     version: 1.0.7(tailwindcss@3.3.3)
   xstate:
-    specifier: ^4.38.2
-    version: 4.38.2
+    specifier: ^4.38.3
+    version: 4.38.3
 
 devDependencies:
   '@testing-library/jest-dom':
@@ -1821,7 +1821,7 @@ packages:
       '@xtuc/long': 4.2.2
     dev: false
 
-  /@xstate/react@3.2.2(@types/react@18.2.22)(react@18.2.0)(xstate@4.38.2):
+  /@xstate/react@3.2.2(@types/react@18.2.22)(react@18.2.0)(xstate@4.38.3):
     resolution: {integrity: sha512-feghXWLedyq8JeL13yda3XnHPZKwYDN5HPBLykpLeuNpr9178tQd2/3d0NrH6gSd0sG5mLuLeuD+ck830fgzLQ==}
     peerDependencies:
       '@xstate/fsm': ^2.0.0
@@ -1836,7 +1836,7 @@ packages:
       react: 18.2.0
       use-isomorphic-layout-effect: 1.1.2(@types/react@18.2.22)(react@18.2.0)
       use-sync-external-store: 1.2.0(react@18.2.0)
-      xstate: 4.38.2
+      xstate: 4.38.3
     transitivePeerDependencies:
       - '@types/react'
     dev: false
@@ -7105,8 +7105,8 @@ packages:
     resolution: {integrity: sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==}
     dev: true
 
-  /xstate@4.38.2:
-    resolution: {integrity: sha512-Fba/DwEPDLneHT3tbJ9F3zafbQXszOlyCJyQqqdzmtlY/cwE2th462KK48yaANf98jHlP6lJvxfNtN0LFKXPQg==}
+  /xstate@4.38.3:
+    resolution: {integrity: sha512-SH7nAaaPQx57dx6qvfcIgqKRXIh4L0A1iYEqim4s1u7c9VoCgzZc+63FY90AKU4ZzOC2cfJzTnpO4zK7fCUzzw==}
     dev: false
 
   /y18n@5.0.8:

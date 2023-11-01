@@ -49,7 +49,7 @@
     "slugify": "^1.6.6",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
-    "xstate": "^4.38.2"
+    "xstate": "^4.38.3"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.1.3",

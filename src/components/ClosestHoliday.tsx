@@ -6,6 +6,7 @@ import { polishHolidays } from "../workDaysUtils";
 import { HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
+import { unstable_noStore as noStore } from "next/cache";
 
 const getClosestHoliday = () => {
   const holidays = polishHolidays.getHolidays();
@@ -27,6 +28,8 @@ const daysToHoliday = differenceInCalendarDays(
 interface ClosestHoliday extends HTMLAttributes<HTMLHeadingElement> {}
 
 const ClosestHoliday = ({ className }: ClosestHoliday) => {
+  noStore();
+
   return (
     <h3
       className={cn(

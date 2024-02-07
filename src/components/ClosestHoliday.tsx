@@ -32,6 +32,7 @@ const ClosestHoliday = ({ className }: ClosestHoliday) => {
 
   return (
     <h3
+      data-freshness={new Date().toISOString()}
       className={cn(
         "flex flex-col items-center gap-y-2 rounded-[14px] bg-transparent p-1 pl-2 text-center text-sm font-medium leading-[21px] text-[#0F365C] md:flex-row md:gap-x-2 md:gap-y-0 md:bg-[#E8F6FF]",
         className

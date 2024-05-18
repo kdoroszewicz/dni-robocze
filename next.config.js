@@ -14,6 +14,7 @@ const nextConfig = {
   swcMinify: true,
   experimental: {
     mdxRs: true,
+    reactCompiler: true,
   },
 };
 

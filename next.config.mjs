@@ -10,7 +10,9 @@ console.log(
 );
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+};
 
 const withMDX = createMDX({});
 

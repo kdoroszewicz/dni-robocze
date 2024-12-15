@@ -39,6 +39,5 @@ export const getHoliday = async (params: { holidaySlug?: string }) => {
 
     return null;
   }
-
   return holidayByFullName;
 };

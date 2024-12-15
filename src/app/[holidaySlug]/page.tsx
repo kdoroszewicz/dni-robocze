@@ -68,7 +68,7 @@ const holidaySlugComponentMap = new Map([
 
 const Holiday = async ({ params }: Props) => {
   let HolidayDescription;
-  const holiday = await getHoliday(params);
+  const holiday = await getHoliday(await params);
 
   if (!holiday) {
     notFound();
@@ -137,4 +137,3 @@ const Holiday = async ({ params }: Props) => {
 };
 
 export default Holiday;
-

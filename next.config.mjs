@@ -1,4 +1,4 @@
-const withMDX = require("@next/mdx")();
+import createMDX from "@next/mdx";
 
 /**
  * Vercel runs builds in UTC so force it locally
@@ -11,10 +11,9 @@ console.log(
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  swcMinify: true,
-  experimental: {
-    mdxRs: true,
-  },
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
 };
 
-module.exports = withMDX(nextConfig);
+const withMDX = createMDX({});
+
+export default withMDX(nextConfig);

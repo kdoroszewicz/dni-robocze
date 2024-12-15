@@ -17,10 +17,11 @@ import HolidayWNMP from "../content/holidays/wniebowziecie-najswietszej-maryi-pa
 const holidays = polishHolidays.getHolidays();
 
 type Props = {
-  params: { holidaySlug: string };
+  params: Promise<{ holidaySlug: string }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const holiday = await getHoliday(params);
   const currentYear = new Date().getFullYear();
 
@@ -66,8 +67,9 @@ const holidaySlugComponentMap = new Map([
   ["wniebowziecie-najswietszej-maryi-panny", HolidayWNMP],
 ]);
 
-const Holiday = async ({ params }: Props) => {
+const Holiday = async (props: Props) => {
   let HolidayDescription;
+  const params = await props.params;
   const holiday = await getHoliday(params);
 
   if (!holiday) {
@@ -137,5 +139,3 @@ const Holiday = async ({ params }: Props) => {
 };
 
 export default Holiday;
-
-export const runtime = "edge";

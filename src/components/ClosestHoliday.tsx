@@ -9,10 +9,19 @@ import { ChevronRight } from "lucide-react";
 import { unstable_noStore as noStore } from "next/cache";
 
 const getClosestHoliday = () => {
-  const holidays = polishHolidays.getHolidays();
-  const futureHolidays = holidays.filter(
+  const currentYear = new Date().getFullYear();
+  let holidays = polishHolidays.getHolidays(currentYear);
+  let futureHolidays = holidays.filter(
     (holiday) => holiday.start > new Date()
   );
+  
+  // If no future holidays found in current year, check next year
+  if (futureHolidays.length === 0) {
+    holidays = polishHolidays.getHolidays(currentYear + 1);
+    futureHolidays = holidays.filter(
+      (holiday) => holiday.start > new Date()
+    );
+  }
   
   if (futureHolidays.length === 0) {
     return null;

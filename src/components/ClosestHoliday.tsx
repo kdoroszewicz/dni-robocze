@@ -10,25 +10,34 @@ import { unstable_noStore as noStore } from "next/cache";
 
 const getClosestHoliday = () => {
   const holidays = polishHolidays.getHolidays();
-
   const futureHolidays = holidays.filter(
     (holiday) => holiday.start > new Date()
   );
-
+  
+  if (futureHolidays.length === 0) {
+    return null;
+  }
+  
   return futureHolidays[0];
 };
 
 const closestHoliday = getClosestHoliday();
 
-const daysToHoliday = differenceInCalendarDays(
-  utcToZonedTime(closestHoliday.start, "Europe/Warsaw"),
-  utcToZonedTime(new Date(), "Europe/Warsaw")
-);
+const daysToHoliday = closestHoliday 
+  ? differenceInCalendarDays(
+      utcToZonedTime(closestHoliday.start, "Europe/Warsaw"),
+      utcToZonedTime(new Date(), "Europe/Warsaw")
+    )
+  : null;
 
 interface ClosestHoliday extends HTMLAttributes<HTMLHeadingElement> {}
 
 const ClosestHoliday = ({ className }: ClosestHoliday) => {
   noStore();
+
+  if (!closestHoliday || !daysToHoliday) {
+    return null;
+  }
 
   return (
     <h3

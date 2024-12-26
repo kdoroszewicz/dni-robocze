@@ -9,26 +9,44 @@ import { ChevronRight } from "lucide-react";
 import { unstable_noStore as noStore } from "next/cache";
 
 const getClosestHoliday = () => {
-  const holidays = polishHolidays.getHolidays();
-
-  const futureHolidays = holidays.filter(
+  const currentYear = new Date().getFullYear();
+  let holidays = polishHolidays.getHolidays(currentYear);
+  let futureHolidays = holidays.filter(
     (holiday) => holiday.start > new Date()
   );
-
+  
+  // If no future holidays found in current year, check next year
+  if (futureHolidays.length === 0) {
+    holidays = polishHolidays.getHolidays(currentYear + 1);
+    futureHolidays = holidays.filter(
+      (holiday) => holiday.start > new Date()
+    );
+  }
+  
+  if (futureHolidays.length === 0) {
+    return null;
+  }
+  
   return futureHolidays[0];
 };
 
 const closestHoliday = getClosestHoliday();
 
-const daysToHoliday = differenceInCalendarDays(
-  utcToZonedTime(closestHoliday.start, "Europe/Warsaw"),
-  utcToZonedTime(new Date(), "Europe/Warsaw")
-);
+const daysToHoliday = closestHoliday 
+  ? differenceInCalendarDays(
+      utcToZonedTime(closestHoliday.start, "Europe/Warsaw"),
+      utcToZonedTime(new Date(), "Europe/Warsaw")
+    )
+  : null;
 
 interface ClosestHoliday extends HTMLAttributes<HTMLHeadingElement> {}
 
 const ClosestHoliday = ({ className }: ClosestHoliday) => {
   noStore();
+
+  if (!closestHoliday || !daysToHoliday) {
+    return null;
+  }
 
   return (
     <h3

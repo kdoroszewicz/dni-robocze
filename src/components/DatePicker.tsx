@@ -1,5 +1,3 @@
-"use client";
-
 import { format, isValid, parse } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 

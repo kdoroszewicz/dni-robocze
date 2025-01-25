@@ -11,10 +11,11 @@ console.log(
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  swcMinify: true,
   experimental: {
-    mdxRs: true,
+    mdxRs: false,
   },
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+  transpilePackages: ['react-day-picker']
 };
 
 module.exports = withMDX(nextConfig);

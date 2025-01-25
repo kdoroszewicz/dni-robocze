@@ -1,27 +1,27 @@
 import { format } from "date-fns";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import slugify from "slugify";
-import { getHoliday, getHolidaySlug, shorthands } from "../../services/utils";
 import BackArrow from "../../components/BackArrow";
 import Link from "../../components/Link";
+import { getHoliday, getHolidaySlug, shorthands } from "../../services/utils";
 import { polishHolidays } from "../../workDaysUtils";
 import HolidayDrugiDzienWielkanocy from "../content/holidays/drugi-dzien-wielkanocy.mdx";
 import HolidayBozeCialo from "../content/holidays/dzien-bozego-ciala.mdx";
 import HolidayNiedzielaWielkanocna from "../content/holidays/niedziela-wielkanocna.mdx";
 import HolidaySwieto3Maj from "../content/holidays/swieto-narodowe-trzeciego-maja.mdx";
 import HolidaySwietoPracy from "../content/holidays/swieto-pracy.mdx";
-import HolidayZieloneSwiatki from "../content/holidays/zielone-swiatki.mdx";
 import HolidayWNMP from "../content/holidays/wniebowziecie-najswietszej-maryi-panny.mdx";
+import HolidayZieloneSwiatki from "../content/holidays/zielone-swiatki.mdx";
 
 const holidays = polishHolidays.getHolidays();
 
 type Props = {
-  params: { holidaySlug: string };
-};
-
+  params: Promise<{ holidaySlug: string }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const holiday = await getHoliday(params);
+  const holiday = await getHoliday(await params);
   const currentYear = new Date().getFullYear();
 
   if (!holiday) {
@@ -68,7 +68,7 @@ const holidaySlugComponentMap = new Map([
 
 const Holiday = async ({ params }: Props) => {
   let HolidayDescription;
-  const holiday = await getHoliday(params);
+  const holiday = await getHoliday(await params);
 
   if (!holiday) {
     notFound();
@@ -137,5 +137,3 @@ const Holiday = async ({ params }: Props) => {
 };
 
 export default Holiday;
-
-export const runtime = "edge";

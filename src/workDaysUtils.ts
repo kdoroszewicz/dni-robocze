@@ -4,6 +4,7 @@ import {
   getYear,
   isWeekend,
   isWithinInterval,
+  startOfDay,
 } from "date-fns";
 import Holidays from "date-holidays";
 
@@ -37,15 +38,24 @@ export const getHolidaysInDateRange = (laterDate: Date, earlierDate: Date) => {
 
 export const getTotalNumberOfHolidayDays = (
   laterDate: Date,
-  earlierDate: Date
+  earlierDate: Date,
 ) => {
-  const holidaysInRange = getHolidaysInDateRange(laterDate, earlierDate);
+  const normalizedLaterDate = startOfDay(laterDate);
+  const normalizedEarlierDate = startOfDay(earlierDate);
+
+  const holidaysInRange = getHolidaysInDateRange(
+    normalizedLaterDate,
+    normalizedEarlierDate,
+  );
   return holidaysInRange.reduce((total, holiday) => {
-    const date = new Date(holiday.date);
+    const date = startOfDay(new Date(holiday.date));
 
     if (
       !isWeekend(date) &&
-      isWithinInterval(date, { start: earlierDate, end: laterDate })
+      isWithinInterval(date, {
+        start: normalizedEarlierDate,
+        end: normalizedLaterDate,
+      })
     ) {
       return total + 1;
     }
@@ -54,7 +64,16 @@ export const getTotalNumberOfHolidayDays = (
 };
 
 export const getWorkDays = (laterDate: Date, earlierDate: Date): number => {
-  const workDays = dbd(add(laterDate, { days: 1 }), earlierDate);
-  const totalHolidayDays = getTotalNumberOfHolidayDays(laterDate, earlierDate);
+  const normalizedLaterDate = startOfDay(laterDate);
+  const normalizedEarlierDate = startOfDay(earlierDate);
+
+  const workDays = dbd(
+    add(normalizedLaterDate, { days: 1 }),
+    normalizedEarlierDate,
+  );
+  const totalHolidayDays = getTotalNumberOfHolidayDays(
+    normalizedLaterDate,
+    normalizedEarlierDate,
+  );
   return workDays - totalHolidayDays;
 };

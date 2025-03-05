@@ -18,10 +18,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pl" className={inter.className}>
-      <GoogleAnalytics GA_TRACKING_ID={process.env.GA_TRACKING_ID!} />
-      <Adsense
-        NEXT_PUBLIC_GOOGLE_ADSENSE={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE!}
-      />
+      <GoogleAnalytics />
+      <Adsense />
       <body>
         {/* <Providers> */}
         <BaseLayout>{children}</BaseLayout>

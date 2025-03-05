@@ -5,3 +5,4 @@ pages_build_output_dir = ".vercel/output/static"
 
 [vars]
 NEXT_PUBLIC_GOOGLE_ADSENSE = "pub-8204887027170024"
+NEXT_PUBLIC_GA_TRACKING_ID = "GTM-NBT8TG6"

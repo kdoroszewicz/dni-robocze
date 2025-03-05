@@ -36,3 +36,6 @@ pr-stats.md
 .now
 out
 .env
+
+# Cloudflare
+.wrangler

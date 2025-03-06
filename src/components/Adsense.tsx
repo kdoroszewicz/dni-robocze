@@ -6,7 +6,7 @@ const Adsense = () => {
     <Script
       async
       src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE}`}
-      strategy="lazyOnload"
+      strategy="afterInteractive"
       crossOrigin="anonymous"
     />
   );

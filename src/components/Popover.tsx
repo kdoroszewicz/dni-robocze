@@ -11,7 +11,9 @@ const PopoverTrigger = PopoverPrimitive.Trigger;
 
 const PopoverAnchor = PopoverPrimitive.Anchor;
 
-type PopoverContentProps = React.ComponentPropsWithRef<typeof PopoverPrimitive.Content>;
+type PopoverContentProps = React.ComponentPropsWithRef<
+  typeof PopoverPrimitive.Content
+>;
 
 const PopoverContent = ({
   className,

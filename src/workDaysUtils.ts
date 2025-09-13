@@ -37,7 +37,7 @@ export const getHolidaysInDateRange = (laterDate: Date, earlierDate: Date) => {
 
 export const getTotalNumberOfHolidayDays = (
   laterDate: Date,
-  earlierDate: Date,
+  earlierDate: Date
 ) => {
   const holidaysInRange = getHolidaysInDateRange(laterDate, earlierDate);
   return holidaysInRange.reduce((total, holiday) => {

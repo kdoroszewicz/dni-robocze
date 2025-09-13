@@ -77,11 +77,19 @@
 
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
   }
 
   .layout-wrapper::before {
-    background: linear-gradient(297.93deg, rgba(23, 130, 255, 0.098) 4.21%, rgba(23, 130, 255, 0) 100%), #FFFFFF;
+    background:
+      linear-gradient(
+        297.93deg,
+        rgba(23, 130, 255, 0.098) 4.21%,
+        rgba(23, 130, 255, 0) 100%
+      ),
+      #ffffff;
     border-radius: 72px;
     transform: rotate(35.75deg);
     width: 1097.42px;

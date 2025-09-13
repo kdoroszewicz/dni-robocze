@@ -34,8 +34,8 @@ importers:
         specifier: ^1.2.3
         version: 1.2.3(@types/react@19.1.13)(react@19.1.1)
       '@xstate/react':
-        specifier: ^3.2.2
-        version: 3.2.2(@types/react@19.1.13)(react@19.1.1)(xstate@4.38.3)
+        specifier: ^6.0.0
+        version: 6.0.0(@types/react@19.1.13)(react@19.1.1)(xstate@5.21.0)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -79,8 +79,8 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@4.1.13)
       xstate:
-        specifier: ^4.38.3
-        version: 4.38.3
+        specifier: ^5.21.0
+        version: 5.21.0
     devDependencies:
       '@tailwindcss/postcss':
         specifier: ^4.1.13
@@ -2498,15 +2498,12 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@xstate/react@3.2.2':
-    resolution: {integrity: sha512-feghXWLedyq8JeL13yda3XnHPZKwYDN5HPBLykpLeuNpr9178tQd2/3d0NrH6gSd0sG5mLuLeuD+ck830fgzLQ==}
+  '@xstate/react@6.0.0':
+    resolution: {integrity: sha512-xXlLpFJxqLhhmecAXclBECgk+B4zYSrDTl8hTfPZBogkn82OHKbm9zJxox3Z/YXoOhAQhKFTRLMYGdlbhc6T9A==}
     peerDependencies:
-      '@xstate/fsm': ^2.0.0
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      xstate: ^4.37.2
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      xstate: ^5.20.0
     peerDependenciesMeta:
-      '@xstate/fsm':
-        optional: true
       xstate:
         optional: true
 
@@ -5579,8 +5576,8 @@ packages:
   xmlchars@2.2.0:
     resolution: {integrity: sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==}
 
-  xstate@4.38.3:
-    resolution: {integrity: sha512-SH7nAaaPQx57dx6qvfcIgqKRXIh4L0A1iYEqim4s1u7c9VoCgzZc+63FY90AKU4ZzOC2cfJzTnpO4zK7fCUzzw==}
+  xstate@5.21.0:
+    resolution: {integrity: sha512-y4wmqxjyAa0tgz4k3m/MgTF1kDOahE5+xLfWt5eh1sk+43DatLhKlI8lQDJZpvihZavjbD3TUgy2PRMphhhqgQ==}
 
   y18n@5.0.8:
     resolution: {integrity: sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==}
@@ -8843,13 +8840,13 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.11.1':
     optional: true
 
-  '@xstate/react@3.2.2(@types/react@19.1.13)(react@19.1.1)(xstate@4.38.3)':
+  '@xstate/react@6.0.0(@types/react@19.1.13)(react@19.1.1)(xstate@5.21.0)':
     dependencies:
       react: 19.1.1
       use-isomorphic-layout-effect: 1.2.1(@types/react@19.1.13)(react@19.1.1)
       use-sync-external-store: 1.5.0(react@19.1.1)
     optionalDependencies:
-      xstate: 4.38.3
+      xstate: 5.21.0
     transitivePeerDependencies:
       - '@types/react'
 
@@ -12671,7 +12668,7 @@ snapshots:
 
   xmlchars@2.2.0: {}
 
-  xstate@4.38.3: {}
+  xstate@5.21.0: {}
 
   y18n@5.0.8: {}
 

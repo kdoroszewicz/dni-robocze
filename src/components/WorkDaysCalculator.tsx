@@ -23,7 +23,7 @@ md:space-y-0"
           placeholder="Data początkowa"
           className="md:rounded-r-none"
           value={dateStart}
-          onChange={(newDate) => send("DATE_START", { value: newDate })}
+          onChange={(newDate) => send({ type: "DATE_START", value: newDate })}
         />
       </div>
       <div className="grid w-full flex-1 items-center gap-2">
@@ -35,7 +35,8 @@ md:space-y-0"
           placeholder="Wybierz ilość"
           value={workDays}
           onChange={(e) =>
-            send("WORK_DAYS", {
+            send({
+              type: "WORK_DAYS",
               value: isNaN(parseInt(e.target.value))
                 ? 0
                 : parseInt(e.target.value),
@@ -50,11 +51,11 @@ md:space-y-0"
           placeholder="Data końcowa"
           className="md:rounded-l-none md:border-l-0"
           value={dateEnd}
-          onChange={(newDate) => send("DATE_END", { value: newDate })}
+          onChange={(newDate) => send({ type: "DATE_END", value: newDate })}
         />
       </div>
       <Button
-        onClick={() => send("CLEAR")}
+        onClick={() => send({ type: "CLEAR" })}
         className="ml-2 w-full self-end bg-[linear-gradient(323.48deg,#0F365C_23.99%,#5989B7_111.59%)] p-4 text-sm font-bold leading-[21px] md:w-[93px]"
       >
         Wyczyść

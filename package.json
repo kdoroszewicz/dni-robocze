@@ -9,7 +9,7 @@
     "dev": "next dev --turbopack",
     "export": "next build && next export",
     "generate:sitemap": "next-sitemap",
-    "lint": "next lint",
+    "lint": "eslint .",
     "prepush": "next build && npm run generate:sitemap",
     "start": "next start",
     "test": "jest --watch",

@@ -14,17 +14,16 @@ const initialState: InitialState = {
   dateEnd: undefined,
 };
 
-export const workDaysMachine = createMachine<InitialState>({
-  schema: {
-    context: initialState,
+export const workDaysMachine = createMachine({
+  types: {
+    context: {} as InitialState,
     events: {} as
-      | { type: "DATE_START"; value: string }
-      | { type: "DATE_END"; value: string }
+      | { type: "DATE_START"; value: Date | undefined }
+      | { type: "DATE_END"; value: Date | undefined }
       | { type: "WORK_DAYS"; value: number }
       | { type: "CLEAR" },
   },
   id: "workDaysMachine",
-  predictableActionArguments: true,
   initial: "active",
   context: {
     ...initialState,
@@ -33,28 +32,31 @@ export const workDaysMachine = createMachine<InitialState>({
     active: {
       on: {
         DATE_START: {
-          actions: assign((context, event) => ({
+          actions: assign(({ context, event }) => ({
             ...context,
             dateStart: event.value,
-            workDays: context.dateEnd
-              ? getWorkDays(context.dateEnd, event.value)
-              : context.workDays,
-            dateEnd: context.workDays
-              ? abd(event.value, context.workDays)
-              : context.dateEnd,
+            workDays:
+              context.dateEnd && event.value
+                ? getWorkDays(context.dateEnd, event.value)
+                : context.workDays,
+            dateEnd:
+              context.workDays && event.value
+                ? abd(event.value, context.workDays)
+                : context.dateEnd,
           })),
         },
         DATE_END: {
-          actions: assign((context, event) => ({
+          actions: assign(({ context, event }) => ({
             ...context,
             dateEnd: event.value,
-            workDays: context.dateStart
-              ? getWorkDays(event.value, context.dateStart)
-              : context.workDays,
+            workDays:
+              context.dateStart && event.value
+                ? getWorkDays(event.value, context.dateStart)
+                : context.workDays,
           })),
         },
         WORK_DAYS: {
-          actions: assign((context, event) => ({
+          actions: assign(({ context, event }) => ({
             ...context,
             workDays: event.value,
             dateEnd: context.dateStart
@@ -63,7 +65,7 @@ export const workDaysMachine = createMachine<InitialState>({
           })),
         },
         CLEAR: {
-          actions: assign({ ...initialState }),
+          actions: assign(() => ({ ...initialState })),
         },
       },
     },

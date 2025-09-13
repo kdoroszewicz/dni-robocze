@@ -44,7 +44,7 @@ function Calendar({
           "h-9 w-9 p-0 font-normal aria-selected:opacity-100"
         ),
         day_selected:
-          "bg-[#0F365C] text-[#FFFFFF] text-xs leading-[18px] !font-bold hover:bg-[#0F365C] hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
+          "bg-[#0F365C] text-[#FFFFFF] text-xs leading-[18px] font-bold! hover:bg-[#0F365C] hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
         day_today: "bg-accent text-accent-foreground",
         day_outside: "text-muted-foreground opacity-50",
         day_disabled: "text-muted-foreground opacity-50",
@@ -54,8 +54,8 @@ function Calendar({
         ...classNames,
       }}
       components={{
-        IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
-        IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
+        IconLeft: () => <ChevronLeft className="h-4 w-4" />,
+        IconRight: () => <ChevronRight className="h-4 w-4" />,
       }}
       {...props}
     />

@@ -7,7 +7,7 @@ import LogoCitytaste from "../../public/citytaste-logo.jpg";
 const Recommended = ({ className }: HTMLAttributes<HTMLDivElement>) => {
   return (
     <div className={className}>
-      <h3 className="mb-6 text-center text-2xl font-extrabold leading-[29.05px] text-[#0F365C] md:text-[32px] md:leading-[38.73px]">
+      <h3 className="mb-6 text-center text-2xl leading-[29.05px] font-extrabold text-[#0F365C] md:text-[32px] md:leading-[38.73px]">
         Polecane strony
       </h3>
       <div className="mt-4 flex w-full flex-col items-center justify-center gap-4 px-6 lg:flex-row">

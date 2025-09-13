@@ -86,19 +86,19 @@ const Holiday = async ({ params }: Props) => {
         <Link href="/">
           <BackArrow />
         </Link>
-        <h1 className="text-4xl font-extrabold leading-[43.57px] md:text-[60px] md:leading-[60px]">
+        <h1 className="text-4xl leading-[43.57px] font-extrabold md:text-[60px] md:leading-[60px]">
           {holiday.name}
         </h1>
       </div>
       <div className="mt-10 rounded-[16px] bg-white p-4 text-xl text-[#0F365C] shadow-[20px_19px_50px_0px_#0057BC26] md:p-8">
         <div className="holiday-details-container flex flex-col items-start justify-start gap-x-6 md:flex-row">
           <div className="flex flex-col gap-y-2">
-            <span className="text-sm font-bold leading-[21px]">Kiedy</span>
+            <span className="text-sm leading-[21px] font-bold">Kiedy</span>
             <span className="text-2xl font-bold text-[#00BAFF]">
               {format(holiday.start, "dd.MM.yyyy")}
             </span>
           </div>
-          <div className="mt-6 flex flex-col gap-y-2 font-bold md:mt-0 ">
+          <div className="mt-6 flex flex-col gap-y-2 font-bold md:mt-0">
             <span className="block text-sm leading-[21px]">
               {holiday.name} to święto
             </span>
@@ -111,8 +111,8 @@ const Holiday = async ({ params }: Props) => {
           </section>
         ) : null}
       </div>
-      <div className="mb-[76px] mt-8">
-        <p className="mb-4 text-center text-2xl font-extrabold leading-[29.05px] text-[#0F365C]">
+      <div className="mt-8 mb-[76px]">
+        <p className="mb-4 text-center text-2xl leading-[29.05px] font-extrabold text-[#0F365C]">
           Zobacz inne święta
         </p>
         <div className="rounded-[16px] bg-white p-4 shadow-[20px_19px_50px_0px_#0057BC26]">
@@ -121,7 +121,7 @@ const Holiday = async ({ params }: Props) => {
               .filter((h) => h.name !== holiday.name)
               .map((h) => (
                 <li
-                  className="holiday-list-item w-min whitespace-nowrap rounded-[8px] border border-[#D1D5DB] px-4 py-2 text-base font-bold leading-[19.5px]"
+                  className="holiday-list-item w-min rounded-[8px] border border-[#D1D5DB] px-4 py-2 text-base leading-[19.5px] font-bold whitespace-nowrap"
                   key={h.name}
                 >
                   <Link className="" href={`/${getHolidaySlug(h.name)}`}>

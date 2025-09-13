@@ -14,8 +14,9 @@
     "start": "next start",
     "test": "jest --watch",
     "test:ci": "jest --ci",
+    "build:holidays": "pnpm holidays2json --pick PL --min",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "deploy": "pnpm build:holidays && opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "browserslist": {

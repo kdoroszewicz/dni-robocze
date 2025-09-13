@@ -12,6 +12,9 @@ importers:
 
   .:
     dependencies:
+      '@eslint/eslintrc':
+        specifier: ^3.3.1
+        version: 3.3.1
       '@mdx-js/loader':
         specifier: ^3.1.1
         version: 3.1.1

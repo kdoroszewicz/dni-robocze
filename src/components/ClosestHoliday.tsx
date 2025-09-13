@@ -35,7 +35,7 @@ const daysToHoliday = closestHoliday
     )
   : null;
 
-interface ClosestHoliday extends HTMLAttributes<HTMLHeadingElement> {}
+type ClosestHoliday = HTMLAttributes<HTMLHeadingElement>;
 
 const ClosestHoliday = ({ className }: ClosestHoliday) => {
   noStore();
@@ -48,13 +48,13 @@ const ClosestHoliday = ({ className }: ClosestHoliday) => {
     <h3
       data-freshness={new Date().toISOString()}
       className={cn(
-        "flex flex-col items-center gap-y-2 rounded-[14px] bg-transparent p-1 pl-2 text-center text-sm font-medium leading-[21px] text-[#0F365C] md:flex-row md:gap-x-2 md:gap-y-0 md:bg-[#E8F6FF]",
+        "flex flex-col items-center gap-y-2 rounded-[14px] bg-transparent p-1 pl-2 text-center text-sm leading-[21px] font-medium text-[#0F365C] md:flex-row md:gap-x-2 md:gap-y-0 md:bg-[#E8F6FF]",
         className
       )}
     >
       Najbliższe święto wolne od pracy za {daysToHoliday} dni to
       <Link
-        className="inline-flex shrink items-center justify-center rounded-[10px] bg-[#0F365C] px-3 py-[2px] text-xs font-medium leading-[18px] text-white"
+        className="inline-flex shrink items-center justify-center rounded-[10px] bg-[#0F365C] px-3 py-[2px] text-xs leading-[18px] font-medium text-white"
         href={`/${getHolidaySlug(closestHoliday.name)}`}
       >
         {closestHoliday.name}

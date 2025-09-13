@@ -1,10 +1,11 @@
+import { Metadata } from "next";
 import ClosestHoliday from "../components/ClosestHoliday";
 import Recommended from "../components/Recommended";
 import WorkDaysCalculator from "../components/WorkDaysCalculator";
 
 const currentYear: number = new Date().getFullYear();
 
-export const metadata = {
+export const metadata: Metadata = {
   title: `Kalkulator Dni Roboczych ${currentYear}`,
   description:
     "Dzięki kalkulatorowi dowiesz się ile jest dni roboczych pomiędzy dwoma podanymi datami lub kiedy wypada data końcowa od określonej liczby dni roboczych. Policz dni robocze!",
@@ -14,13 +15,13 @@ export const metadata = {
 const Page = () => {
   return (
     <>
-      <h1 className="mb-6 text-center text-4xl font-extrabold leading-[60px] text-[#0F365C] md:text-[60px]">
+      <h1 className="mb-6 text-center text-4xl leading-[60px] font-extrabold text-[#0F365C] md:text-[60px]">
         <span className="block text-4xl leading-8 -tracking-[1%] md:text-[32px]">
           Kalkulator
         </span>
         {`Dni Roboczych ${currentYear}`}
       </h1>
-      <p className="mb-6 text-center text-xl font-medium leading-[30px] text-[#0F365C]">
+      <p className="mb-6 text-center text-xl leading-[30px] font-medium text-[#0F365C]">
         Wypełnij 2 z 3 pól
       </p>
 
@@ -30,7 +31,7 @@ const Page = () => {
       </div>
       <Recommended className="mt-8" />
 
-      <div className="mb-[200px] mt-8 space-y-6 rounded-2xl bg-white p-4 text-base font-normal leading-[25.6px] text-[#0F365C] shadow-[20px_19px_50px_0px_#0057BC26]">
+      <div className="mt-8 mb-[200px] space-y-6 rounded-2xl bg-white p-4 text-base leading-[25.6px] font-normal text-[#0F365C] shadow-[20px_19px_50px_0px_#0057BC26]">
         <p>
           Kalkulator dni roboczych powstał aby w łatwy i szybki sposób można
           było wyliczyć wszystkie dni robocze w danym przedziale czasu. Dniami
@@ -40,7 +41,7 @@ const Page = () => {
           pracujących.
         </p>
         <div>
-          <h2 className="mb-2 text-2xl font-bold leading-[29.05px] text-[#0F365C]">
+          <h2 className="mb-2 text-2xl leading-[29.05px] font-bold text-[#0F365C]">
             Licznik dni roboczych
           </h2>
           <p>
@@ -59,7 +60,7 @@ const Page = () => {
           </p>
         </div>
         <div>
-          <h2 className="mb-2 text-2xl font-bold leading-[29.05px] text-[#0F365C]">
+          <h2 className="mb-2 text-2xl leading-[29.05px] font-bold text-[#0F365C]">
             Kalkulator dni pracujących
           </h2>
           <p>
@@ -71,7 +72,7 @@ const Page = () => {
           </p>
         </div>
         <div>
-          <h2 className="mb-2 text-2xl font-bold leading-[29.05px] text-[#0F365C]">
+          <h2 className="mb-2 text-2xl leading-[29.05px] font-bold text-[#0F365C]">
             Kalkulator Dni
           </h2>
           <p>

@@ -18,8 +18,8 @@ export const workDaysMachine = createMachine({
   types: {
     context: {} as InitialState,
     events: {} as
-      | { type: "DATE_START"; value: string }
-      | { type: "DATE_END"; value: string }
+      | { type: "DATE_START"; value: Date | undefined }
+      | { type: "DATE_END"; value: Date | undefined }
       | { type: "WORK_DAYS"; value: number }
       | { type: "CLEAR" },
   },
@@ -34,22 +34,25 @@ export const workDaysMachine = createMachine({
         DATE_START: {
           actions: assign(({ context, event }) => ({
             ...context,
-            dateStart: new Date(event.value),
-            workDays: context.dateEnd
-              ? getWorkDays(context.dateEnd, new Date(event.value))
-              : context.workDays,
-            dateEnd: context.workDays
-              ? abd(new Date(event.value), context.workDays)
-              : context.dateEnd,
+            dateStart: event.value,
+            workDays:
+              context.dateEnd && event.value
+                ? getWorkDays(context.dateEnd, event.value)
+                : context.workDays,
+            dateEnd:
+              context.workDays && event.value
+                ? abd(event.value, context.workDays)
+                : context.dateEnd,
           })),
         },
         DATE_END: {
           actions: assign(({ context, event }) => ({
             ...context,
-            dateEnd: new Date(event.value),
-            workDays: context.dateStart
-              ? getWorkDays(new Date(event.value), context.dateStart)
-              : context.workDays,
+            dateEnd: event.value,
+            workDays:
+              context.dateStart && event.value
+                ? getWorkDays(event.value, context.dateStart)
+                : context.workDays,
           })),
         },
         WORK_DAYS: {

@@ -27,7 +27,7 @@ export default async function PostPage({
   return (
     <main className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-4">
       <Link href="/blog" className="hover:underline">
-        ← Back to posts
+        ← Wróć do bloga
       </Link>
       {postImageUrl && (
         <img

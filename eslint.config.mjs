@@ -21,7 +21,6 @@ const eslintConfig = [
       "public/**",
       ".wrangler/**",
       ".open-next/**",
-
     ],
   },
   {

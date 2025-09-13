@@ -16,7 +16,7 @@ const Recommended = ({ className }: HTMLAttributes<HTMLDivElement>) => {
           href="https://citytaste.pl?utm_source=kdr&utm_medium=recommendation"
           title="CityTaste - Jedzenie i Podróże"
         >
-          <div className="flex h-[120.26px] overflow-hidden w-[310px] max-w-full items-center justify-center rounded-2xl border bg-white p-2 shadow-[20px_19px_50px_0px_#0057BC26]">
+          <div className="flex h-[120.26px] w-[310px] max-w-full items-center justify-center overflow-hidden rounded-2xl border bg-white p-2 shadow-[20px_19px_50px_0px_#0057BC26]">
             <Image
               className="min-w-[90%]"
               height={100}

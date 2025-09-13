@@ -17,9 +17,9 @@ import HolidayZieloneSwiatki from "../content/holidays/zielone-swiatki.mdx";
 const holidays = polishHolidays.getHolidays();
 
 type Props = {
-  params: Promise<{ holidaySlug: string }>
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
-}
+  params: Promise<{ holidaySlug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const holiday = await getHoliday(await params);
   const currentYear = new Date().getFullYear();

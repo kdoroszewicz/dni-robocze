@@ -19,7 +19,7 @@ export const getYearsRange = (date1: Date, date2: Date) => {
   const minYear = Math.min(date1Year, date2Year);
   const maxYear = Math.max(date1Year, date2Year);
 
-  let years = [];
+  const years = [];
   for (let i = minYear; i <= maxYear; i++) {
     years.push(i);
   }

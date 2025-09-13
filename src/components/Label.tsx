@@ -14,10 +14,7 @@ type LabelProps = React.ComponentPropsWithRef<typeof LabelPrimitive.Root> &
   VariantProps<typeof labelVariants>;
 
 const Label = ({ className, ...props }: LabelProps) => (
-  <LabelPrimitive.Root
-    className={cn(labelVariants(), className)}
-    {...props}
-  />
+  <LabelPrimitive.Root className={cn(labelVariants(), className)} {...props} />
 );
 
 Label.displayName = LabelPrimitive.Root.displayName;

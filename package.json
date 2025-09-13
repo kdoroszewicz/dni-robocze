@@ -1,6 +1,6 @@
 {
   "name": "dni-robocze",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "packageManager": "pnpm@10.16.0",
   "homepage": "https://kalkulatordniroboczych.pl/",
@@ -40,7 +40,6 @@
     "@radix-ui/react-label": "^2.1.1",
     "@radix-ui/react-popover": "^1.1.5",
     "@radix-ui/react-slot": "^1.1.1",
-    "@types/mdx": "^2.0.13",
     "@xstate/react": "^3.2.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -63,6 +62,7 @@
     "@testing-library/react": "^14.2.1",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
+    "@types/mdx": "^2.0.13",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "autoprefixer": "^10.4.19",

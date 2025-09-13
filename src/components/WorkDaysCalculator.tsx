@@ -55,7 +55,7 @@ md:space-y-0"
       </div>
       <Button
         onClick={() => send("CLEAR")}
-        className="ml-2 w-full self-end bg-[linear-gradient(323.48deg,_#0F365C_23.99%,_#5989B7_111.59%)] p-4 text-sm font-bold leading-[21px] md:w-[93px]"
+        className="ml-2 w-full self-end bg-[linear-gradient(323.48deg,#0F365C_23.99%,#5989B7_111.59%)] p-4 text-sm font-bold leading-[21px] md:w-[93px]"
       >
         Wyczyść
       </Button>

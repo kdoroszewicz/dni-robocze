@@ -39,3 +39,6 @@ out
 
 # Cloudflare
 .wrangler
+
+# OpenNext
+.open-next

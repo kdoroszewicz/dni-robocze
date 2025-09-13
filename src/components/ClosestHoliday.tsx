@@ -1,5 +1,5 @@
 import { differenceInCalendarDays } from "date-fns";
-import { utcToZonedTime } from "date-fns-tz";
+import { toZonedTime } from "date-fns-tz";
 import Link from "./Link";
 import { getHolidaySlug } from "../services/utils";
 import { polishHolidays } from "../workDaysUtils";
@@ -30,8 +30,8 @@ const closestHoliday = getClosestHoliday();
 
 const daysToHoliday = closestHoliday
   ? differenceInCalendarDays(
-      utcToZonedTime(closestHoliday.start, "Europe/Warsaw"),
-      utcToZonedTime(new Date(), "Europe/Warsaw")
+      toZonedTime(closestHoliday.start, "Europe/Warsaw"),
+      toZonedTime(new Date(), "Europe/Warsaw")
     )
   : null;
 

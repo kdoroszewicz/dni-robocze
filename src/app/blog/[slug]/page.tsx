@@ -4,6 +4,12 @@ import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { client } from "@/lib/sanity/client";
 import Link from "next/link";
 import Image from "next/image";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Metadata } from "next";
 import { format } from "date-fns";
 import { pl } from "date-fns/locale";
@@ -67,16 +73,17 @@ export default async function PostPage({
         </div>
       </article>
 
-      {Array.isArray(post.faq) ? (
-        <section>
-          <header>FAQ</header>
-          {post.faq.map((faqEntry) => {
-            return (
-              <div key={faqEntry._key}>
-                {faqEntry.question}: {faqEntry.answer}
-              </div>
-            );
-          })}
+      {Array.isArray(post.faq) && post.faq.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-6 shadow-md">
+          <h2 className="mb-4 text-2xl font-bold">FAQ</h2>
+          <Accordion type="single" collapsible className="w-full">
+            {post.faq.map((faqEntry) => (
+              <AccordionItem key={faqEntry._key} value={faqEntry._key}>
+                <AccordionTrigger>{faqEntry.question}</AccordionTrigger>
+                <AccordionContent>{faqEntry.answer}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </section>
       ) : null}
     </main>

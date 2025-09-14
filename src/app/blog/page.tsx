@@ -28,6 +28,12 @@ export default async function IndexPage() {
 
   return (
     <main className="container mx-auto min-h-screen max-w-3xl p-8">
+      <Link
+        href="/"
+        className="mb-4 inline-block text-sm text-gray-600 hover:underline"
+      >
+        ← Powrót do strony głównej
+      </Link>
       <h1 className="mb-8 text-center text-4xl leading-[60px] font-extrabold text-[#0F365C] md:text-[60px]">
         <span className="block text-4xl leading-8 -tracking-[1%] md:text-[32px]">
           Blog

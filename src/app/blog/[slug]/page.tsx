@@ -5,6 +5,8 @@ import { client } from "@/lib/sanity/client";
 import Link from "next/link";
 import Image from "next/image";
 import { Metadata } from "next";
+import { format } from "date-fns";
+import { pl } from "date-fns/locale";
 
 export const metadata: Metadata = {
   title: "Blog KDR",
@@ -32,7 +34,7 @@ export default async function PostPage({
     options
   );
   const postImageUrl = post.image
-    ? urlFor(post.image)?.width(550).height(310).url()
+    ? urlFor(post.image)?.width(1600).height(900).auto("format").url()
     : null;
 
   return (
@@ -40,20 +42,31 @@ export default async function PostPage({
       <Link href="/blog" className="hover:underline">
         ← Wróć do bloga
       </Link>
-      {postImageUrl && (
-        <Image
-          src={postImageUrl}
-          alt={post.title}
-          className="aspect-video rounded-xl"
-          width="550"
-          height="310"
-        />
-      )}
-      <h1 className="mb-8 text-4xl font-bold">{post.title}</h1>
-      <div className="prose">
-        <p>Published: {new Date(post.publishedAt).toLocaleDateString()}</p>
-        {Array.isArray(post.body) && <PortableText value={post.body} />}
-      </div>
+
+      <article className="rounded-lg border border-gray-200 bg-white p-6 shadow-md">
+        {postImageUrl && (
+          <div className="relative aspect-video w-full overflow-hidden rounded-xl">
+            <Image
+              src={postImageUrl}
+              alt={post.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 700px"
+            />
+          </div>
+        )}
+
+        <h1 className="mt-4 mb-2 text-4xl font-bold">{post.title}</h1>
+
+        <p className="text-sm text-gray-500">
+          {format(new Date(post.publishedAt), "d MMMM yyyy", { locale: pl })}
+        </p>
+
+        <div className="prose mt-4">
+          {Array.isArray(post.body) && <PortableText value={post.body} />}
+        </div>
+      </article>
+
       {Array.isArray(post.faq) ? (
         <section>
           <header>FAQ</header>

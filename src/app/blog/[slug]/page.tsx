@@ -13,6 +13,8 @@ import {
 import { Metadata } from "next";
 import { format } from "date-fns";
 import { pl } from "date-fns/locale";
+import { JsonLd } from "@/components/JsonLd";
+import type { BlogPosting, FAQPage, Question, WithContext } from "schema-dts";
 
 export const metadata: Metadata = {
   title: "Blog KDR",
@@ -43,8 +45,42 @@ export default async function PostPage({
     ? urlFor(post.image)?.width(1600).height(900).auto("format").url()
     : null;
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    datePublished: post.publishedAt,
+    image: postImageUrl ? [postImageUrl] : [],
+    author: {
+      "@type": "Organization",
+      name: "Kalkulator Dni Roboczych",
+      url: "https://kalkulatordniroboczych.pl",
+    },
+  } satisfies WithContext<BlogPosting>;
+
+  const faqSchema =
+    post.faq && post.faq.length > 0
+      ? ({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: post.faq.map(
+            (faqEntry: { _key: string; question: string; answer: string }) =>
+              ({
+                "@type": "Question",
+                name: faqEntry.question,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: faqEntry.answer,
+                },
+              }) satisfies Question
+          ),
+        } satisfies WithContext<FAQPage>)
+      : null;
+
   return (
     <main className="container mx-auto flex min-h-screen max-w-3xl flex-col gap-4 p-8">
+      <JsonLd data={articleSchema} />
+      {faqSchema && <JsonLd data={faqSchema} />}
       <Link href="/blog" className="hover:underline">
         ← Wróć do bloga
       </Link>
@@ -77,12 +113,18 @@ export default async function PostPage({
         <section className="rounded-lg border border-gray-200 bg-white p-6 shadow-md">
           <h2 className="mb-4 text-2xl font-bold">FAQ</h2>
           <Accordion type="single" collapsible className="w-full">
-            {post.faq.map((faqEntry) => (
-              <AccordionItem key={faqEntry._key} value={faqEntry._key}>
-                <AccordionTrigger>{faqEntry.question}</AccordionTrigger>
-                <AccordionContent>{faqEntry.answer}</AccordionContent>
-              </AccordionItem>
-            ))}
+            {post.faq.map(
+              (faqEntry: {
+                _key: string;
+                question: string;
+                answer: string;
+              }) => (
+                <AccordionItem key={faqEntry._key} value={faqEntry._key}>
+                  <AccordionTrigger>{faqEntry.question}</AccordionTrigger>
+                  <AccordionContent>{faqEntry.answer}</AccordionContent>
+                </AccordionItem>
+              )
+            )}
           </Accordion>
         </section>
       ) : null}

@@ -48,6 +48,18 @@ export default async function PostPage({
         <p>Published: {new Date(post.publishedAt).toLocaleDateString()}</p>
         {Array.isArray(post.body) && <PortableText value={post.body} />}
       </div>
+      {Array.isArray(post.faq) ? (
+        <section>
+          <header>FAQ</header>
+          {post.faq.map((faqEntry) => {
+            return (
+              <div key={faqEntry._key}>
+                {faqEntry.question}: {faqEntry.answer}
+              </div>
+            );
+          })}
+        </section>
+      ) : null}
     </main>
   );
 }

@@ -3,6 +3,16 @@ import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { client } from "@/lib/sanity/client";
 import Link from "next/link";
+import {
+  BlockQuote,
+  H1,
+  H2,
+  H3,
+  H4,
+  P,
+  List,
+  InlineCode,
+} from "@/components/ui/typography";
 import Image from "next/image";
 import {
   Accordion,
@@ -104,8 +114,30 @@ export default async function PostPage({
           {format(new Date(post.publishedAt), "d MMMM yyyy", { locale: pl })}
         </p>
 
-        <div className="prose mt-4">
-          {Array.isArray(post.body) && <PortableText value={post.body} />}
+        <div className="mt-4">
+          {Array.isArray(post.body) && (
+            <PortableText
+              value={post.body}
+              components={{
+                block: {
+                  h1: ({ children }) => <H1>{children}</H1>,
+                  h2: ({ children }) => <H2>{children}</H2>,
+                  h3: ({ children }) => <H3>{children}</H3>,
+                  h4: ({ children }) => <H4>{children}</H4>,
+                  normal: ({ children }) => <P>{children}</P>,
+                  blockquote: ({ children }) => (
+                    <BlockQuote>{children}</BlockQuote>
+                  ),
+                },
+                list: {
+                  bullet: ({ children }) => <List>{children}</List>,
+                },
+                marks: {
+                  code: ({ children }) => <InlineCode>{children}</InlineCode>,
+                },
+              }}
+            />
+          )}
         </div>
       </article>
 

@@ -4,6 +4,12 @@ import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { client } from "@/lib/sanity/client";
 import Link from "next/link";
 import Image from "next/image";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blog KDR",
+  robots: "noindex",
+};
 
 const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
 

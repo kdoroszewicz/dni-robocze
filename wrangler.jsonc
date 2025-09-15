@@ -15,6 +15,10 @@
   "observability": {
     "enabled": true,
   },
+  "vars": {
+    "NEXT_PUBLIC_GA_TRACKING_ID": "G-PK0QP6F1YD",
+    "NEXT_PUBLIC_GOOGLE_ADSENSE": "ca-pub-8204887027170024",
+  },
   "routes": [
     {
       "pattern": "kalkulatordniroboczych.pl",

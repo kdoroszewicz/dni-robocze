@@ -26,12 +26,28 @@ import { pl } from "date-fns/locale";
 import { JsonLd } from "@/components/JsonLd";
 import type { BlogPosting, FAQPage, Question, WithContext } from "schema-dts";
 
-export const metadata: Metadata = {
-  title: "Blog KDR",
-  robots: "noindex",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const post = await client.fetch<SanityDocument>(
+    POST_QUERY,
+    await params,
+    options
+  );
 
-const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
+  return {
+    title: `${post.title} - Kalkulator Dni Roboczych`,
+    description:
+      post.excerpt || "Przeczytaj artykuł na blogu Kalkulatora Dni Roboczych",
+  };
+}
+
+const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
+  ...,
+  "excerpt": array::join(string::split(pt::text(body), ". ")[0..0], ". ")
+}`;
 
 const { projectId, dataset } = client.config();
 const urlFor = (source: SanityImageSource) =>

@@ -46,7 +46,11 @@ export async function generateMetadata({
 
 const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
   ...,
-  "excerpt": array::join(string::split(pt::text(body), ". ")[0..0], ". ")
+  "excerpt": array::join(string::split(pt::text(body), ". ")[0..0], ". "),
+  "latestPosts": *[_type == "post" && publishedAt < now() && slug.current != $slug] | order(publishedAt desc)[0...3]{
+    title,
+    slug
+  }
 }`;
 
 const { projectId, dataset } = client.config();
@@ -176,6 +180,25 @@ export default async function PostPage({
           </Accordion>
         </section>
       ) : null}
+
+      <section className="rounded-lg border border-gray-200 bg-white p-6 shadow-md">
+        <h2 className="mb-4 text-2xl font-bold">Najnowsze artykuły</h2>
+        {post.latestPosts && (
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            {post.latestPosts.map(
+              (latestPost: { title: string; slug: { current: string } }) => (
+                <Link
+                  key={latestPost.slug.current}
+                  href={`/blog/${latestPost.slug.current}`}
+                  className="rounded-lg border border-gray-100 p-4 shadow-sm transition-shadow hover:shadow-md"
+                >
+                  <h3 className="text-lg font-semibold">{latestPost.title}</h3>
+                </Link>
+              )
+            )}
+          </div>
+        )}
+      </section>
     </main>
   );
 }

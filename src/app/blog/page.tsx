@@ -7,8 +7,9 @@ import { client } from "@/lib/sanity/client";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Blog KDR",
-  robots: "noindex",
+  title: "Blog Kalkulator Dni Roboczych",
+  description:
+    "Na blogu znajdziesz praktyczne informacje dotyczące dni roboczych, planowania pracy oraz ciekawostki związane z kalendarzem. Sprawdź nasze najnowsze wpisy!",
 };
 
 const POSTS_QUERY = `*[

@@ -33,6 +33,16 @@ const Page = () => {
       </div>
       <Recommended className="mt-8" />
 
+      <div className="mt-8 mb-8 flex justify-center">
+        <Link
+          href="/blog"
+          className="inline-flex items-center gap-2 rounded-lg bg-[#0F365C] px-8 py-4 font-medium text-white transition-colors hover:bg-[#0057BC]"
+        >
+          Zobacz najnowsze wpisy na blogu
+          <ArrowRight className="h-5 w-5" />
+        </Link>
+      </div>
+
       <div className="mt-8 mb-[50px] space-y-6 rounded-2xl bg-white p-4 text-base leading-[25.6px] font-normal text-[#0F365C] shadow-[20px_19px_50px_0px_#0057BC26]">
         <p>
           Kalkulator dni roboczych powstał aby w łatwy i szybki sposób można
@@ -89,16 +99,6 @@ const Page = () => {
             programy komputerowe lub aplikacje mobilne.
           </p>
         </div>
-      </div>
-
-      <div className="mb-[50px] flex justify-center">
-        <Link
-          href="/blog"
-          className="inline-flex items-center gap-2 rounded-lg bg-[#0F365C] px-8 py-4 font-medium text-white transition-colors hover:bg-[#0057BC]"
-        >
-          Zobacz najnowsze wpisy na blogu
-          <ArrowRight className="h-5 w-5" />
-        </Link>
       </div>
     </>
   );

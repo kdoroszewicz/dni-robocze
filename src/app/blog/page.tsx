@@ -96,51 +96,57 @@ export default async function IndexPage({
       {totalCount > POSTS_PER_PAGE && (
         <div className="mt-8">
           <Pagination>
-            <PaginationContent>
-              {page > 1 && (
-                <PaginationItem>
-                  <PaginationPrevious href={`/blog?page=${page - 1}`} />
-                </PaginationItem>
-              )}
+            <PaginationContent className="grid min-w-[300px] grid-cols-[1fr_auto_1fr] items-center gap-4">
+              <div className="flex justify-start">
+                {page > 1 && (
+                  <PaginationItem>
+                    <PaginationPrevious href={`/blog?page=${page - 1}`} />
+                  </PaginationItem>
+                )}
+              </div>
 
-              {[...Array(Math.ceil(totalCount / POSTS_PER_PAGE))].map(
-                (_, i) => {
-                  const pageNumber = i + 1;
-                  // Show first page, last page, and pages around current page
-                  if (
-                    pageNumber === 1 ||
-                    pageNumber === Math.ceil(totalCount / POSTS_PER_PAGE) ||
-                    (pageNumber >= page - 1 && pageNumber <= page + 1)
-                  ) {
-                    return (
-                      <PaginationItem key={pageNumber}>
-                        <PaginationLink
-                          href={`/blog?page=${pageNumber}`}
-                          isActive={pageNumber === page}
-                        >
-                          {pageNumber}
-                        </PaginationLink>
-                      </PaginationItem>
-                    );
-                  } else if (
-                    pageNumber === page - 2 ||
-                    pageNumber === page + 2
-                  ) {
-                    return (
-                      <PaginationItem key={pageNumber}>
-                        <PaginationEllipsis />
-                      </PaginationItem>
-                    );
+              <div className="flex items-center justify-center gap-1">
+                {[...Array(Math.ceil(totalCount / POSTS_PER_PAGE))].map(
+                  (_, i) => {
+                    const pageNumber = i + 1;
+                    // Show first page, last page, and pages around current page
+                    if (
+                      pageNumber === 1 ||
+                      pageNumber === Math.ceil(totalCount / POSTS_PER_PAGE) ||
+                      (pageNumber >= page - 1 && pageNumber <= page + 1)
+                    ) {
+                      return (
+                        <PaginationItem key={pageNumber}>
+                          <PaginationLink
+                            href={`/blog?page=${pageNumber}`}
+                            isActive={pageNumber === page}
+                          >
+                            {pageNumber}
+                          </PaginationLink>
+                        </PaginationItem>
+                      );
+                    } else if (
+                      pageNumber === page - 2 ||
+                      pageNumber === page + 2
+                    ) {
+                      return (
+                        <PaginationItem key={pageNumber}>
+                          <PaginationEllipsis />
+                        </PaginationItem>
+                      );
+                    }
+                    return null;
                   }
-                  return null;
-                }
-              )}
+                )}
+              </div>
 
-              {page < Math.ceil(totalCount / POSTS_PER_PAGE) && (
-                <PaginationItem>
-                  <PaginationNext href={`/blog?page=${page + 1}`} />
-                </PaginationItem>
-              )}
+              <div className="flex justify-end">
+                {page < Math.ceil(totalCount / POSTS_PER_PAGE) && (
+                  <PaginationItem>
+                    <PaginationNext href={`/blog?page=${page + 1}`} />
+                  </PaginationItem>
+                )}
+              </div>
             </PaginationContent>
           </Pagination>
         </div>

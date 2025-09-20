@@ -25,13 +25,9 @@ const POSTS_PER_PAGE = 5;
 
 const options = { next: { revalidate: 30 } };
 
-export default async function IndexPage({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
-  const page =
-    typeof searchParams.page === "string" ? parseInt(searchParams.page) : 1;
+export default async function IndexPage({ searchParams }: PageProps<"/blog">) {
+  const params = await searchParams;
+  const page = typeof params.page === "string" ? parseInt(params.page) : 1;
   const start = (page - 1) * POSTS_PER_PAGE;
   const end = start + POSTS_PER_PAGE;
 

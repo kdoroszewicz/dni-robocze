@@ -23,30 +23,27 @@ export const metadata: Metadata = {
 
 const POSTS_PER_PAGE = 5;
 
-const options = { next: { revalidate: 30 } };
-
 export default async function IndexPage({ searchParams }: PageProps<"/blog">) {
   const params = await searchParams;
   const page = typeof params.page === "string" ? parseInt(params.page) : 1;
   const start = (page - 1) * POSTS_PER_PAGE;
-  const end = start + POSTS_PER_PAGE;
 
   const [posts, totalCount] = await Promise.all([
     client.fetch<SanityDocument[]>(
-      `*[_type == "post" && defined(slug.current)]|order(publishedAt desc)[$start...$end]{
+      `*[_type == "post" && defined(slug.current)] | order(publishedAt desc) [${start}...${start + POSTS_PER_PAGE}]{
         _id,
         title,
         slug,
         publishedAt,
         "excerpt": array::join(string::split(pt::text(body), "")[0..199], "")
       }`,
-      { start, end },
-      options
+      {},
+      { next: { revalidate: 30 } }
     ),
     client.fetch<number>(
       `count(*[_type == "post" && defined(slug.current)])`,
       {},
-      options
+      { next: { revalidate: 30 } }
     ),
   ]);
 

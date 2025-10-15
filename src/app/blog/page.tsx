@@ -23,6 +23,8 @@ export const metadata: Metadata = {
 
 const POSTS_PER_PAGE = 5;
 
+export const revalidate = 300;
+
 export default async function IndexPage({ searchParams }: PageProps<"/blog">) {
   const params = await searchParams;
   const page = typeof params.page === "string" ? parseInt(params.page) : 1;
@@ -36,15 +38,9 @@ export default async function IndexPage({ searchParams }: PageProps<"/blog">) {
         slug,
         publishedAt,
         "excerpt": array::join(string::split(pt::text(body), "")[0..199], "")
-      }`,
-      {},
-      { next: { revalidate: 30 } }
+      }`
     ),
-    client.fetch<number>(
-      `count(*[_type == "post" && defined(slug.current)])`,
-      {},
-      { next: { revalidate: 30 } }
-    ),
+    client.fetch<number>(`count(*[_type == "post" && defined(slug.current)])`),
   ]);
 
   return (

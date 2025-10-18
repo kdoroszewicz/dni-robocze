@@ -1,0 +1,46 @@
+name: Manual Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy on demand
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      NEXT_PUBLIC_GA_TRACKING_ID: ${{ vars.NEXT_PUBLIC_GA_TRACKING_ID }}
+      NEXT_PUBLIC_GOOGLE_ADSENSE: ${{ vars.NEXT_PUBLIC_GOOGLE_ADSENSE }}
+      SANITY_PROJECT_ID: ${{ secrets.SANITY_PROJECT_ID }}
+      SANITY_DATASET: ${{ secrets.SANITY_DATASET }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.19.0
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.16.0
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Create environment file
+        run: |
+          cat <<EOT > .env
+          NEXT_PUBLIC_GA_TRACKING_ID=${NEXT_PUBLIC_GA_TRACKING_ID}
+          NEXT_PUBLIC_GOOGLE_ADSENSE=${NEXT_PUBLIC_GOOGLE_ADSENSE}
+          SANITY_PROJECT_ID=${SANITY_PROJECT_ID}
+          SANITY_DATASET=${SANITY_DATASET}
+          EOT
+
+      - name: Deploy
+        run: pnpm run deploy

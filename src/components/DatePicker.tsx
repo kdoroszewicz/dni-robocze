@@ -1,6 +1,4 @@
 import { format, isValid, parse } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
-
 import { cn } from "@/lib/utils";
 import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
 
@@ -75,17 +73,14 @@ export function DatePicker({
   return (
     <div
       className={cn(
-        "relative flex h-[50px] min-w-0 items-center rounded-lg border border-[#D1D5DB] bg-white pl-10 pr-4 text-base leading-[22px] focus-within:border-2 focus-within:border-[#0F365C]",
+        "relative flex h-[50px] min-w-0 items-center rounded-lg border border-[#D1D5DB] bg-white px-4 text-base leading-[22px] focus-within:border-2 focus-within:border-[#0F365C]",
         className
       )}
     >
-      <div className="pointer-events-none absolute left-3 top-1/2 z-20 -translate-y-1/2 text-muted-foreground">
-        <CalendarIcon className="h-4 w-4" />
-      </div>
       {shouldUseCustomPlaceholder && !inputValue && !isFocused && (
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute left-10 right-4 top-1/2 -translate-y-1/2 text-base text-muted-foreground"
+          className="pointer-events-none absolute left-4 right-4 top-1/2 -translate-y-1/2 text-base text-muted-foreground"
         >
           {placeholder}
         </span>

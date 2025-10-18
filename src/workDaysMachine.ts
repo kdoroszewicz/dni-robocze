@@ -3,7 +3,7 @@ import { assign, createMachine } from "xstate";
 import { getWorkDays } from "./workDaysUtils";
 
 interface InitialState {
-  workDays: number;
+  workDays: number | undefined;
   dateStart: Date | undefined;
   dateEnd: Date | undefined;
 }
@@ -20,7 +20,7 @@ export const workDaysMachine = createMachine({
     events: {} as
       | { type: "DATE_START"; value: Date | undefined }
       | { type: "DATE_END"; value: Date | undefined }
-      | { type: "WORK_DAYS"; value: number }
+      | { type: "WORK_DAYS"; value: number | undefined }
       | { type: "CLEAR" },
   },
   id: "workDaysMachine",
@@ -59,9 +59,12 @@ export const workDaysMachine = createMachine({
           actions: assign(({ context, event }) => ({
             ...context,
             workDays: event.value,
-            dateEnd: context.dateStart
-              ? abd(context.dateStart, event.value)
-              : context.dateEnd,
+            dateEnd:
+              typeof event.value === "number"
+                ? context.dateStart
+                  ? abd(context.dateStart, event.value)
+                  : context.dateEnd
+                : undefined,
           })),
         },
         CLEAR: {

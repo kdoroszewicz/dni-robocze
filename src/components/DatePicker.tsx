@@ -3,7 +3,6 @@ import { Calendar as CalendarIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
-import { Input } from "./Input";
 
 interface DatePickerProps {
   id: string;
@@ -75,9 +74,12 @@ export function DatePicker({
 
   return (
     <div
-      className={cn("input-group relative flex h-[50px] min-w-0 items-center")}
+      className={cn(
+        "relative flex h-[50px] min-w-0 items-center rounded-lg border border-[#D1D5DB] bg-white pl-10 pr-4 text-base leading-[22px] focus-within:border-2 focus-within:border-[#0F365C]",
+        className
+      )}
     >
-      <div className="pointer-events-none absolute left-0 z-20 py-4 pl-4">
+      <div className="pointer-events-none absolute left-3 top-1/2 z-20 -translate-y-1/2 text-muted-foreground">
         <CalendarIcon className="h-4 w-4" />
       </div>
       {shouldUseCustomPlaceholder && !inputValue && !isFocused && (
@@ -88,13 +90,10 @@ export function DatePicker({
           {placeholder}
         </span>
       )}
-      <Input
+      <input
         id={id}
         type="date"
-        className={cn(
-          "h-[50px] min-w-0 rounded-lg border border-[#D1D5DB] bg-white pl-10 text-base leading-[22px] focus-within:ring-offset-0 focus:border-2 focus:border-[#0F365C] focus-visible:ring-0",
-          className
-        )}
+        className="h-full w-full border-none bg-transparent p-0 text-base leading-[22px] outline-none focus:outline-none focus-visible:outline-none"
         placeholder={placeholder}
         value={inputValue}
         onChange={handleInputValueChange}

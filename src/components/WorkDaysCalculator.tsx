@@ -20,6 +20,7 @@ const WorkDaysCalculator = () => {
           placeholder="Data początkowa"
           className="md:rounded-r-none"
           value={dateStart}
+          max={dateEnd}
           onChange={(newDate) => send({ type: "DATE_START", value: newDate })}
         />
       </div>
@@ -53,6 +54,7 @@ const WorkDaysCalculator = () => {
           placeholder="Data końcowa"
           className="md:rounded-l-none md:border-l-0"
           value={dateEnd}
+          min={dateStart}
           onChange={(newDate) => send({ type: "DATE_END", value: newDate })}
         />
       </div>

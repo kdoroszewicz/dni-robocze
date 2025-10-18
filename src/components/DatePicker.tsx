@@ -7,14 +7,26 @@ interface DatePickerProps {
   placeholder: string;
   className: string;
   value: Date | undefined;
+  min?: Date;
+  max?: Date;
   onChange: (newDate: Date | undefined) => void;
 }
+
+const DATE_INPUT_FORMAT = "yyyy-MM-dd";
+
+const formatDateValue = (date: Date | undefined) =>
+  date && isValid(date) ? format(date, DATE_INPUT_FORMAT) : "";
+
+const formatDateAttribute = (date: Date | undefined) =>
+  date && isValid(date) ? format(date, DATE_INPUT_FORMAT) : undefined;
 
 export function DatePicker({
   id,
   className,
   placeholder,
   value,
+  min,
+  max,
   onChange,
 }: DatePickerProps) {
   const [inputValue, setInputValue] = useState("");
@@ -23,11 +35,7 @@ export function DatePicker({
     useState(false);
 
   useEffect(() => {
-    if (value) {
-      setInputValue(format(value, "yyyy-MM-dd"));
-    } else {
-      setInputValue("");
-    }
+    setInputValue(formatDateValue(value));
   }, [value]);
 
   useEffect(() => {
@@ -55,7 +63,7 @@ export function DatePicker({
 
     const dateValue = parse(e.target.value, "yyyy-MM-dd", new Date());
 
-    if (isValid(dateValue)) {
+    if (e.target.validity.valid && isValid(dateValue)) {
       onChange(dateValue);
     }
   };
@@ -67,8 +75,16 @@ export function DatePicker({
 
     if (!event.target.value) {
       onChange(undefined);
+      return;
+    }
+
+    if (!event.target.validity.valid) {
+      setInputValue(formatDateValue(value));
     }
   };
+
+  const minValue = formatDateAttribute(min);
+  const maxValue = formatDateAttribute(max);
 
   return (
     <div
@@ -91,6 +107,8 @@ export function DatePicker({
         className="h-full w-full border-none bg-transparent p-0 text-base leading-[22px] outline-none focus:outline-none focus-visible:outline-none"
         placeholder={placeholder}
         value={inputValue}
+        min={minValue}
+        max={maxValue}
         onChange={handleInputValueChange}
         onFocus={handleFocus}
         onBlur={handleBlur}

@@ -44,7 +44,7 @@ export default async function IndexPage({ searchParams }: PageProps<"/blog">) {
   ]);
 
   return (
-    <main className="container mx-auto min-h-screen max-w-3xl p-8">
+    <main className="flex min-h-screen flex-col pb-20 pt-8">
       <Link
         href="/"
         className="mb-4 inline-block text-sm text-gray-600 hover:underline"

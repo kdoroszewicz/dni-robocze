@@ -108,7 +108,7 @@ export default async function PostPage({
       : null;
 
   return (
-    <main className="container mx-auto flex min-h-screen max-w-3xl flex-col gap-4 p-8">
+    <main className="flex min-h-screen flex-col gap-4 pb-20 pt-8">
       <JsonLd data={articleSchema} />
       {faqSchema && <JsonLd data={faqSchema} />}
       <Link href="/blog" className="hover:underline">

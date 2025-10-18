@@ -1,17 +1,50 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+
 import ClosestHoliday from "../components/ClosestHoliday";
 import Recommended from "../components/Recommended";
 import WorkDaysCalculator from "../components/WorkDaysCalculator";
+import {
+  DEFAULT_KEYWORDS,
+  DEFAULT_OG_IMAGE,
+  SITE_NAME,
+} from "@/lib/siteMetadata";
 
 const currentYear: number = new Date().getFullYear();
 
+const pageTitle = `Kalkulator Dni Roboczych ${currentYear}`;
+const pageDescription =
+  "Skorzystaj z kalkulatora dni roboczych, aby policzyć liczbę dni pracy pomiędzy dowolnymi datami lub wyznaczyć termin zakończenia odliczając dni robocze.";
+
 export const metadata: Metadata = {
-  title: `Kalkulator Dni Roboczych ${currentYear}`,
-  description:
-    "Dzięki kalkulatorowi dowiesz się ile jest dni roboczych pomiędzy dwoma podanymi datami lub kiedy wypada data końcowa od określonej liczby dni roboczych. Policz dni robocze!",
-  robots: "index, follow",
+  title: { absolute: pageTitle },
+  description: pageDescription,
+  keywords: [...DEFAULT_KEYWORDS, `dni robocze ${currentYear}`],
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: "/",
+    title: pageTitle,
+    description: pageDescription,
+    siteName: SITE_NAME,
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE,
+        width: 512,
+        height: 512,
+        alt: SITE_NAME,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: pageTitle,
+    description: pageDescription,
+    images: [DEFAULT_OG_IMAGE],
+  },
 };
 
 const Page = () => {

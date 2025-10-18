@@ -1,10 +1,15 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { type SanityDocument } from "next-sanity";
 import { format } from "date-fns";
 import { pl } from "date-fns/locale";
 
 import { client } from "@/lib/sanity/client";
-import { Metadata } from "next";
+import {
+  DEFAULT_KEYWORDS,
+  DEFAULT_OG_IMAGE,
+  SITE_NAME,
+} from "@/lib/siteMetadata";
 import {
   Pagination,
   PaginationContent,
@@ -15,10 +20,38 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
+const pageTitle = "Blog Kalkulator Dni Roboczych";
+const pageDescription =
+  "Na blogu znajdziesz praktyczne informacje dotyczące dni roboczych, planowania pracy oraz ciekawostki związane z kalendarzem. Sprawdź nasze najnowsze wpisy!";
+
 export const metadata: Metadata = {
-  title: "Blog Kalkulator Dni Roboczych",
-  description:
-    "Na blogu znajdziesz praktyczne informacje dotyczące dni roboczych, planowania pracy oraz ciekawostki związane z kalendarzem. Sprawdź nasze najnowsze wpisy!",
+  title: { absolute: pageTitle },
+  description: pageDescription,
+  keywords: [...DEFAULT_KEYWORDS, "blog dni roboczych", "porady o pracy"],
+  alternates: {
+    canonical: "/blog",
+  },
+  openGraph: {
+    type: "website",
+    url: "/blog",
+    title: pageTitle,
+    description: pageDescription,
+    siteName: SITE_NAME,
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE,
+        width: 512,
+        height: 512,
+        alt: SITE_NAME,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: pageTitle,
+    description: pageDescription,
+    images: [DEFAULT_OG_IMAGE],
+  },
 };
 
 const POSTS_PER_PAGE = 5;
@@ -98,7 +131,6 @@ export default async function IndexPage({ searchParams }: PageProps<"/blog">) {
                 {[...Array(Math.ceil(totalCount / POSTS_PER_PAGE))].map(
                   (_, i) => {
                     const pageNumber = i + 1;
-                    // Show first page, last page, and pages around current page
                     if (
                       pageNumber === 1 ||
                       pageNumber === Math.ceil(totalCount / POSTS_PER_PAGE) ||

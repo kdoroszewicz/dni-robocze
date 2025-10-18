@@ -27,18 +27,23 @@ const WorkDaysCalculator = () => {
         <Label htmlFor="work-days">Dni robocze</Label>
         <Input
           className="h-[50px] border-[#D1D5DB] focus:border-2 focus:border-[#0F365C] focus-visible:ring-0 md:rounded-l-none md:rounded-r-none md:border-l-0"
-          type="work-days"
+          type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
           id="work-days"
           placeholder="Wybierz ilość"
-          value={workDays}
-          onChange={(e) =>
+          value={workDays ?? ""}
+          onFocus={(e) => e.target.select()}
+          onChange={(e) => {
+            const rawValue = e.target.value;
+            const parsedValue =
+              rawValue === "" ? undefined : Number.parseInt(rawValue, 10);
+
             send({
               type: "WORK_DAYS",
-              value: isNaN(parseInt(e.target.value))
-                ? 0
-                : parseInt(e.target.value),
-            })
-          }
+              value: Number.isNaN(parsedValue) ? undefined : parsedValue,
+            });
+          }}
         />
       </div>
       <div className="grid w-full flex-1 items-center gap-2">

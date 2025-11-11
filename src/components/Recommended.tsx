@@ -1,8 +1,9 @@
-import Image from "next/image";
 import { HTMLAttributes } from "react";
+import LogoLaurego from "../../public/laurego-logo.png";
 import LogoMalnuku from "../../public/malanuku-logo.png";
 import LogoPodProgiem from "../../public/podprogiem-logo.png";
 import LogoCitytaste from "../../public/citytaste-logo.jpg";
+import { RecommendationCard } from "./ui/recommendation-card";
 
 const Recommended = ({ className }: HTMLAttributes<HTMLDivElement>) => {
   return (
@@ -10,39 +11,33 @@ const Recommended = ({ className }: HTMLAttributes<HTMLDivElement>) => {
       <h3 className="mb-6 text-center text-2xl leading-[29.05px] font-extrabold text-[#0F365C] md:text-[32px] md:leading-[38.73px]">
         Polecane strony
       </h3>
-      <div className="mt-4 flex w-full flex-col items-center justify-center gap-4 px-6 lg:flex-row">
-        <a
-          className="max-w-full cursor-pointer"
+      <div className="mt-4 grid w-full grid-cols-2 items-center justify-center gap-4 px-6">
+        <RecommendationCard
+          href="https://laurego.pl?utm_source=kdr&utm_medium=recommendation"
+          title="Laurego - Jawność płac w Twojej firmie"
+          src={LogoLaurego}
+          alt="laurego logo"
+          imageClassName="min-w-[90%]"
+        />
+        <RecommendationCard
           href="https://citytaste.pl?utm_source=kdr&utm_medium=recommendation"
           title="CityTaste - Jedzenie i Podróże"
-        >
-          <div className="flex h-[120.26px] w-[310px] max-w-full items-center justify-center overflow-hidden rounded-2xl border bg-white p-2 shadow-[20px_19px_50px_0px_#0057BC26]">
-            <Image
-              className="min-w-[90%]"
-              height={100}
-              src={LogoCitytaste}
-              alt="citytaste logo"
-            />
-          </div>
-        </a>
-        <a
-          className="max-w-full cursor-pointer"
+          src={LogoCitytaste}
+          alt="citytaste logo"
+          imageClassName="min-w-[90%]"
+        />
+        <RecommendationCard
           href="https://podprogiem.pl?utm_source=kdr&utm_medium=recommendation"
           title="Portal muzyczny PodProgiem"
-        >
-          <div className="flex h-[120.26px] w-[310px] max-w-full items-center justify-center rounded-2xl border bg-white p-2 shadow-[20px_19px_50px_0px_#0057BC26]">
-            <Image height={100} src={LogoPodProgiem} alt="podprogiem logo" />
-          </div>
-        </a>
-        <a
-          className="max-w-full cursor-pointer"
+          src={LogoPodProgiem}
+          alt="podprogiem logo"
+        />
+        <RecommendationCard
           href="https://malanuku.pl?utm_source=kdr&utm_medium=recommendation"
           title="Portal o aranżacji wnętrz"
-        >
-          <div className="flex h-[120.26px] w-[310px] max-w-full items-center justify-center rounded-2xl border bg-white p-2 shadow-[20px_19px_50px_0px_#0057BC26]">
-            <Image height={100} src={LogoMalnuku} alt="malanuku logo" />
-          </div>
-        </a>
+          src={LogoMalnuku}
+          alt="malanuku logo"
+        />
       </div>
     </div>
   );

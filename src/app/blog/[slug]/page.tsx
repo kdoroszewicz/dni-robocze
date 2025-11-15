@@ -33,8 +33,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const post = await client.fetch<SanityDocument>(
     POST_QUERY,
-    await params,
-    options
+    await params
   );
 
   return {
@@ -59,8 +58,6 @@ const urlFor = (source: SanityImageSource) =>
     ? imageUrlBuilder({ projectId, dataset }).image(source)
     : null;
 
-const options = { next: { revalidate: 30 } };
-
 export default async function PostPage({
   params,
 }: {
@@ -68,8 +65,7 @@ export default async function PostPage({
 }) {
   const post = await client.fetch<SanityDocument>(
     POST_QUERY,
-    await params,
-    options
+    await params
   );
   const postImageUrl = post.image
     ? urlFor(post.image)?.width(1600).height(900).auto("format").url()

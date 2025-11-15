@@ -23,8 +23,6 @@ export const metadata: Metadata = {
 
 const POSTS_PER_PAGE = 5;
 
-export const revalidate = 300;
-
 export default async function IndexPage({ searchParams }: PageProps<"/blog">) {
   const params = await searchParams;
   const page = typeof params.page === "string" ? parseInt(params.page) : 1;
@@ -44,7 +42,7 @@ export default async function IndexPage({ searchParams }: PageProps<"/blog">) {
   ]);
 
   return (
-    <main className="flex min-h-screen flex-col pb-20 pt-8">
+    <main className="flex min-h-screen flex-col pt-8 pb-20">
       <Link
         href="/"
         className="mb-4 inline-block text-sm text-gray-600 hover:underline"

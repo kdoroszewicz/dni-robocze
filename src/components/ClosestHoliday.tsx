@@ -6,7 +6,6 @@ import { polishHolidays } from "../workDaysUtils";
 import { HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
-import { unstable_noStore as noStore } from "next/cache";
 
 const getClosestHoliday = () => {
   const currentYear = new Date().getFullYear();
@@ -26,19 +25,17 @@ const getClosestHoliday = () => {
   return futureHolidays[0];
 };
 
-const closestHoliday = getClosestHoliday();
-
-const daysToHoliday = closestHoliday
-  ? differenceInCalendarDays(
-      toZonedTime(closestHoliday.start, "Europe/Warsaw"),
-      toZonedTime(new Date(), "Europe/Warsaw")
-    )
-  : null;
-
 type ClosestHoliday = HTMLAttributes<HTMLHeadingElement>;
 
 const ClosestHoliday = ({ className }: ClosestHoliday) => {
-  noStore();
+  // Calculate during render - will be cached with the page (1h revalidate)
+  const closestHoliday = getClosestHoliday();
+  const daysToHoliday = closestHoliday
+    ? differenceInCalendarDays(
+        toZonedTime(closestHoliday.start, "Europe/Warsaw"),
+        toZonedTime(new Date(), "Europe/Warsaw")
+      )
+    : null;
 
   if (!closestHoliday || !daysToHoliday) {
     return null;

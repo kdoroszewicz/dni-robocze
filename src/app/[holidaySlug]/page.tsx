@@ -41,6 +41,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+export const revalidate = 86400; // Revalidate holiday pages daily (holidays don't change often)
+
 export const generateStaticParams = async () => {
   const holidayPaths = holidays.map((holiday) =>
     slugify(holiday.name, {

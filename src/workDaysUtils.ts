@@ -4,6 +4,7 @@ import {
   getYear,
   isWeekend,
   isWithinInterval,
+  startOfDay,
 } from "date-fns";
 import Holidays from "date-holidays";
 
@@ -37,18 +38,19 @@ export const getHolidaysInDateRange = (laterDate: Date, earlierDate: Date) => {
 
 export const getTotalNumberOfHolidayDays = (
   laterDate: Date,
-  earlierDate: Date
+  earlierDate: Date,
 ) => {
   const holidaysInRange = getHolidaysInDateRange(laterDate, earlierDate);
   return holidaysInRange.reduce((total, holiday) => {
-    // holiday.date is a string like "2020-05-01 00:00:00" (local time)
-    // Parsing it creates a Date object that represents that local time
-    // This matches how the input dates (earlierDate, laterDate) are typically created
-    const date = new Date(holiday.date);
+    // Use holiday.start which is already a proper Date object
+    // Normalize to start of day to avoid timezone issues with comparisons
+    const holidayDate = startOfDay(holiday.start);
+    const start = startOfDay(earlierDate);
+    const end = startOfDay(laterDate);
 
     if (
-      !isWeekend(date) &&
-      isWithinInterval(date, { start: earlierDate, end: laterDate })
+      !isWeekend(holidayDate) &&
+      isWithinInterval(holidayDate, { start, end })
     ) {
       return total + 1;
     }

@@ -1,25 +1,28 @@
-import { differenceInCalendarDays } from "date-fns";
-import { toZonedTime } from "date-fns-tz";
+import { differenceInCalendarDays, startOfDay } from "date-fns";
 import Link from "./Link";
 import { getHolidaySlug } from "../services/utils";
 import { polishHolidays } from "../workDaysUtils";
 import { HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
+import { getNowInWarsaw } from "@/lib/timezone";
 
 const getClosestHoliday = () => {
-  const currentYear = new Date().getFullYear();
-  const now = toZonedTime(new Date(), "Europe/Warsaw");
-  let holidays = polishHolidays.getHolidays(currentYear);
+  // Use Warsaw time so Polish users see accurate "days until" counts
+  // even when it's a different day in Poland vs UTC
+  const nowInWarsaw = startOfDay(getNowInWarsaw());
+  const currentYearInWarsaw = nowInWarsaw.getFullYear();
+
+  let holidays = polishHolidays.getHolidays(currentYearInWarsaw);
   let futureHolidays = holidays.filter(
-    (holiday) => toZonedTime(holiday.start, "Europe/Warsaw") > now
+    (holiday) => startOfDay(holiday.start) >= nowInWarsaw
   );
 
   // If no future holidays found in current year, check next year
   if (futureHolidays.length === 0) {
-    holidays = polishHolidays.getHolidays(currentYear + 1);
+    holidays = polishHolidays.getHolidays(currentYearInWarsaw + 1);
     futureHolidays = holidays.filter(
-      (holiday) => toZonedTime(holiday.start, "Europe/Warsaw") > now
+      (holiday) => startOfDay(holiday.start) >= nowInWarsaw
     );
   }
 
@@ -37,8 +40,8 @@ const ClosestHoliday = ({ className }: ClosestHoliday) => {
   const closestHoliday = getClosestHoliday();
   const daysToHoliday = closestHoliday
     ? differenceInCalendarDays(
-        toZonedTime(closestHoliday.start, "Europe/Warsaw"),
-        toZonedTime(new Date(), "Europe/Warsaw")
+        startOfDay(closestHoliday.start),
+        startOfDay(getNowInWarsaw())
       )
     : null;
 

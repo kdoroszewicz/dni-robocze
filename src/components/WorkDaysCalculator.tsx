@@ -1,7 +1,7 @@
 "use client";
 
 import { useMachine } from "@xstate/react";
-import { RotateCcw } from "lucide-react";
+import { Eraser } from "lucide-react";
 import { workDaysMachine } from "../workDaysMachine";
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "./DatePicker";
@@ -152,7 +152,7 @@ const WorkDaysCalculator = () => {
             className="h-[50px] w-[50px] shrink-0 text-[#6B7280] hover:text-[#0F365C] md:h-[50px] md:w-[50px]"
             aria-label="Wyczyść"
           >
-            <RotateCcw className="h-5 w-5" />
+            <Eraser className="h-5 w-5" />
           </Button>
           <Button
             onClick={handleCalculate}

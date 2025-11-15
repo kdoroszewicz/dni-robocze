@@ -1,9 +1,12 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import { ArrowRight } from "lucide-react";
 import ClosestHoliday from "../components/ClosestHoliday";
+import ClosestHolidayLoading from "../components/ClosestHolidayLoading";
 import Recommended from "../components/Recommended";
 import WorkDaysCalculator from "../components/WorkDaysCalculator";
+import { getClosestHoliday } from "@/lib/server/getClosestHoliday";
 
 const currentYear: number = new Date().getFullYear();
 
@@ -15,6 +18,9 @@ export const metadata: Metadata = {
 };
 
 const Page = () => {
+  // Don't await the data fetching function
+  const closestHolidayPromise = getClosestHoliday();
+
   return (
     <>
       <h1 className="mb-6 text-center text-4xl leading-[60px] font-extrabold text-[#0F365C] md:text-[60px]">
@@ -29,7 +35,9 @@ const Page = () => {
 
       <WorkDaysCalculator />
       <div className="mt-6 flex items-center justify-center">
-        <ClosestHoliday />
+        <Suspense fallback={<ClosestHolidayLoading />}>
+          <ClosestHoliday promise={closestHolidayPromise} />
+        </Suspense>
       </div>
       <Recommended className="mt-8" />
 

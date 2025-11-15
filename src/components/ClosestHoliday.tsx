@@ -1,50 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { use } from "react";
 import Link from "./Link";
 import { HTMLAttributes } from "react";
 import { cn, getHolidaySlug } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
+import type { HolidayData } from "@/lib/server/getClosestHoliday";
 
-interface HolidayData {
-  holiday: {
-    name: string;
-    date: string;
-  } | null;
-  daysToHoliday: number | null;
-}
+type ClosestHoliday = HTMLAttributes<HTMLHeadingElement> & {
+  promise: Promise<HolidayData>;
+};
 
-type ClosestHoliday = HTMLAttributes<HTMLHeadingElement>;
+const ClosestHoliday = ({ className, promise }: ClosestHoliday) => {
+  const data = use(promise);
 
-const ClosestHoliday = ({ className }: ClosestHoliday) => {
-  const [data, setData] = useState<HolidayData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchClosestHoliday = async () => {
-      try {
-        const response = await fetch("/api/closest-holiday");
-        if (!response.ok) {
-          throw new Error("Failed to fetch closest holiday");
-        }
-        const result = (await response.json()) as HolidayData;
-        setData(result);
-      } catch (error) {
-        console.error("Error fetching closest holiday:", error);
-        setData({ holiday: null, daysToHoliday: null });
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchClosestHoliday();
-  }, []);
-
-  if (isLoading) {
-    return null;
-  }
-
-  if (!data || !data.holiday || data.daysToHoliday === null) {
+  if (!data.holiday || data.daysToHoliday === null) {
     return null;
   }
 

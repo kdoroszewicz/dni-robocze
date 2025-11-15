@@ -75,6 +75,7 @@
     "@types/react": "19.2.5",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
+    "@vitest/ui": "4.0.9",
     "eslint": "^9.35.0",
     "eslint-config-next": "16.0.3",
     "jsdom": "^27.2.0",

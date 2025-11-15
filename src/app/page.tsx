@@ -23,7 +23,7 @@ const Page = () => {
         <span className="block text-4xl leading-8 -tracking-[1%] md:text-[32px]">
           Kalkulator
         </span>
-        {`Dni Roboczych ${currentYear}`}
+        {` Dni Roboczych ${currentYear}`}
       </h1>
       <p className="mb-6 text-center text-xl leading-[30px] font-medium text-[#0F365C]">
         Wypełnij 2 z 3 pól

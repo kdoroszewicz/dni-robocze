@@ -17,14 +17,12 @@ const Recommended = ({ className }: HTMLAttributes<HTMLDivElement>) => {
           title="Laurego - Jawność płac w Twojej firmie"
           src={LogoLaurego}
           alt="laurego logo"
-          imageClassName="min-w-[90%]"
         />
         <RecommendationCard
           href="https://citytaste.pl?utm_source=kdr&utm_medium=recommendation"
           title="CityTaste - Jedzenie i Podróże"
           src={LogoCitytaste}
           alt="citytaste logo"
-          imageClassName="min-w-[90%]"
         />
         <RecommendationCard
           href="https://podprogiem.pl?utm_source=kdr&utm_medium=recommendation"

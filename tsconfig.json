@@ -30,7 +30,8 @@
     "types": [
       "./cloudflare-env.d.ts",
       "node",
-      "mdx"
+      "mdx",
+      "vitest/globals"
     ]
   },
   "include": [

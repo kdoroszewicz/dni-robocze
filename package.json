@@ -5,7 +5,7 @@
   "packageManager": "pnpm@10.16.0",
   "homepage": "https://kalkulatordniroboczych.pl/",
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "export": "pnpm build && next export",
     "lint": "eslint .",
     "prettier:fix": "prettier --write src",

@@ -30,20 +30,38 @@
     },
   ],
   /**
-   * Smart Placement
-   * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
-   */
+  * Smart Placement
+  * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
+  */
   // "placement": { "mode": "smart" }
   /**
-   * Bindings
-   * Bindings allow your Worker to interact with resources on the Cloudflare Developer Platform, including
-   * databases, object storage, AI inference, real-time communication and more.
-   * https://developers.cloudflare.com/workers/runtime-apis/bindings/
-   */
+  * Bindings
+  * Bindings allow your Worker to interact with resources on the Cloudflare Developer Platform, including
+  * databases, object storage, AI inference, real-time communication and more.
+  * https://developers.cloudflare.com/workers/runtime-apis/bindings/
+  */
+  // R2 incremental cache
   "r2_buckets": [
     {
       "binding": "NEXT_INC_CACHE_R2_BUCKET",
       "bucket_name": "kdr-bucket",
+    },
+  ],
+  // DO Queue for ISR (see https://opennext.js.org/cloudflare/caching#small-site-using-revalidation)
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "NEXT_CACHE_DO_QUEUE",
+        "class_name": "DOQueueHandler",
+      },
+    ],
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": [
+        "DOQueueHandler"
+      ],
     },
   ],
   /**

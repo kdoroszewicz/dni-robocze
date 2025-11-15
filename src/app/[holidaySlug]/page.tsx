@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import { toZonedTime } from "date-fns-tz";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import slugify from "slugify";
@@ -97,7 +98,7 @@ const Holiday = async ({ params }: Props) => {
           <div className="flex flex-col gap-y-2">
             <span className="text-sm leading-[21px] font-bold">Kiedy</span>
             <span className="text-2xl font-bold text-[#00BAFF]">
-              {format(holiday.start, "dd.MM.yyyy")}
+              {format(toZonedTime(holiday.start, "Europe/Warsaw"), "dd.MM.yyyy")}
             </span>
           </div>
           <div className="mt-6 flex flex-col gap-y-2 font-bold md:mt-0">

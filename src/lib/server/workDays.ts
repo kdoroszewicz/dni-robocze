@@ -1,5 +1,8 @@
+import "server-only";
+
 import {
   add,
+  addBusinessDays,
   differenceInBusinessDays as dbd,
   getYear,
   isWeekend,
@@ -58,3 +61,39 @@ export const getWorkDays = (laterDate: Date, earlierDate: Date): number => {
   const totalHolidayDays = getTotalNumberOfHolidayDays(laterDate, earlierDate);
   return workDays - totalHolidayDays;
 };
+
+/**
+ * Adds the specified number of work days to a date, excluding weekends and holidays.
+ * @param startDate The starting date
+ * @param workDaysToAdd The number of work days to add
+ * @returns The resulting date after adding work days
+ */
+export const addWorkDays = (startDate: Date, workDaysToAdd: number): Date => {
+  if (workDaysToAdd === 0) {
+    return startDate;
+  }
+
+  // Start with business days (excludes weekends) as an approximation
+  let candidateDate = addBusinessDays(startDate, workDaysToAdd);
+  
+  // Iteratively adjust until we have the exact number of work days
+  // This accounts for holidays that fall within the range
+  let attempts = 0;
+  const maxAttempts = 100; // Safety limit
+  
+  while (attempts < maxAttempts) {
+    const actualWorkDays = getWorkDays(candidateDate, startDate);
+    
+    if (actualWorkDays === workDaysToAdd) {
+      break;
+    }
+    
+    // Calculate the difference and adjust
+    const diff = workDaysToAdd - actualWorkDays;
+    candidateDate = addBusinessDays(candidateDate, diff);
+    attempts++;
+  }
+  
+  return candidateDate;
+};
+

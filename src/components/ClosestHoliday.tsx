@@ -1,46 +1,50 @@
-import { differenceInCalendarDays } from "date-fns";
-import { toZonedTime } from "date-fns-tz";
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "./Link";
-import { getHolidaySlug } from "../services/utils";
-import { polishHolidays } from "../workDaysUtils";
 import { HTMLAttributes } from "react";
-import { cn } from "@/lib/utils";
+import { cn, getHolidaySlug } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
-import { unstable_noStore as noStore } from "next/cache";
 
-const getClosestHoliday = () => {
-  const currentYear = new Date().getFullYear();
-  let holidays = polishHolidays.getHolidays(currentYear);
-  let futureHolidays = holidays.filter((holiday) => holiday.start > new Date());
-
-  // If no future holidays found in current year, check next year
-  if (futureHolidays.length === 0) {
-    holidays = polishHolidays.getHolidays(currentYear + 1);
-    futureHolidays = holidays.filter((holiday) => holiday.start > new Date());
-  }
-
-  if (futureHolidays.length === 0) {
-    return null;
-  }
-
-  return futureHolidays[0];
-};
-
-const closestHoliday = getClosestHoliday();
-
-const daysToHoliday = closestHoliday
-  ? differenceInCalendarDays(
-      toZonedTime(closestHoliday.start, "Europe/Warsaw"),
-      toZonedTime(new Date(), "Europe/Warsaw")
-    )
-  : null;
+interface HolidayData {
+  holiday: {
+    name: string;
+    date: string;
+  } | null;
+  daysToHoliday: number | null;
+}
 
 type ClosestHoliday = HTMLAttributes<HTMLHeadingElement>;
 
 const ClosestHoliday = ({ className }: ClosestHoliday) => {
-  noStore();
+  const [data, setData] = useState<HolidayData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  if (!closestHoliday || !daysToHoliday) {
+  useEffect(() => {
+    const fetchClosestHoliday = async () => {
+      try {
+        const response = await fetch("/api/closest-holiday");
+        if (!response.ok) {
+          throw new Error("Failed to fetch closest holiday");
+        }
+        const result = (await response.json()) as HolidayData;
+        setData(result);
+      } catch (error) {
+        console.error("Error fetching closest holiday:", error);
+        setData({ holiday: null, daysToHoliday: null });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchClosestHoliday();
+  }, []);
+
+  if (isLoading) {
+    return null;
+  }
+
+  if (!data || !data.holiday || data.daysToHoliday === null) {
     return null;
   }
 
@@ -52,12 +56,12 @@ const ClosestHoliday = ({ className }: ClosestHoliday) => {
         className
       )}
     >
-      Najbliższe święto wolne od pracy za {daysToHoliday} dni to
+      Najbliższe święto wolne od pracy za {data.daysToHoliday} dni to
       <Link
         className="inline-flex shrink items-center justify-center rounded-[10px] bg-[#0F365C] px-3 py-[2px] text-xs leading-[18px] font-medium text-white"
-        href={`/${getHolidaySlug(closestHoliday.name)}`}
+        href={`/${getHolidaySlug(data.holiday.name)}`}
       >
-        {closestHoliday.name}
+        {data.holiday.name}
         <span>
           <ChevronRight className="ml-2 h-[10px] w-[10px]" color="white" />
         </span>

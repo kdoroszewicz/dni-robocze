@@ -2,7 +2,7 @@ import {
   getYearsRange,
   getWorkDays,
   getTotalNumberOfHolidayDays,
-} from "../workDaysUtils";
+} from "../lib/server/workDays";
 
 describe("getHolidayDays", () => {
   it("should return number of holiday days between 2020-05-01 and 2020-05-31", () => {

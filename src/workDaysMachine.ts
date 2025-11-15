@@ -1,4 +1,4 @@
-import { assign, createMachine } from "xstate";
+import { assign, createMachine, fromPromise } from "xstate";
 
 interface InitialState {
   workDays: number | undefined;
@@ -6,6 +6,14 @@ interface InitialState {
   dateEnd: Date | undefined;
   isLoading: boolean;
   error: string | undefined;
+  calculationPayload: CalculationPayload | undefined;
+  lastCalculatedPayload: CalculationPayload | undefined;
+}
+
+interface CalculationPayload {
+  dateStart?: string;
+  dateEnd?: string;
+  workDays?: number;
 }
 
 const initialState: InitialState = {
@@ -14,7 +22,52 @@ const initialState: InitialState = {
   dateEnd: undefined,
   isLoading: false,
   error: undefined,
+  calculationPayload: undefined,
+  lastCalculatedPayload: undefined,
 };
+
+const payloadsAreEqual = (
+  payload1: CalculationPayload | undefined,
+  payload2: CalculationPayload | undefined,
+): boolean => {
+  if (!payload1 && !payload2) return true;
+  if (!payload1 || !payload2) return false;
+  return (
+    payload1.dateStart === payload2.dateStart &&
+    payload1.dateEnd === payload2.dateEnd &&
+    payload1.workDays === payload2.workDays
+  );
+};
+
+const calculateWorkDays = fromPromise<
+  { dateStart?: Date; dateEnd?: Date; workDays?: number },
+  { payload: CalculationPayload }
+>(async ({ input }) => {
+  const response = await fetch("/api/calculate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(input.payload),
+  });
+
+  if (!response.ok) {
+    const errorData = (await response.json()) as { error?: string };
+    throw new Error(errorData.error || "Błąd podczas obliczania");
+  }
+
+  const result = (await response.json()) as {
+    dateStart?: string;
+    dateEnd?: string;
+    workDays?: number;
+  };
+
+  return {
+    dateStart: result.dateStart ? new Date(result.dateStart) : undefined,
+    dateEnd: result.dateEnd ? new Date(result.dateEnd) : undefined,
+    workDays: result.workDays,
+  };
+});
 
 export const workDaysMachine = createMachine({
   types: {
@@ -24,7 +77,7 @@ export const workDaysMachine = createMachine({
       | { type: "DATE_END"; value: Date | undefined }
       | { type: "WORK_DAYS"; value: number | undefined }
       | { type: "CLEAR" }
-      | { type: "CALCULATE" }
+      | { type: "CALCULATE"; payload: CalculationPayload }
       | {
         type: "CALCULATE_SUCCESS";
         value: { dateStart?: Date; dateEnd?: Date; workDays?: number };
@@ -77,10 +130,29 @@ export const workDaysMachine = createMachine({
           actions: assign(() => ({
             ...initialState,
             dateStart: new Date(),
+            calculationPayload: undefined,
+            lastCalculatedPayload: undefined,
           })),
         },
         CALCULATE: {
           target: "calculating",
+          guard: ({ context, event }) => {
+            // Only proceed if the payload is different from the last calculated one
+            return !payloadsAreEqual(
+              event.payload,
+              context.lastCalculatedPayload,
+            );
+          },
+          actions: assign(({ context, event }) => ({
+            ...context,
+            calculationPayload: event.payload,
+          })),
+        },
+        CALCULATE_ERROR: {
+          actions: assign(({ context, event }) => ({
+            ...context,
+            error: event.value,
+          })),
         },
       },
     },
@@ -90,24 +162,33 @@ export const workDaysMachine = createMachine({
         isLoading: true,
         error: undefined,
       })),
-      on: {
-        CALCULATE_SUCCESS: {
+      invoke: {
+        src: calculateWorkDays,
+        input: ({ context }) => ({
+          payload: context.calculationPayload!,
+        }),
+        onDone: {
           target: "active",
           actions: assign(({ context, event }) => ({
             ...context,
-            dateStart: event.value.dateStart ?? context.dateStart,
-            dateEnd: event.value.dateEnd ?? context.dateEnd,
-            workDays: event.value.workDays ?? context.workDays,
+            dateStart: event.output.dateStart ?? context.dateStart,
+            dateEnd: event.output.dateEnd ?? context.dateEnd,
+            workDays: event.output.workDays ?? context.workDays,
             isLoading: false,
             error: undefined,
+            calculationPayload: undefined,
+            lastCalculatedPayload: context.calculationPayload,
           })),
         },
-        CALCULATE_ERROR: {
+        onError: {
           target: "active",
           actions: assign(({ context, event }) => ({
             ...context,
             isLoading: false,
-            error: event.value,
+            error: event.error instanceof Error
+              ? event.error.message
+              : "Wystąpił błąd",
+            calculationPayload: undefined,
           })),
         },
       },

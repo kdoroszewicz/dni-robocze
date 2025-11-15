@@ -13,7 +13,7 @@ const WorkDaysCalculator = () => {
 
   const { dateStart, dateEnd, workDays, isLoading, error } = current.context;
 
-  const handleCalculate = async () => {
+  const handleCalculate = () => {
     // Validate that at least 2 fields are provided
     const providedFields = [
       dateStart !== undefined,
@@ -57,42 +57,7 @@ const WorkDaysCalculator = () => {
       };
     }
 
-    send({ type: "CALCULATE" });
-
-    try {
-      const response = await fetch("/api/calculate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(calculationPayload),
-      });
-
-      if (!response.ok) {
-        const errorData = (await response.json()) as { error?: string };
-        throw new Error(errorData.error || "Błąd podczas obliczania");
-      }
-
-      const result = (await response.json()) as {
-        dateStart?: string;
-        dateEnd?: string;
-        workDays?: number;
-      };
-
-      send({
-        type: "CALCULATE_SUCCESS",
-        value: {
-          dateStart: result.dateStart ? new Date(result.dateStart) : undefined,
-          dateEnd: result.dateEnd ? new Date(result.dateEnd) : undefined,
-          workDays: result.workDays,
-        },
-      });
-    } catch (err) {
-      send({
-        type: "CALCULATE_ERROR",
-        value: err instanceof Error ? err.message : "Wystąpił błąd",
-      });
-    }
+    send({ type: "CALCULATE", payload: calculationPayload });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -156,7 +121,7 @@ const WorkDaysCalculator = () => {
               onClick={() => send({ type: "CLEAR" })}
               variant="secondary"
               size="icon"
-              className="h-[50px] w-[50px] shrink-0 text-[#6B7280] hover:text-[#0F365C] md:h-[50px] md:w-[50px]"
+              className="h-[50px] w-[50px] shrink-0 cursor-pointer text-[#6B7280] hover:text-[#0F365C] md:h-[50px] md:w-[50px]"
               aria-label="Wyczyść"
             >
               <Eraser className="h-5 w-5" />
@@ -164,16 +129,14 @@ const WorkDaysCalculator = () => {
             <Button
               type="submit"
               disabled={isLoading}
-              className="h-[50px] w-full flex-1 bg-[linear-gradient(323.48deg,#0F365C_23.99%,#5989B7_111.59%)] p-4 text-sm leading-[21px] font-bold disabled:opacity-50"
+              className="h-[50px] w-full flex-1 cursor-pointer bg-[linear-gradient(323.48deg,#0F365C_23.99%,#5989B7_111.59%)] p-4 text-sm leading-[21px] font-bold disabled:opacity-50"
             >
               {isLoading ? "..." : "Oblicz"}
             </Button>
           </div>
         </div>
-        {error && (
-          <div className="col-span-full text-sm text-red-600">{error}</div>
-        )}
       </div>
+      {error && <div className="mt-4 text-sm text-red-600">{error}</div>}
     </form>
   );
 };

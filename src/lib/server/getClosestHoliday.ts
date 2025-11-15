@@ -2,6 +2,7 @@ import "server-only";
 
 import { differenceInCalendarDays } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
+import { cacheLife } from "next/cache";
 import { polishHolidays } from "./workDays";
 
 export interface HolidayData {
@@ -13,6 +14,10 @@ export interface HolidayData {
 }
 
 export async function getClosestHoliday(): Promise<HolidayData> {
+  "use cache";
+  // Cache for 1 hour since holidays don't change frequently
+  // but daysToHoliday needs to be recalculated daily
+  cacheLife("hours");
   try {
     const currentYear = new Date().getFullYear();
     let holidays = polishHolidays.getHolidays(currentYear);

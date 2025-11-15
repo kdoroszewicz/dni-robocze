@@ -1,9 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { Suspense } from "react";
 import { ArrowRight } from "lucide-react";
 import ClosestHoliday from "../components/ClosestHoliday";
-import ClosestHolidayLoading from "../components/ClosestHolidayLoading";
 import Recommended from "../components/Recommended";
 import WorkDaysCalculator from "../components/WorkDaysCalculator";
 import { getClosestHoliday } from "@/lib/server/getClosestHoliday";
@@ -35,9 +33,7 @@ const Page = () => {
 
       <WorkDaysCalculator />
       <div className="mt-6 flex items-center justify-center">
-        <Suspense fallback={<ClosestHolidayLoading />}>
-          <ClosestHoliday promise={closestHolidayPromise} />
-        </Suspense>
+        <ClosestHoliday promise={closestHolidayPromise} />
       </div>
       <Recommended className="mt-8" />
 

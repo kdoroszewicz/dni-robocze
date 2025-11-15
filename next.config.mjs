@@ -18,7 +18,9 @@ const nextConfig = {
         hostname: "cdn.sanity.io"
       }
     ]
-  }
+  },
+  // Enable Cache Components for Partial Prerendering (PPR)
+  cacheComponents: true,
 };
 
 const withMDX = createMDX({

@@ -37,6 +37,8 @@ async function getAllPosts(): Promise<Post[]> {
   }`);
 }
 
+export const revalidate = 3600; // Revalidate sitemap every hour
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await getAllPosts();
 

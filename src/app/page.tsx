@@ -14,6 +14,8 @@ export const metadata: Metadata = {
   robots: "index, follow",
 };
 
+export const revalidate = 3600; // Revalidate homepage every hour
+
 const Page = () => {
   return (
     <>

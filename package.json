@@ -95,6 +95,14 @@
     "overrides": {
       "@types/react": "19.2.5",
       "@types/react-dom": "19.2.3"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "@tailwindcss/oxide",
+      "esbuild",
+      "rclone.js",
+      "sharp",
+      "unrs-resolver",
+      "workerd"
+    ]
   }
 }

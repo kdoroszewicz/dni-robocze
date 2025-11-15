@@ -41,6 +41,9 @@ export const getTotalNumberOfHolidayDays = (
 ) => {
   const holidaysInRange = getHolidaysInDateRange(laterDate, earlierDate);
   return holidaysInRange.reduce((total, holiday) => {
+    // holiday.date is a string like "2020-05-01 00:00:00" (local time)
+    // Parsing it creates a Date object that represents that local time
+    // This matches how the input dates (earlierDate, laterDate) are typically created
     const date = new Date(holiday.date);
 
     if (

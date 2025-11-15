@@ -9,13 +9,18 @@ import { ChevronRight } from "lucide-react";
 
 const getClosestHoliday = () => {
   const currentYear = new Date().getFullYear();
+  const now = toZonedTime(new Date(), "Europe/Warsaw");
   let holidays = polishHolidays.getHolidays(currentYear);
-  let futureHolidays = holidays.filter((holiday) => holiday.start > new Date());
+  let futureHolidays = holidays.filter(
+    (holiday) => toZonedTime(holiday.start, "Europe/Warsaw") > now
+  );
 
   // If no future holidays found in current year, check next year
   if (futureHolidays.length === 0) {
     holidays = polishHolidays.getHolidays(currentYear + 1);
-    futureHolidays = holidays.filter((holiday) => holiday.start > new Date());
+    futureHolidays = holidays.filter(
+      (holiday) => toZonedTime(holiday.start, "Europe/Warsaw") > now
+    );
   }
 
   if (futureHolidays.length === 0) {

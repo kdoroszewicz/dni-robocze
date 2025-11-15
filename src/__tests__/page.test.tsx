@@ -26,7 +26,6 @@ describe("Main page", () => {
     await user.clear(startDateInput);
     await user.type(startDateInput, "2025-01-01");
     await user.type(endDateInput, "2025-01-31");
-    await user.keyboard("{tab}");
     const workDaysInput = screen.getByLabelText("Dni robocze");
     expect(workDaysInput).toHaveValue("21");
   });

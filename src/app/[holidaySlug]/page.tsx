@@ -6,6 +6,7 @@ import BackArrow from "../../components/BackArrow";
 import Link from "../../components/Link";
 import { getHoliday, shorthands } from "../../services/utils";
 import { getHolidaySlug } from "../../lib/utils";
+import { getCurrentYear } from "../../lib/server/getCurrentYear";
 import { polishHolidays } from "../../lib/server/workDays";
 import HolidayDrugiDzienWielkanocy from "../content/holidays/drugi-dzien-wielkanocy.mdx";
 import HolidayBozeCialo from "../content/holidays/dzien-bozego-ciala.mdx";
@@ -22,8 +23,11 @@ type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const holiday = await getHoliday(await params);
-  const currentYear = new Date().getFullYear();
+  const resolvedParams = await params;
+  const holidaySlug = resolvedParams.holidaySlug;
+  const holiday = await getHoliday({ holidaySlug });
+  // Use cached function to get current year (static, compatible with generateStaticParams)
+  const currentYear = await getCurrentYear();
 
   if (!holiday) {
     return {

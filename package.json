@@ -13,7 +13,6 @@
     "start": "next start",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:ci": "vitest --ci --detectOpenHandles",
     "build:holidays": "pnpm holidays2json --pick PL --min",
     "build": "next build",
     "build:cloudflare": "pnpm build:holidays && opennextjs-cloudflare build",

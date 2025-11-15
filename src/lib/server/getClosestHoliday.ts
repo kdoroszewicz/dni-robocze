@@ -40,7 +40,7 @@ export async function getClosestHoliday(): Promise<HolidayData> {
     return {
       holiday: {
         name: closestHoliday.name,
-        date: closestHoliday.start,
+        date: closestHoliday.start.toISOString(),
       },
       daysToHoliday,
     };

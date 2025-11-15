@@ -17,8 +17,8 @@
     "build:holidays": "pnpm holidays2json --pick PL --min",
     "build": "pnpm build:holidays && opennextjs-cloudflare build",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "pnpm build && opennextjs-cloudflare deploy",
-    "deploy:version": "pnpm build && wrangler versions upload",
+    "deploy": "opennextjs-cloudflare deploy",
+    "deploy:version": "wrangler versions upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "browserslist": {

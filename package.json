@@ -6,10 +6,10 @@
   "homepage": "https://kalkulatordniroboczych.pl/",
   "scripts": {
     "dev": "next dev --turbopack",
-    "export": "pnpm build:local && next export",
+    "export": "pnpm build && next export",
     "lint": "eslint .",
     "prettier:fix": "prettier --write src",
-    "prepush": "pnpm build:local",
+    "prepush": "pnpm build",
     "start": "next start",
     "test": "jest --watch",
     "test:ci": "jest --ci --detectOpenHandles",
@@ -18,7 +18,7 @@
     "build:cloudflare": "pnpm build:holidays && opennextjs-cloudflare build",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "pnpm build:cloudflare && opennextjs-cloudflare deploy",
-    "deploy:version": "pnpm build:cloudflare && wrangler versions upload",
+    "deploy:version": "wrangler versions upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "browserslist": {

@@ -1,12 +1,6 @@
-import { revalidateTag } from "next/cache";
+import { updateTag } from "next/cache";
 import { NextResponse } from "next/server";
 
-/**
- * API route to revalidate blog posts cache
- * Call this endpoint (e.g., from Sanity webhook) when a blog post is published/updated
- * 
- * Example webhook URL: https://yourdomain.com/api/revalidate-blog?secret=YOUR_SECRET
- */
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const secret = searchParams.get("secret");
@@ -18,18 +12,17 @@ export async function GET(request: Request) {
 
   try {
     // Revalidate all blog posts cache
-    revalidateTag("blog-posts");
-    
-    return NextResponse.json({ 
-      revalidated: true, 
+    updateTag("blog-posts");
+
+    return NextResponse.json({
+      revalidated: true,
       now: Date.now(),
-      message: "Blog posts cache revalidated successfully" 
+      message: "Blog posts cache revalidated successfully",
     });
   } catch (err) {
-    return NextResponse.json({ 
+    return NextResponse.json({
       message: "Error revalidating cache",
-      error: err instanceof Error ? err.message : "Unknown error"
+      error: err instanceof Error ? err.message : "Unknown error",
     }, { status: 500 });
   }
 }
-

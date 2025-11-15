@@ -2,7 +2,7 @@
 
 import { useMachine } from "@xstate/react";
 import { workDaysMachine } from "../workDaysMachine";
-import { Button } from "./Button";
+import { Button } from "@/components/ui/button";
 import { DatePicker } from "./DatePicker";
 import { Label } from "./Label";
 import { Input } from "./Input";
@@ -60,7 +60,7 @@ const WorkDaysCalculator = () => {
       </div>
       <Button
         onClick={() => send({ type: "CLEAR" })}
-        className="ml-2 w-full self-end bg-[linear-gradient(323.48deg,#0F365C_23.99%,#5989B7_111.59%)] p-4 text-sm leading-[21px] font-bold md:w-[93px]"
+        className="ml-2 h-[50px] w-full self-end bg-[linear-gradient(323.48deg,#0F365C_23.99%,#5989B7_111.59%)] p-4 text-sm leading-[21px] font-bold md:w-[93px]"
       >
         Wyczyść
       </Button>

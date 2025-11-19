@@ -1,4 +1,3 @@
-"use cache";
 import Link from "next/link";
 import { type SanityDocument } from "next-sanity";
 import { format } from "date-fns";

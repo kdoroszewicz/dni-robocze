@@ -49,29 +49,24 @@
   ],
   // DO Queue for ISR (see https://opennext.js.org/cloudflare/caching#small-site-using-revalidation)
   // Only enabled in production, disabled for preview environments
-  "durable_objects": {
-    "bindings": [
-      {
-        "name": "NEXT_CACHE_DO_QUEUE",
-        "class_name": "DOQueueHandler",
-      },
-    ],
-  },
-  "migrations": [
-    {
-      "tag": "v1",
-      "new_sqlite_classes": [
-        "DOQueueHandler"
-      ],
-    },
-  ],
-  // Preview environment configuration (disables durable objects)
   "env": {
-    "preview": {
+    "production": {
       "durable_objects": {
-        "bindings": [],
+        "bindings": [
+          {
+            "name": "NEXT_CACHE_DO_QUEUE",
+            "class_name": "DOQueueHandler",
+          },
+        ],
       },
-      "migrations": [],
+      "migrations": [
+        {
+          "tag": "v1",
+          "new_sqlite_classes": [
+            "DOQueueHandler"
+          ],
+        },
+      ],
     },
   },
   /**

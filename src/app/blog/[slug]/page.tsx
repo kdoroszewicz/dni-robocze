@@ -25,22 +25,92 @@ import { format } from "date-fns";
 import { pl } from "date-fns/locale";
 import { JsonLd } from "@/components/JsonLd";
 import type { BlogPosting, FAQPage, Question, WithContext } from "schema-dts";
+import {
+  DEFAULT_KEYWORDS,
+  DEFAULT_OG_IMAGE,
+  SITE_NAME,
+  SITE_URL,
+} from "@/lib/siteMetadata";
+
+const options = { next: { revalidate: 30 } };
+const { projectId, dataset } = client.config();
+
+const urlFor = (source: SanityImageSource) =>
+  projectId && dataset
+    ? imageUrlBuilder({ projectId, dataset }).image(source)
+    : null;
+
+const buildPostImageUrl = (image: SanityImageSource | undefined) =>
+  image ? urlFor(image)?.width(1600).height(900).auto("format").url() ?? null : null;
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+  const resolvedParams = await params;
   const post = await client.fetch<SanityDocument>(
     POST_QUERY,
-    await params,
+    resolvedParams,
     options
   );
 
+  const canonicalPath = post?.slug?.current
+    ? `/blog/${post.slug.current}`
+    : "/blog";
+  const generatedImageUrl = buildPostImageUrl(post?.image);
+  const postImageUrl = generatedImageUrl ?? DEFAULT_OG_IMAGE;
+  const pageTitle = post?.title ? String(post.title) : SITE_NAME;
+  const description =
+    post?.excerpt || "Przeczytaj artykuł na blogu Kalkulatora Dni Roboczych";
+  const keywords = post?.title
+    ? [...DEFAULT_KEYWORDS, String(post.title)]
+    : DEFAULT_KEYWORDS;
+
+  const openGraphImages = generatedImageUrl
+    ? [
+        {
+          url: generatedImageUrl,
+          width: 1600,
+          height: 900,
+          alt: pageTitle,
+        },
+      ]
+    : [
+        {
+          url: DEFAULT_OG_IMAGE,
+          width: 512,
+          height: 512,
+          alt: SITE_NAME,
+        },
+      ];
+
   return {
-    title: `${post.title} - Kalkulator Dni Roboczych`,
-    description:
-      post.excerpt || "Przeczytaj artykuł na blogu Kalkulatora Dni Roboczych",
+    title: pageTitle,
+    description,
+    keywords,
+    alternates: {
+      canonical: canonicalPath,
+    },
+    authors: [{ name: SITE_NAME, url: SITE_URL }],
+    openGraph: {
+      type: "article",
+      url: canonicalPath,
+      title: pageTitle,
+      description,
+      siteName: SITE_NAME,
+      locale: "pl_PL",
+      publishedTime: post?.publishedAt,
+      modifiedTime: post?._updatedAt ?? post?.publishedAt,
+      images: openGraphImages,
+      authors: [SITE_NAME],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: pageTitle,
+      description,
+      images: [postImageUrl],
+    },
   };
 }
 
@@ -53,38 +123,30 @@ const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
   }
 }`;
 
-const { projectId, dataset } = client.config();
-const urlFor = (source: SanityImageSource) =>
-  projectId && dataset
-    ? imageUrlBuilder({ projectId, dataset }).image(source)
-    : null;
-
-const options = { next: { revalidate: 30 } };
-
 export default async function PostPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  const resolvedParams = await params;
   const post = await client.fetch<SanityDocument>(
     POST_QUERY,
-    await params,
+    resolvedParams,
     options
   );
-  const postImageUrl = post.image
-    ? urlFor(post.image)?.width(1600).height(900).auto("format").url()
-    : null;
+  const postImageUrl = buildPostImageUrl(post.image);
 
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
     datePublished: post.publishedAt,
+    dateModified: post._updatedAt ?? post.publishedAt,
     image: postImageUrl ? [postImageUrl] : [],
     author: {
       "@type": "Organization",
-      name: "Kalkulator Dni Roboczych",
-      url: "https://kalkulatordniroboczych.pl",
+      name: SITE_NAME,
+      url: SITE_URL,
     },
   } satisfies WithContext<BlogPosting>;
 

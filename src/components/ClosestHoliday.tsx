@@ -36,8 +36,6 @@ const getClosestHoliday = () => {
 const ClosestHoliday = async ({ className }: ClosestHoliday) => {
   await connection();
 
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-
   // Calculate during render - will be cached with the page (1h revalidate)
   const closestHoliday = getClosestHoliday();
   const daysToHoliday = closestHoliday

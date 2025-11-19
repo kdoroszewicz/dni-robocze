@@ -56,6 +56,16 @@
   "env": {
     "preview": {
       "name": "kdr-2025-preview",
+      "vars": {
+        "NEXT_PUBLIC_GA_TRACKING_ID": "G-PK0QP6F1YD",
+        "NEXT_PUBLIC_GOOGLE_ADSENSE": "ca-pub-8204887027170024",
+      },
+      "r2_buckets": [
+        {
+          "binding": "NEXT_INC_CACHE_R2_BUCKET",
+          "bucket_name": "kdr-bucket",
+        },
+      ],
       "durable_objects": {
         "bindings": [],
       },

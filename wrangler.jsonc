@@ -48,6 +48,7 @@
     },
   ],
   // DO Queue for ISR (see https://opennext.js.org/cloudflare/caching#small-site-using-revalidation)
+  // Only enabled in production, disabled for preview environments
   "durable_objects": {
     "bindings": [
       {
@@ -64,6 +65,15 @@
       ],
     },
   ],
+  // Preview environment configuration (disables durable objects)
+  "env": {
+    "preview": {
+      "durable_objects": {
+        "bindings": [],
+      },
+      "migrations": [],
+    },
+  },
   /**
    * Note: Use secrets to store sensitive data.
    * https://developers.cloudflare.com/workers/configuration/secrets/

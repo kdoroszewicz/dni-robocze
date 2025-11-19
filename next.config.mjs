@@ -18,7 +18,8 @@ const nextConfig = {
         hostname: "cdn.sanity.io"
       }
     ]
-  }
+  },
+  cacheComponents: true
 };
 
 const withMDX = createMDX({

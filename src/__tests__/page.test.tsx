@@ -21,7 +21,7 @@ describe("Main page", () => {
     const user = userEvent.setup();
     render(<Page />);
 
-    const startDateInput = screen.getByLabelText("Od kiedy");
+    const startDateInput = await screen.findByLabelText("Od kiedy");
     const endDateInput = screen.getByLabelText("Do kiedy");
     await user.clear(startDateInput);
     await user.type(startDateInput, "2025-01-01");

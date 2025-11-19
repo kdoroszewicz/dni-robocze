@@ -1,7 +1,3 @@
-/**
- * For more details on how to configure Wrangler, refer to:
- * https://developers.cloudflare.com/workers/wrangler/configuration/
- */
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "kdr-2025",
@@ -29,25 +25,12 @@
       "custom_domain": true,
     },
   ],
-  /**
-  * Smart Placement
-  * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
-  */
-  // "placement": { "mode": "smart" }
-  /**
-  * Bindings
-  * Bindings allow your Worker to interact with resources on the Cloudflare Developer Platform, including
-  * databases, object storage, AI inference, real-time communication and more.
-  * https://developers.cloudflare.com/workers/runtime-apis/bindings/
-  */
-  // R2 incremental cache
   "r2_buckets": [
     {
       "binding": "NEXT_INC_CACHE_R2_BUCKET",
       "bucket_name": "kdr-bucket",
     },
   ],
-  // DO Queue for ISR (see https://opennext.js.org/cloudflare/caching#small-site-using-revalidation)
   "durable_objects": {
     "bindings": [
       {
@@ -64,23 +47,35 @@
       ],
     },
   ],
-  /**
-   * Note: Use secrets to store sensitive data.
-   * https://developers.cloudflare.com/workers/configuration/secrets/
-   */
-  /**
-   * Static Assets
-   * https://developers.cloudflare.com/workers/static-assets/binding/
-   */
-  // "assets": { "directory": "./public/", "binding": "ASSETS" }
-  /**
-   * Service Bindings (communicate between multiple Workers)
-   * https://developers.cloudflare.com/workers/wrangler/configuration/#service-bindings
-   */
   "services": [
     {
       "binding": "WORKER_SELF_REFERENCE",
       "service": "kdr-2025",
     },
   ],
+  "env": {
+    "preview": {
+      "name": "kdr-2025-preview",
+      "vars": {
+        "NEXT_PUBLIC_GA_TRACKING_ID": "G-PK0QP6F1YD",
+        "NEXT_PUBLIC_GOOGLE_ADSENSE": "ca-pub-8204887027170024",
+      },
+      "r2_buckets": [
+        {
+          "binding": "NEXT_INC_CACHE_R2_BUCKET",
+          "bucket_name": "kdr-bucket",
+        },
+      ],
+      "durable_objects": {
+        "bindings": [],
+      },
+      "migrations": [],
+      "services": [
+        {
+          "binding": "WORKER_SELF_REFERENCE",
+          "service": "kdr-2025-preview",
+        },
+      ],
+    },
+  },
 }

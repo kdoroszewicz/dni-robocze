@@ -1,3 +1,4 @@
+"use cache";
 import { format } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
 import type { Metadata } from "next";
@@ -14,6 +15,7 @@ import HolidaySwieto3Maj from "../content/holidays/swieto-narodowe-trzeciego-maj
 import HolidaySwietoPracy from "../content/holidays/swieto-pracy.mdx";
 import HolidayWNMP from "../content/holidays/wniebowziecie-najswietszej-maryi-panny.mdx";
 import HolidayZieloneSwiatki from "../content/holidays/zielone-swiatki.mdx";
+import { cacheLife } from "next/cache";
 
 const holidays = polishHolidays.getHolidays();
 
@@ -42,8 +44,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export const revalidate = 86400; // Revalidate holiday pages daily (holidays don't change often)
-
 export const generateStaticParams = async () => {
   const holidayPaths = holidays.map((holiday) =>
     slugify(holiday.name, {
@@ -70,6 +70,8 @@ const holidaySlugComponentMap = new Map([
 ]);
 
 const Holiday = async ({ params }: Props) => {
+  cacheLife("weeks");
+
   let HolidayDescription;
   const holiday = await getHoliday(await params);
 
@@ -98,7 +100,10 @@ const Holiday = async ({ params }: Props) => {
           <div className="flex flex-col gap-y-2">
             <span className="text-sm leading-[21px] font-bold">Kiedy</span>
             <span className="text-2xl font-bold text-[#00BAFF]">
-              {format(toZonedTime(holiday.start, "Europe/Warsaw"), "dd.MM.yyyy")}
+              {format(
+                toZonedTime(holiday.start, "Europe/Warsaw"),
+                "dd.MM.yyyy"
+              )}
             </span>
           </div>
           <div className="mt-6 flex flex-col gap-y-2 font-bold md:mt-0">

@@ -4,6 +4,8 @@ import { ArrowRight } from "lucide-react";
 import ClosestHoliday from "../components/ClosestHoliday";
 import Recommended from "../components/Recommended";
 import WorkDaysCalculator from "../components/WorkDaysCalculator";
+import { Suspense } from "react";
+import { ClosestHolidayLoading } from "@/components/ClosestHolidayLoading";
 
 const currentYear: number = new Date().getFullYear();
 
@@ -13,8 +15,6 @@ export const metadata: Metadata = {
     "Dzięki kalkulatorowi dowiesz się ile jest dni roboczych pomiędzy dwoma podanymi datami lub kiedy wypada data końcowa od określonej liczby dni roboczych. Policz dni robocze!",
   robots: "index, follow",
 };
-
-export const revalidate = 3600; // Revalidate homepage every hour
 
 const Page = () => {
   return (
@@ -31,7 +31,9 @@ const Page = () => {
 
       <WorkDaysCalculator />
       <div className="mt-6 flex items-center justify-center">
-        <ClosestHoliday />
+        <Suspense fallback={<ClosestHolidayLoading />}>
+          <ClosestHoliday />
+        </Suspense>
       </div>
       <Recommended className="mt-8" />
 

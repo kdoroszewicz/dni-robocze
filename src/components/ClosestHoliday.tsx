@@ -6,6 +6,9 @@ import { polishHolidays } from "../workDaysUtils";
 import { HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
+import { connection } from "next/server";
+
+type ClosestHoliday = HTMLAttributes<HTMLHeadingElement>;
 
 const getClosestHoliday = () => {
   const currentYear = new Date().getFullYear();
@@ -30,9 +33,9 @@ const getClosestHoliday = () => {
   return futureHolidays[0];
 };
 
-type ClosestHoliday = HTMLAttributes<HTMLHeadingElement>;
+const ClosestHoliday = async ({ className }: ClosestHoliday) => {
+  await connection();
 
-const ClosestHoliday = ({ className }: ClosestHoliday) => {
   // Calculate during render - will be cached with the page (1h revalidate)
   const closestHoliday = getClosestHoliday();
   const daysToHoliday = closestHoliday
